@@ -1,9 +1,4 @@
-/* 
-  styles.css 
-  External stylesheet for Akolo Bulus' Web Developer Portfolio
-*/
-
-/* General Reset / Base Styles (Optional) */
+/* General Reset / Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -12,8 +7,8 @@
   
   /* Body Styles */
   body {
-    background-color: #ffffff; /* Light background for better contrast */
-    color: #000000;           /* Dark text color for readability */
+    background-color: #ffffff;
+    color: #000000;
     font-family: Arial, sans-serif;
     line-height: 1.6;
     margin: 0;
@@ -73,7 +68,7 @@
     margin-bottom: 1rem;
   }
   figure img {
-    max-width: 200px;
+    max-width: 200px;  /* Adjusted maximum width to control size */
     height: auto;
     display: block;
     border-radius: 5px;
@@ -93,7 +88,7 @@
     margin-bottom: 0.5rem;
   }
   address {
-    font-style: normal; /* Override italic style for address elements */
+    font-style: normal;
   }
   address a {
     color: #ffffff;
