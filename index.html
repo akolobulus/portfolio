@@ -1,49 +1,113 @@
 <!DOCTYPE html>
+<!-- 
+  Step 1: Declare the document type as HTML5.
+  This helps browsers interpret the file correctly.
+-->
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Objective: This project is to create a personal profile webpage using only HTML. 
-         The page should include a header section with a title and a navigation menu. 
-         A bio section should introduce the user with a short description and an image. 
-         A hobbies section should list at least three hobbies or interests. 
-         A footer section should contain contact details such as an email address or social media handle. 
-         The structure should be well-organized, using semantic HTML elements like <header>, <nav>, <section>, and <footer>. -->
-    <title>My Profile</title>
+  <!-- 
+    Task Objective:
+    The goal of this project is to create a personal profile webpage using only HTML.
+    This exercise will test your ability to structure a webpage using semantic HTML elements.
+  -->
+
+  <!-- 
+    Step 2: Define the character encoding for the page.
+    This ensures proper rendering of text in most languages.
+  -->
+  <meta charset="UTF-8">
+
+  <!-- 
+    Step 3: Provide a title for the page. 
+    This title appears on the browser tab.
+  -->
+  <title>My Profile</title>
 </head>
 <body>
-    <!-- Header Section -->
-    <header>
-        <h1>My Profile</h1>
-        <nav>
-            <ul>
-                <li>About Me</li>
-                <li>Hobbies</li>
-                <li>Contact</li>
-            </ul>
-        </nav>
-    </header>
+  <!-- 
+    Step 4: Create the header section using the semantic <header> element.
+    This will contain the main heading and a navigation menu.
+  -->
+  <header>
+    <!-- 
+      Step 5: Main heading for the profile page.
+      "My Profile" is the title as specified in the instructions.
+    -->
+    <h1>My Profile</h1>
 
-    <!-- Bio Section -->
-    <section>
-        <h2>About Me</h2>
-        <p>Hello! My name is Akolo. I am a Computer Science student with a passion for graphic design and web development.</p>
-        <img src="https://via.placeholder.com/150" alt="Profile Picture">
-    </section>
+    <!-- 
+      Step 6: Add a navigation menu using <nav>.
+      Include at least three navigation items: "About Me", "Hobbies", and "Contact".
+    -->
+    <nav>
+      <ul>
+        <li><a href="#about">About Me</a></li>
+        <li><a href="#hobbies">Hobbies</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <!-- Hobbies Section -->
-    <section>
-        <h2>My Hobbies</h2>
-        <ul>
-            <li>Graphic Design</li>
-            <li>Web Development</li>
-            <li>Reading Tech Blogs</li>
-        </ul>
-    </section>
+  <!-- 
+    Step 7: Create a section for the bio using <section>.
+    This section introduces the user. 
+  -->
+  <section id="about">
+    <!-- 
+      Step 8: Subheading for the "About Me" section.
+    -->
+    <h2>About Me</h2>
 
-    <!-- Footer Section -->
-    <footer>
-        <p>Contact me at: <a href="officialarikpa@gmail.comm">contact me</a></p>
-    </footer>
+    <!-- 
+      Step 9: Include a placeholder image to represent the user's photo.
+      The "alt" attribute provides alternative text for screen readers.
+    -->
+    <img src="https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg" alt="Profile Picture">
+
+    <!-- 
+      Step 10: A short paragraph introducing yourself.
+      You can replace this text with your own bio.
+    -->
+    <p>
+      Hello! My name is Akolo Bulus. I am a passionate web enthusiast, 
+      currently learning HTML to build awesome websites. I love 
+      exploring new technologies and sharing my knowledge with others.
+    </p>
+  </section>
+
+  <!-- 
+    Step 11: Create another section for Hobbies or Interests.
+    Use an unordered list (<ul>) or ordered list (<ol>) with at least three items.
+  -->
+  <section id="hobbies">
+    <h2>Hobbies & Interests</h2>
+    <!-- 
+      Step 12: Unordered list of hobbies/interests.
+      Each <li> represents one hobby or interest.
+    -->
+    <ul>
+      <li>Reading science fiction novels</li>
+      <li>Hiking and outdoor adventures</li>
+      <li>Cooking and trying new recipes</li>
+    </ul>
+  </section>
+
+  <!-- 
+    Step 13: Add a footer section to include contact details or any other information.
+    This uses the semantic <footer> element.
+  -->
+  <footer id="contact">
+    <!-- 
+      Step 14: Provide contact details (e.g., email address)..
+    -->
+    <p>
+      Contact me at: 
+      <a href="mailto:officialarikpa@gmail.com">officialarikpa@gmail.com</a>
+ 
+    <a href="www.faccebook.com/akolo">facebook</a>
+    <a href="www.instagram.com/@heisakolo">instagram</a>
+    <a href="www.twitter.com/heisakolo">twitter</a>
+       </p>
+  </footer>
 </body>
 </html>
