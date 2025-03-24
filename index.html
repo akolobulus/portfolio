@@ -1,57 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="portfolio.css" />
-    <title>Document</title>
-  </head>
-  <body>
-    <!-- Home Page -->
-    <section class="home">
-      <div class="overlay"></div>
-      <div class="home-content">
-        <div class="home-img">
-          <img
-            src="https://avatars.githubusercontent.com/u/73348574?v=4"
-            alt="pranavdhar"
-          />
-          <p class="name">I'm AKOLO</p>
-          <div>
-            <p class="role">Full Stack Developer | Open Source Enthusiast</p>
-          </div>
-        </div>
-        <div class="more-option">
-          <a href="#about">More Info</a>
-        </div>
-      </div>
-    </section>
-    <!-- About Page -->
+<head>
+  <meta charset="UTF-8">
+  <!-- The recommended meta tag for mobile responsiveness -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <title>Akolo Bulus - Web Developer Portfolio</title>
+  
+  <!--
+    Student Name: Akolo Bulus
+    Student ID: 123456
+    This improved version moves styles to an external CSS file, 
+    expands content, and includes accessibility enhancements.
+  -->
+</head>
+<body>
+  <!-- Skip Link for keyboard navigation -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
-    <section class="about" id="about">
-      <p class="heading">About Me</p>
-      <div class="about-content">
-        <div class="about-img">
-          <img
-            src="https://pranavdhar.netlify.app/assets/about.jpeg"
-            alt="akolo"
-          />
-        </div>
-        <p class="about-description">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
-        </p>
-      </div>
-    </section>
-    <!-- Projects -->
-    <!-- Footer -->
-  </body>
+  <!-- Header Section -->
+  <header>
+    <h1>My Profile</h1>
+    <nav>
+      <ul>
+        <li><a href="#about">About Me</a></li>
+        <li><a href="#hobbies">Hobbies</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <main id="main-content">
+    <!-- About Me Article -->
+    <article id="about">
+      <h2>About Me</h2>
+      <figure>
+        <!-- Compressed/Optimized Image -->
+        <img 
+          src="images/profile-optimized.jpg" 
+          alt="Akolo Bulus, Web Developer"
+        >
+        <!-- Figcaption for Additional Context -->
+        <figcaption>Akolo Bulus, Web Developer</figcaption>
+      </figure>
+      <p>
+        Hello! I’m Akolo Bulus, a budding web developer with a passion for creating
+        interactive and user-friendly websites. I love exploring new technologies
+        and turning creative ideas into reality. My primary focus is on front-end 
+        development, but I am continuously learning back-end skills to become a 
+        well-rounded full-stack developer.
+      </p>
+      <p>
+        <strong>Skills & Aspirations:</strong><br>
+        I have experience with HTML5, CSS3, and basic JavaScript. I’m currently 
+        expanding my knowledge of React and Node.js. My goal is to build 
+        dynamic, accessible web applications that solve real-world problems 
+        and deliver a smooth user experience.
+      </p>
+    </article>
+
+    <!-- Hobbies Article -->
+    <article id="hobbies">
+      <h2>Hobbies</h2>
+      <ul>
+        <li>Reading tech blogs</li>
+        <li>Photography</li>
+        <li>Traveling</li>
+        <li>Exploring open-source projects</li>
+      </ul>
+    </article>
+
+    <!-- Projects Article -->
+    <article id="projects">
+      <h2>Projects</h2>
+      <p>
+        Below is a list of personal and collaborative projects I've been working on:
+      </p>
+      <ul>
+        <li>
+          <strong>Portfolio Website:</strong> This very site is a reflection of my 
+          HTML/CSS and design skills.
+        </li>
+        <li>
+          <strong>JavaScript Quiz App:</strong> An interactive quiz built with vanilla 
+          JavaScript to test knowledge on web development fundamentals.
+        </li>
+        <li>
+          <strong>Community Forum (in progress):</strong> A Node.js and Express-powered 
+          forum for web developers to share resources and tips.
+        </li>
+      </ul>
+    </article>
+  </main>
+
+  <!-- Footer Section -->
+  <footer id="contact">
+    <h2>Contact</h2>
+    <address>
+      <p>Email: <a href="mailto:akolobulus@example.com">akolobulus@example.com</a></p>
+      <p>Connect with me on social media:</p>
+      <ul>
+        <li><a href="https://www.facebook.com/yourprofile" target="_blank">Facebook</a></li>
+        <li><a href="https://twitter.com/yourprofile" target="_blank">Twitter</a></li>
+        <li><a href="https://www.linkedin.com/in/yourprofile" target="_blank">LinkedIn</a></li>
+      </ul>
+    </address>
+  </footer>
+</body>
 </html>

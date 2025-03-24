@@ -1,126 +1,111 @@
-body {
+/* 
+  styles.css 
+  External stylesheet for Akolo Bulus' Web Developer Portfolio
+*/
+
+/* General Reset / Base Styles (Optional) */
+* {
     margin: 0;
-    font-family: "Roboto", sans-serif;
-    scroll-behavior: smooth;
+    padding: 0;
+    box-sizing: border-box;
   }
   
-  /* scroll when clicked smoothly */
-  html {
-    scroll-behavior: smooth;
+  /* Body Styles */
+  body {
+    background-color: #ffffff; /* Light background for better contrast */
+    color: #000000;           /* Dark text color for readability */
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
   }
   
-  .home {
-    width: 100vw;
-    height: 100vh;
-    background-color: #242424;
-    position: relative;
-    background-image: url("./bgimage.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-  
-  /* overlay on the image */
-  .overlay {
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
+  /* Skip Link */
+  .skip-link {
     position: absolute;
-    top: 0;
+    top: -40px;
     left: 0;
-  }
-  
-  .home-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  
-  .home-img {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .name {
-    font-size: 2rem;
-    color: white;
-    margin: 1rem 0 0 0;
-  }
-  
-  .role {
-    font: 1.5rem;
-    color: #8d8d8d;
-    margin: 0;
-  }
-  
-  .home-img img {
-    width: 25vw;
-    min-width: 200px;
-    height: 25vw;
-    min-height: 200px;
-    border-radius: 50%;
-  }
-  
-  .more-option {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #8d8d8d;
-    max-width: 150px;
-    margin: auto;
-    border-radius: 5px;
-    margin-top: 4rem;
-    cursor: pointer;
-  }
-  
-  .more-option a {
+    background: #000;
+    color: #fff;
+    padding: 8px;
     text-decoration: none;
-    font-size: 1rem;
-    color: white;
-    margin: 1rem;
-    cursor: pointer;
+  }
+  .skip-link:focus {
+    top: 0;
   }
   
-  .about {
-    width: 100vw;
-    height: 60vh;
-    background-color: #242424;
-    padding-top: 4rem;
+  /* Header and Navigation */
+  header {
+    background-color: #003366;
+    color: #ffffff;
+    padding: 1rem;
   }
-  
-  .about-content {
-    width: 100%;
-    max-width: 1024px;
-    margin: 0 auto;
+  header h1 {
+    margin-bottom: 0.5rem;
+  }
+  nav ul {
+    list-style-type: none;
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
+    gap: 1rem;
+  }
+  nav a {
+    color: #ffffff;
+    text-decoration: none;
+  }
+  nav a:hover {
+    text-decoration: underline;
   }
   
-  .about-img img {
-    max-width: 250px;
+  /* Main Content */
+  main {
+    padding: 1rem;
+  }
+  
+  /* Articles */
+  article {
+    margin-bottom: 2rem;
+  }
+  article h2 {
+    margin-bottom: 1rem;
+  }
+  
+  /* Figure and Image */
+  figure {
+    margin-bottom: 1rem;
+  }
+  figure img {
+    max-width: 200px;
+    height: auto;
+    display: block;
     border-radius: 5px;
   }
-  
-  .heading {
-    font-size: 2.25rem;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    margin: 0;
-    margin-bottom: 3rem;
+  figcaption {
+    font-size: 0.9rem;
+    color: #555;
   }
   
-  .about-description {
-    font-size: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    line-height: 2.5rem;
-    margin: 0;
-    color: white;
-    max-width: 600px;
+  /* Footer and Address */
+  footer {
+    background-color: #003366;
+    color: #ffffff;
+    padding: 1rem;
   }
+  footer h2 {
+    margin-bottom: 0.5rem;
+  }
+  address {
+    font-style: normal; /* Override italic style for address elements */
+  }
+  address a {
+    color: #ffffff;
+    text-decoration: none;
+  }
+  address a:hover {
+    text-decoration: underline;
+  }
+  
+  /* List Styles */
+  ul {
+    margin-left: 1.5rem;
+    list-style: disc;
+  }
+  
