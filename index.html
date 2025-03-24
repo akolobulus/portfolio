@@ -1,70 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <!-- Viewport Meta Tag for Responsiveness -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Descriptive Page Title -->
-  <title>Akolo Bulus - Web Developer Portfolio</title>
-  <!-- Favicon -->
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-</head>
-<body style="background-color: #ffffff; color: #000000;">
-  <!-- Header Section -->
-  <header>
-    <h1>My Profile</h1>
-    <nav>
-      <ul>
-        <li><a href="#about">About Me</a></li>
-        <li><a href="#hobbies">Hobbies</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="portfolio.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- Home Page -->
+    <section class="home">
+      <div class="overlay"></div>
+      <div class="home-content">
+        <div class="home-img">
+          <img
+            src="https://avatars.githubusercontent.com/u/73348574?v=4"
+            alt="pranavdhar"
+          />
+          <p class="name">I'm AKOLO</p>
+          <div>
+            <p class="role">Full Stack Developer | Open Source Enthusiast</p>
+          </div>
+        </div>
+        <div class="more-option">
+          <a href="#about">More Info</a>
+        </div>
+      </div>
+    </section>
+    <!-- About Page -->
 
-  <!-- About Me Article -->
-  <article id="about">
-    <h2>About Me</h2>
-    <figure>
-      <!-- Compressed/Optimized Image -->
-      <img 
-        src="photo-1506794778202-cad84cf45f1d.jpeg" 
-        alt="Akolo Bulus, Web Developer" 
-        style="max-width: 200px; height: auto;"
-      >
-      <!-- Figcaption for Additional Context -->
-      <figcaption>Akolo Bulus, Web Developer</figcaption>
-    </figure>
-    <p>
-      Hello! I’m Akolo Bulus, a budding web developer with a passion for creating
-      interactive and user-friendly websites. I love exploring new technologies
-      and turning creative ideas into reality.
-    </p>
-  </article>
-
-  <!-- Hobbies Article -->
-  <article id="hobbies">
-    <h2>Hobbies</h2>
-    <ul>
-      <li>Reading tech blogs</li>
-      <li>Photography</li>
-      <li>Traveling</li>
-    </ul>
-  </article>
-
-  <!-- Footer Section -->
-  <footer id="contact">
-    <h2>Contact</h2>
-    <!-- Semantic Address Tag -->
-    <address>
-      <p>Email: <a href="mailto:akolobulus@example.com">akolobulus@example.com</a></p>
-      <p>Connect with me on social media:</p>
-      <ul>
-        <li><a href="https://www.facebook.com/myprofile" target="_blank">Facebook</a></li>
-        <li><a href="https://twitter.com/myprofile" target="_blank">Twitter</a></li>
-        <li><a href="https://www.linkedin.com/in/myprofile" target="_blank">LinkedIn</a></li>
-      </ul>
-    </address>
-  </footer>
-</body>
+    <section class="about" id="about">
+      <p class="heading">About Me</p>
+      <div class="about-content">
+        <div class="about-img">
+          <img
+            src="https://pranavdhar.netlify.app/assets/about.jpeg"
+            alt="akolo"
+          />
+        </div>
+        <p class="about-description">
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book. It has survived not only
+          five centuries, but also the leap into electronic typesetting,
+          remaining essentially unchanged. It was popularised in the 1960s with
+          the release of Letraset sheets containing Lorem Ipsum passages, and
+          more recently with desktop publishing software like Aldus PageMaker
+          including versions of Lorem Ipsum.
+        </p>
+      </div>
+    </section>
+    <!-- Projects -->
+    <!-- Footer -->
+  </body>
 </html>
