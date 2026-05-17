@@ -1,19 +1,32 @@
 # Fashion Store Management System
 
-Java Swing desktop application for a group project.
+Java Swing desktop application for a group project with a client dashboard, product catalog, cart checkout, and SQLite persistence.
+
+## Latest updates
+
+- Client dashboard product prices now display in Nigerian Naira (`₦`).
+- Checkout totals and shipping options have been updated to use Naira as the currency.
+- Improved cart experience with clearer order summaries.
+- Consistent UI updates for a smoother shopping workflow.
 
 ## Features
 
 - Login page with username/password
-- Dashboard for adding and viewing products
+- Client dashboard with searchable product listings
+- Add products to cart and review order details
+- Checkout workflow with shipping and payment steps
 - SQLite database connection using a singleton `DatabaseManager`
-- Add product and retrieve product list operations
 - Search products by name or category
 
 ## Default login
 
-- Username: `admin`
-- Password: `password123`
+- Admin username: `admin`
+- Admin password: `password123`
+
+## Client login
+
+- Client username: `client`
+- Client password: `client123`
 
 ## Run the application
 

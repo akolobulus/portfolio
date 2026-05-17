@@ -80,7 +80,7 @@ public class CheckoutDialog extends JDialog {
         footer.setBorder(new EmptyBorder(14, 24, 14, 24));
         footer.setBackground(new Color(245, 247, 250));
 
-        summaryLabel = new JLabel("Order total: $" + String.format("%.2f", calculateTotal()));
+        summaryLabel = new JLabel("Order total: ₦" + String.format("%.2f", calculateTotal()));
         summaryLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
         summaryLabel.setForeground(new Color(33, 47, 62));
         footer.add(summaryLabel, BorderLayout.WEST);
@@ -163,7 +163,7 @@ public class CheckoutDialog extends JDialog {
         summary.add(createSummaryRow("Estimated Shipping", getShippingFee()));
         summary.add(createSummaryRow("Estimated Tax", calculateTotal() * 0.08));
 
-        JLabel total = new JLabel("Total: $" + String.format("%.2f", calculateTotal() + getShippingFee() + calculateTotal() * 0.08));
+        JLabel total = new JLabel("Total: ₦" + String.format("%.2f", calculateTotal() + getShippingFee() + calculateTotal() * 0.08));
         total.setFont(new Font("Segoe UI", Font.BOLD, 18));
         total.setForeground(new Color(33, 47, 62));
         summary.add(Box.createVerticalStrut(12));
@@ -190,8 +190,8 @@ public class CheckoutDialog extends JDialog {
         controls.add(sectionTitle);
         controls.add(Box.createVerticalStrut(16));
 
-        standardShipping = new JRadioButton("Standard Ground ($5.00)");
-        expressShipping = new JRadioButton("Express ($15.00)");
+        standardShipping = new JRadioButton("Standard Ground (₦5.00)");
+        expressShipping = new JRadioButton("Express (₦15.00)");
         standardShipping.setSelected(true);
         standardShipping.setBackground(new Color(250, 251, 253));
         expressShipping.setBackground(new Color(250, 251, 253));
@@ -324,10 +324,10 @@ public class CheckoutDialog extends JDialog {
         } else if (state == CardState.SHIPPING) {
             nextButton.setText("Continue to Payment");
         } else {
-            nextButton.setText("Place Order ($" + String.format("%.2f", calculateTotal() + getShippingFee() + calculateTotal() * 0.08) + ")");
+            nextButton.setText("Place Order (₦" + String.format("%.2f", calculateTotal() + getShippingFee() + calculateTotal() * 0.08) + ")");
         }
 
-        summaryLabel.setText("Order total: $" + String.format("%.2f", calculateTotal() + getShippingFee() + calculateTotal() * 0.08));
+        summaryLabel.setText("Order total: ₦" + String.format("%.2f", calculateTotal() + getShippingFee() + calculateTotal() * 0.08));
     }
 
     private boolean validateShipping() {
@@ -360,7 +360,7 @@ public class CheckoutDialog extends JDialog {
         name.setForeground(new Color(45, 58, 76));
         row.add(name, BorderLayout.WEST);
 
-        JLabel price = new JLabel("$" + String.format("%.2f", item.getProduct().getPrice() * item.getQuantity()));
+        JLabel price = new JLabel("₦" + String.format("%.2f", item.getProduct().getPrice() * item.getQuantity()));
         price.setFont(new Font("Segoe UI", Font.BOLD, 14));
         price.setForeground(new Color(33, 47, 62));
         row.add(price, BorderLayout.EAST);
@@ -376,7 +376,7 @@ public class CheckoutDialog extends JDialog {
         label.setForeground(new Color(99, 110, 114));
         row.add(label, BorderLayout.WEST);
 
-        JLabel amountLabel = new JLabel("$" + String.format("%.2f", amount));
+        JLabel amountLabel = new JLabel("₦" + String.format("%.2f", amount));
         amountLabel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         amountLabel.setForeground(new Color(33, 47, 62));
         row.add(amountLabel, BorderLayout.EAST);

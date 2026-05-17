@@ -263,7 +263,7 @@ public class ClientDashboardForm extends JFrame {
         card.add(categoryLabel);
         card.add(Box.createVerticalStrut(10));
 
-        JLabel priceLabel = new JLabel("$" + String.format("%.2f", product.getPrice()));
+        JLabel priceLabel = new JLabel("₦" + String.format("%.2f", product.getPrice()));
         priceLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
         priceLabel.setForeground(new Color(39, 174, 96));
         priceLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
