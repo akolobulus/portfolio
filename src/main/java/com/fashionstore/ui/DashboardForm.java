@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import com.fashionstore.db.DatabaseManager;
@@ -61,69 +62,109 @@ public class DashboardForm extends JFrame {
             }
         };
         headerPanel.setLayout(new BorderLayout());
-        headerPanel.setPreferredSize(new Dimension(0, 70));
+        headerPanel.setPreferredSize(new Dimension(0, 90));
 
-        JLabel logoLabel = new JLabel("👗 Fashion Store");
-        logoLabel.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        JPanel brandPanel = new JPanel();
+        brandPanel.setOpaque(false);
+        brandPanel.setLayout(new BoxLayout(brandPanel, BoxLayout.X_AXIS));
+        brandPanel.setBorder(new EmptyBorder(10, 20, 10, 20));
+
+        JLabel logoLabel = new JLabel("Fashion Store");
+        logoLabel.setFont(new Font("Segoe UI", Font.BOLD, 24));
         logoLabel.setForeground(Color.WHITE);
-        logoLabel.setBorder(new EmptyBorder(10, 20, 10, 0));
-        headerPanel.add(logoLabel, BorderLayout.WEST);
+        brandPanel.add(logoLabel);
 
-        JPanel navPanel = new JPanel();
-        navPanel.setOpaque(false);
-        navPanel.setLayout(new BoxLayout(navPanel, BoxLayout.X_AXIS));
-        navPanel.setBorder(new EmptyBorder(10, 0, 10, 20));
+        JLabel subtitleLabel = new JLabel("  •  Unified Inventory Dashboard");
+        subtitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        subtitleLabel.setForeground(new Color(235, 245, 255));
+        brandPanel.add(subtitleLabel);
+
+        headerPanel.add(brandPanel, BorderLayout.WEST);
+
+        JPanel headerRight = new JPanel();
+        headerRight.setOpaque(false);
+        headerRight.setLayout(new BoxLayout(headerRight, BoxLayout.X_AXIS));
+        headerRight.setBorder(new EmptyBorder(10, 0, 10, 20));
 
         JLabel welcomeLabel = new JLabel("Welcome, " + username);
         welcomeLabel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         welcomeLabel.setForeground(Color.WHITE);
-        navPanel.add(Box.createHorizontalGlue());
-        navPanel.add(welcomeLabel);
-        headerPanel.add(navPanel, BorderLayout.EAST);
+        headerRight.add(Box.createHorizontalGlue());
+        headerRight.add(welcomeLabel);
+        headerRight.add(Box.createHorizontalStrut(18));
+
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        logoutButton.setBackground(new Color(231, 76, 60));
+        logoutButton.setForeground(Color.WHITE);
+        logoutButton.setFocusPainted(false);
+        logoutButton.setPreferredSize(new Dimension(100, 32));
+        logoutButton.addActionListener(e -> {
+            SwingUtilities.invokeLater(() -> new LoginForm().setVisible(true));
+            dispose();
+        });
+        headerRight.add(logoutButton);
+
+        headerPanel.add(headerRight, BorderLayout.EAST);
 
         add(headerPanel, BorderLayout.NORTH);
 
         // Search and control panel
         JPanel controlPanel = new JPanel();
-        controlPanel.setBackground(new Color(240, 240, 240));
-        controlPanel.setLayout(null);
-        controlPanel.setPreferredSize(new Dimension(0, 70));
+        controlPanel.setBackground(new Color(249, 250, 252));
+        controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.X_AXIS));
+        controlPanel.setBorder(new EmptyBorder(16, 20, 18, 20));
+        controlPanel.setPreferredSize(new Dimension(0, 80));
 
-        JLabel searchLabel = new JLabel("Search Products:");
+        JPanel searchWrapper = new JPanel();
+        searchWrapper.setBackground(Color.WHITE);
+        searchWrapper.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(189, 195, 199), 1),
+            new EmptyBorder(6, 10, 6, 10)
+        ));
+        searchWrapper.setLayout(new BorderLayout(10, 0));
+        searchWrapper.setMaximumSize(new Dimension(500, 40));
+
+        JLabel searchLabel = new JLabel("Search Products");
         searchLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        searchLabel.setBounds(20, 15, 100, 20);
-        controlPanel.add(searchLabel);
+        searchLabel.setForeground(new Color(99, 110, 114));
+        searchWrapper.add(searchLabel, BorderLayout.WEST);
 
         searchField = new JTextField();
-        searchField.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        searchField.setBounds(120, 12, 250, 30);
-        searchField.setBorder(BorderFactory.createLineBorder(new Color(189, 195, 199), 1));
-        controlPanel.add(searchField);
+        searchField.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        searchField.setBorder(null);
+        searchField.setOpaque(false);
+        searchField.setPreferredSize(new Dimension(300, 28));
+        searchWrapper.add(searchField, BorderLayout.CENTER);
 
-        JButton searchButton = new JButton("🔍 Search");
-        searchButton.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        searchButton.setBounds(380, 12, 100, 30);
+        JButton searchButton = new JButton("Search");
+        searchButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
         searchButton.setBackground(new Color(41, 128, 185));
         searchButton.setForeground(Color.WHITE);
         searchButton.setFocusPainted(false);
+        searchButton.setPreferredSize(new Dimension(100, 32));
         searchButton.addActionListener(e -> refreshProducts(searchField.getText().trim()));
-        controlPanel.add(searchButton);
+        searchWrapper.add(searchButton, BorderLayout.EAST);
 
-        JButton addButton = new JButton("➕ Add Product");
-        addButton.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        addButton.setBounds(490, 12, 130, 30);
+        controlPanel.add(searchWrapper);
+        controlPanel.add(Box.createHorizontalGlue());
+
+        JButton addButton = new JButton("Add Product");
+        addButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
         addButton.setBackground(new Color(46, 204, 113));
         addButton.setForeground(Color.WHITE);
         addButton.setFocusPainted(false);
+        addButton.setPreferredSize(new Dimension(130, 38));
         addButton.addActionListener(e -> showAddProductDialog());
         controlPanel.add(addButton);
+        controlPanel.add(Box.createHorizontalStrut(12));
 
-        JButton refreshButton = new JButton("🔄 Refresh");
-        refreshButton.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        refreshButton.setBounds(630, 12, 110, 30);
-        refreshButton.setBackground(new Color(155, 89, 182));
+        JButton refreshButton = new JButton("Refresh");
+        refreshButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        refreshButton.setBackground(new Color(52, 152, 219));
         refreshButton.setForeground(Color.WHITE);
         refreshButton.setFocusPainted(false);
+        refreshButton.setPreferredSize(new Dimension(110, 38));
         refreshButton.addActionListener(e -> refreshProducts(""));
         controlPanel.add(refreshButton);
 

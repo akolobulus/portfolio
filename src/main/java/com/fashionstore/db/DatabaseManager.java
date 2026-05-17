@@ -52,6 +52,11 @@ public class DatabaseManager {
             ps.setString(2, "password123");
             ps.executeUpdate();
         }
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, "client_user");
+            ps.setString(2, "password123");
+            ps.executeUpdate();
+        }
     }
 
     private void insertDefaultProducts(Connection conn) throws SQLException {

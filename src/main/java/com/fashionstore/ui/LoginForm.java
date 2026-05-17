@@ -182,8 +182,13 @@ public class LoginForm extends JFrame {
         boolean authenticated = DatabaseManager.getInstance().checkUserCredentials(email, password);
         if (authenticated) {
             SwingUtilities.invokeLater(() -> {
-                DashboardForm dashboard = new DashboardForm(email);
-                dashboard.setVisible(true);
+                if ("admin".equalsIgnoreCase(email)) {
+                    DashboardForm dashboard = new DashboardForm(email);
+                    dashboard.setVisible(true);
+                } else {
+                    ClientDashboardForm clientDashboard = new ClientDashboardForm(email);
+                    clientDashboard.setVisible(true);
+                }
             });
             dispose();
         } else {
