@@ -363,38 +363,38 @@
 
   <div class="sidebar-section">
     <div class="sidebar-section-label">Entry Point</div>
-    <div class="nav-item active" onclick="scrollTo('main')" id="nav-main">
+    <div class="nav-item active" onclick="navScrollTo('main')" id="nav-main">
       <span class="nav-dot dot-main"></span> Main.java
     </div>
   </div>
 
   <div class="sidebar-section">
     <div class="sidebar-section-label">Data Model</div>
-    <div class="nav-item" onclick="scrollTo('product')" id="nav-product">
+    <div class="nav-item" onclick="navScrollTo('product')" id="nav-product">
       <span class="nav-dot dot-model"></span> Product.java
     </div>
   </div>
 
   <div class="sidebar-section">
     <div class="sidebar-section-label">Database</div>
-    <div class="nav-item" onclick="scrollTo('db')" id="nav-db">
+    <div class="nav-item" onclick="navScrollTo('db')" id="nav-db">
       <span class="nav-dot dot-db"></span> DatabaseManager.java
     </div>
   </div>
 
   <div class="sidebar-section">
     <div class="sidebar-section-label">User Interface</div>
-    <div class="nav-item" onclick="scrollTo('login')" id="nav-login">
+    <div class="nav-item" onclick="navScrollTo('login')" id="nav-login">
       <span class="nav-dot dot-login"></span> LoginForm.java
     </div>
-    <div class="nav-item" onclick="scrollTo('dash')" id="nav-dash">
+    <div class="nav-item" onclick="navScrollTo('dash')" id="nav-dash">
       <span class="nav-dot dot-dash"></span> DashboardForm.java
     </div>
   </div>
 
   <div class="sidebar-section">
     <div class="sidebar-section-label">Build &amp; Run</div>
-    <div class="nav-item" onclick="scrollTo('shell')" id="nav-shell">
+    <div class="nav-item" onclick="navScrollTo('shell')" id="nav-shell">
       <span class="nav-dot dot-shell"></span> run.sh
     </div>
   </div>
@@ -1111,8 +1111,14 @@ renderCode('code-shell', files.shell);
 // ═══════════════════════════════════════════════════════════
 //  SIDEBAR NAV
 // ═══════════════════════════════════════════════════════════
-function scrollTo(id) {
-  document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+function navScrollTo(id) {
+  const target = document.getElementById(id);
+  const container = document.getElementById('main-content');
+  if (!target || !container) return;
+  const targetTop = target.getBoundingClientRect().top;
+  const containerTop = container.getBoundingClientRect().top;
+  const offset = targetTop - containerTop + container.scrollTop - 32;
+  container.scrollTo({ top: offset, behavior: 'smooth' });
 }
 
 const sections = ['main','product','db','login','dash','shell'];
