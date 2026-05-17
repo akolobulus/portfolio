@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Store Management System - Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        main {
+            padding: 40px;
+        }
+        section {
+            margin-bottom: 40px;
+        }
+        h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        h3 {
+            color: #764ba2;
+            font-size: 1.3em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        p, li {
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+        pre {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            line-height: 1.4;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .feature-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .feature-box h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #667eea;
+            color: white;
+        }
+        tr:hover {
+            background: #f5f5f5;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .success {
+            background: #d4edda;
+            padding: 15px;
+            border-left: 4px solid #28a745;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #ddd;
+            margin: 20px 0;
+        }
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 1em;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        .tab.active {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+        }
+        .tab-content {
+            display: none;
+            margin-top: 20px;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .architecture {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: monospace;
+            white-space: pre;
+            overflow-x: auto;
+        }
+        footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #ddd;
+            margin-top: 40px;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        .status-complete {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-bonus {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>👗 Fashion Store Management System</h1>
+            <p>Java Swing Desktop Application with SQLite Database</p>
+        </header>
+        
+        <main>
+            <!-- Project Overview -->
+            <section>
+                <h2>📋 Project Overview</h2>
+                <p>A complete Java Swing desktop application for managing a fashion store inventory with user authentication and database persistence. Perfect for a group project demonstrating GUI design, database connectivity, and CRUD operations.</p>
+                <div class="success">
+                    <strong>✅ Status:</strong> Complete and functional. All core requirements + bonus update/delete features implemented.
+                </div>
+            </section>
+
+            <!-- Requirements Met -->
+            <section>
+                <h2>✨ Requirements Met</h2>
+                <div class="feature-grid">
+                    <div class="feature-box">
+                        <h4>✓ Login GUI (2.5 marks)</h4>
+                        <p>Username/password authentication with input validation and error handling.</p>
+                    </div>
+                    <div class="feature-box">
+                        <h4>✓ Dashboard GUI (2.5 marks)</h4>
+                        <p>Dashboard opens after successful login with full product management interface.</p>
+                    </div>
+                    <div class="feature-box">
+                        <h4>✓ Database Connection</h4>
+                        <p>Singleton DatabaseManager pattern using SQLite with automatic table initialization.</p>
+                    </div>
+                    <div class="feature-box">
+                        <h4>✓ Add Products (5 marks)</h4>
+                        <p>Add new products to database with form validation and success feedback.</p>
+                    </div>
+                    <div class="feature-box">
+                        <h4>✓ View Products (5 marks)</h4>
+                        <p>Display all products in a searchable, sortable table with real-time updates.</p>
+                    </div>
+                    <div class="feature-box">
+                        <h4>🎁 Bonus: Update/Delete</h4>
+                        <p>Edit and delete selected products with confirmation dialogs.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features -->
+            <section>
+                <h2>🚀 Features</h2>
+                <ul>
+                    <li><strong>User Authentication:</strong> Login with username and password</li>
+                    <li><strong>Add Products:</strong> Insert new products with name, category, price, and quantity</li>
+                    <li><strong>View Products:</strong> Display all products in a formatted table</li>
+                    <li><strong>Search Products:</strong> Filter by product name or category</li>
+                    <li><strong>Update Products:</strong> Select a row and modify product details</li>
+                    <li><strong>Delete Products:</strong> Remove products with confirmation</li>
+                    <li><strong>Data Persistence:</strong> SQLite database automatically created on first run</li>
+                    <li><strong>Form Validation:</strong> Input validation for all fields</li>
+                </ul>
+            </section>
+
+            <!-- Quick Start -->
+            <section>
+                <h2>🎯 Quick Start</h2>
+                <h3>Prerequisites</h3>
+                <ul>
+                    <li>Java 17 or higher</li>
+                    <li>Maven (for compilation)</li>
+                </ul>
+                
+                <h3>Option 1: Run Pre-built JAR (Easiest)</h3>
+                <pre>java -jar fashion-store-management-1.0-SNAPSHOT.jar</pre>
+                
+                <h3>Option 2: Compile from Source</h3>
+                <pre>mvn clean package
+java -jar target/fashion-store-management-1.0-SNAPSHOT.jar</pre>
+                
+                <h3>Default Login Credentials</h3>
+                <table>
+                    <tr>
+                        <th>Field</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Username</strong></td>
+                        <td><code>admin</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Password</strong></td>
+                        <td><code>password123</code></td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- GUI Usage Guide -->
+            <section>
+                <h2>💻 GUI Usage Guide</h2>
+                
+                <h3>Login Form</h3>
+                <ol>
+                    <li>Enter username: <code>admin</code></li>
+                    <li>Enter password: <code>password123</code></li>
+                    <li>Click "Login" button</li>
+                    <li>On success, Dashboard opens</li>
+                </ol>
+                
+                <h3>Dashboard - Add Products</h3>
+                <ol>
+                    <li>Fill in product details (left panel):
+                        <ul>
+                            <li><strong>Product Name:</strong> e.g., "Blue T-Shirt"</li>
+                            <li><strong>Category:</strong> e.g., "Shirts"</li>
+                            <li><strong>Price:</strong> e.g., "29.99"</li>
+                            <li><strong>Quantity:</strong> e.g., "50"</li>
+                        </ul>
+                    </li>
+                    <li>Click "Add Product" button</li>
+                    <li>Product appears in the table on the right</li>
+                </ol>
+                
+                <h3>Dashboard - View Products</h3>
+                <ul>
+                    <li>Click "Refresh" to load all products</li>
+                    <li>Table displays: ID, Name, Category, Price, Quantity</li>
+                </ul>
+                
+                <h3>Dashboard - Search Products</h3>
+                <ol>
+                    <li>Type search term in search field (e.g., "shirt", "dresses")</li>
+                    <li>Click "Search" button</li>
+                    <li>Table updates with matching products</li>
+                </ol>
+                
+                <h3>Dashboard - Update Products</h3>
+                <ol>
+                    <li>Click a row in the product table to select it</li>
+                    <li>Product details auto-populate in the input fields</li>
+                    <li>Modify the details as needed</li>
+                    <li>Click "Update Selected" button</li>
+                    <li>Table refreshes with updated data</li>
+                </ol>
+                
+                <h3>Dashboard - Delete Products</h3>
+                <ol>
+                    <li>Click a row in the product table to select it</li>
+                    <li>Click "Delete Selected" button</li>
+                    <li>Confirm deletion in the dialog</li>
+                    <li>Product is removed from database</li>
+                </ol>
+            </section>
+
+            <!-- Database Schema -->
+            <section>
+                <h2>🗄️ Database Structure</h2>
+                
+                <h3>Users Table</h3>
+                <table>
+                    <tr>
+                        <th>Column</th>
+                        <th>Type</th>
+                        <th>Constraints</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>username</td>
+                        <td>TEXT</td>
+                        <td>PRIMARY KEY</td>
+                        <td>Unique username for login</td>
+                    </tr>
+                    <tr>
+                        <td>password</td>
+                        <td>TEXT</td>
+                        <td>NOT NULL</td>
+                        <td>User password</td>
+                    </tr>
+                </table>
+                
+                <h3>Products Table</h3>
+                <table>
+                    <tr>
+                        <th>Column</th>
+                        <th>Type</th>
+                        <th>Constraints</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>product_id</td>
+                        <td>INTEGER</td>
+                        <td>PRIMARY KEY, AUTOINCREMENT</td>
+                        <td>Unique product identifier</td>
+                    </tr>
+                    <tr>
+                        <td>product_name</td>
+                        <td>TEXT</td>
+                        <td>NOT NULL</td>
+                        <td>Name of the product</td>
+                    </tr>
+                    <tr>
+                        <td>category</td>
+                        <td>TEXT</td>
+                        <td>NOT NULL</td>
+                        <td>Product category</td>
+                    </tr>
+                    <tr>
+                        <td>price</td>
+                        <td>REAL</td>
+                        <td>NOT NULL</td>
+                        <td>Product price</td>
+                    </tr>
+                    <tr>
+                        <td>quantity</td>
+                        <td>INTEGER</td>
+                        <td>NOT NULL</td>
+                        <td>Stock quantity</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- Project Structure -->
+            <section>
+                <h2>📁 Project Structure</h2>
+                <div class="architecture">src/main/java/com/fashionstore/
+├── Main.java                    # Application entry point
+├── model/
+│   └── Product.java             # Product data model
+├── db/
+│   └── DatabaseManager.java     # Singleton DB manager (CRUD ops)
+└── ui/
+    ├── LoginForm.java           # Login GUI
+    └── DashboardForm.java       # Dashboard GUI</div>
+            </section>
+
+            <!-- Architecture -->
+            <section>
+                <h2>🏗️ Architecture & Design Patterns</h2>
+                
+                <h3>Singleton Pattern</h3>
+                <p><code>DatabaseManager</code> uses the Singleton design pattern to ensure only one database connection instance exists throughout the application lifecycle.</p>
+                <pre>public static synchronized DatabaseManager getInstance() {
+    if (instance == null) {
+        instance = new DatabaseManager();
+    }
+    return instance;
+}</pre>
+                
+                <h3>MVC-like Structure</h3>
+                <ul>
+                    <li><strong>Model:</strong> <code>Product.java</code> - Data representation</li>
+                    <li><strong>View:</strong> <code>LoginForm.java</code>, <code>DashboardForm.java</code> - GUI components</li>
+                    <li><strong>Controller:</strong> <code>DatabaseManager.java</code> - Business logic &amp; data access</li>
+                </ul>
+                
+                <h3>Key Operations</h3>
+                <ul>
+                    <li><strong>CREATE:</strong> <code>addProduct()</code></li>
+                    <li><strong>READ:</strong> <code>getAllProducts()</code>, <code>searchProducts()</code></li>
+                    <li><strong>UPDATE:</strong> <code>updateProduct()</code></li>
+                    <li><strong>DELETE:</strong> <code>deleteProduct()</code></li>
+                </ul>
+            </section>
+
+            <!-- Group Presentation -->
+            <section>
+                <h2>🎓 Group Presentation Guide</h2>
+                <p><strong>Presentation Duration:</strong> Divide responsibilities among 3 students as per lecturer requirements.</p>
+                
+                <h3>Student 1: Code Explanation</h3>
+                <ul>
+                    <li>Explain GUI structure (Swing components in LoginForm &amp; DashboardForm)</li>
+                    <li>Show how event handlers work (e.g., login button click, add product action)</li>
+                    <li>Demonstrate input validation and error handling</li>
+                    <li>Show the Product model class</li>
+                    <li>Explain the overall application flow</li>
+                </ul>
+                
+                <h3>Student 2: Database Connection</h3>
+                <ul>
+                    <li>Explain Singleton DatabaseManager pattern</li>
+                    <li>Show SQLite database connection setup</li>
+                    <li>Demonstrate table creation (CREATE TABLE IF NOT EXISTS)</li>
+                    <li>Explain JDBC PreparedStatement usage for security</li>
+                    <li>Show default user initialization</li>
+                    <li>Explain database file location (<code>fashion_store.db</code>)</li>
+                </ul>
+                
+                <h3>Student 3: Save/Retrieve Actions</h3>
+                <ul>
+                    <li>Demonstrate <code>addProduct()</code> - Save operation</li>
+                    <li>Demonstrate <code>getAllProducts()</code> - Retrieve all products</li>
+                    <li>Demonstrate <code>searchProducts()</code> - Retrieve filtered products</li>
+                    <li>Show how data flows from GUI to database</li>
+                    <li>Explain ResultSet parsing and data retrieval</li>
+                    <li>Bonus: Explain <code>updateProduct()</code> and <code>deleteProduct()</code></li>
+                </ul>
+                
+                <div class="highlight">
+                    <strong>💡 Tip:</strong> Have one student do a live demo while the others explain the relevant parts of their sections.
+                </div>
+            </section>
+
+            <!-- Testing Guide -->
+            <section>
+                <h2>🧪 Testing Guide</h2>
+                
+                <h3>Test Case 1: Login Functionality</h3>
+                <table>
+                    <tr>
+                        <th>Step</th>
+                        <th>Action</th>
+                        <th>Expected Result</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Leave username/password empty, click Login</td>
+                        <td>Warning message: "Please enter username and password"</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Enter invalid credentials, click Login</td>
+                        <td>Error message: "Login failed..."</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Enter admin/password123, click Login</td>
+                        <td>Dashboard opens successfully</td>
+                    </tr>
+                </table>
+                
+                <h3>Test Case 2: Add Product</h3>
+                <table>
+                    <tr>
+                        <th>Step</th>
+                        <th>Action</th>
+                        <th>Expected Result</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Leave fields empty, click "Add Product"</td>
+                        <td>Warning: "Please fill in all product fields"</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Enter "Blue Shirt", "Shirts", "invalid", "50"</td>
+                        <td>Error: "Price and quantity must be numeric"</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Enter valid data, click "Add Product"</td>
+                        <td>Success message, product appears in table</td>
+                    </tr>
+                </table>
+                
+                <h3>Test Case 3: Search Products</h3>
+                <table>
+                    <tr>
+                        <th>Step</th>
+                        <th>Action</th>
+                        <th>Expected Result</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Add multiple products with different categories</td>
+                        <td>All products visible in table</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Search for "shirt"</td>
+                        <td>Only products with "shirt" in name/category shown</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Click "Refresh"</td>
+                        <td>All products shown again</td>
+                    </tr>
+                </table>
+                
+                <h3>Test Case 4: Update Product</h3>
+                <table>
+                    <tr>
+                        <th>Step</th>
+                        <th>Action</th>
+                        <th>Expected Result</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Click a row in the product table</td>
+                        <td>Product details populate in input fields</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Change price, click "Update Selected"</td>
+                        <td>Success message, table updates with new price</td>
+                    </tr>
+                </table>
+                
+                <h3>Test Case 5: Delete Product</h3>
+                <table>
+                    <tr>
+                        <th>Step</th>
+                        <th>Action</th>
+                        <th>Expected Result</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Click a row, click "Delete Selected"</td>
+                        <td>Confirmation dialog appears</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Click "Yes" on confirmation</td>
+                        <td>Product removed from table, success message</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- File Locations -->
+            <section>
+                <h2>📍 Key Files & Locations</h2>
+                <ul>
+                    <li><code>pom.xml</code> - Maven configuration with dependencies</li>
+                    <li><code>target/fashion-store-management-1.0-SNAPSHOT.jar</code> - Compiled JAR file</li>
+                    <li><code>fashion_store.db</code> - SQLite database (auto-created on first run)</li>
+                    <li><code>src/main/java/com/fashionstore/</code> - Java source files</li>
+                </ul>
+            </section>
+
+            <!-- Troubleshooting -->
+            <section>
+                <h2>🔧 Troubleshooting</h2>
+                
+                <h3>Issue: "SQLite JDBC driver not found"</h3>
+                <p><strong>Solution:</strong> Use the pre-built JAR which includes all dependencies. Or run with Maven: <code>mvn exec:java</code></p>
+                
+                <h3>Issue: "No X11 DISPLAY variable was set"</h3>
+                <p><strong>Solution:</strong> This happens in headless environments. Run the app on a machine with a display or use a virtual display.</p>
+                
+                <h3>Issue: Database file growing too large</h3>
+                <p><strong>Solution:</strong> Delete <code>fashion_store.db</code> to reset the database. A new one will be created on next run.</p>
+                
+                <h3>Issue: Port 8000 already in use</h3>
+                <p><strong>Solution:</strong> This project doesn't use ports. If you see this, you may have another application running.</p>
+            </section>
+
+            <!-- Compilation Info -->
+            <section>
+                <h2>📦 Build Information</h2>
+                <ul>
+                    <li><strong>Java Version:</strong> 17+</li>
+                    <li><strong>Build Tool:</strong> Maven 3.6+</li>
+                    <li><strong>Database:</strong> SQLite (JDBC driver included)</li>
+                    <li><strong>GUI Framework:</strong> Java Swing (built-in)</li>
+                    <li><strong>JAR Size:</strong> ~8 MB (includes SQLite)</li>
+                </ul>
+            </section>
+
+            <!-- Bonus Features -->
+            <section>
+                <h2>🎁 Bonus Features Implemented</h2>
+                <ul>
+                    <li><strong>Update Products:</strong> Edit existing product details</li>
+                    <li><strong>Delete Products:</strong> Remove products with confirmation</li>
+                    <li><strong>Search Functionality:</strong> Filter by name or category</li>
+                    <li><strong>Refresh Button:</strong> Reload all products</li>
+                    <li><strong>Form Validation:</strong> Input validation and error handling</li>
+                    <li><strong>Row Selection:</strong> Click to populate form with selected product data</li>
+                    <li><strong>Single JAR Deployment:</strong> All dependencies bundled</li>
+                </ul>
+            </section>
+
+            <!-- Future Enhancements -->
+            <section>
+                <h2>🚀 Future Enhancement Ideas</h2>
+                <ul>
+                    <li>Add product images</li>
+                    <li>Add date/timestamp to products</li>
+                    <li>Export products to CSV/Excel</li>
+                    <li>User registration form</li>
+                    <li>Sales tracking page</li>
+                    <li>Inventory reports</li>
+                    <li>MySQL database support</li>
+                    <li>Multi-user login tracking</li>
+                    <li>Password hashing for security</li>
+                </ul>
+            </section>
+
+            <footer>
+                <p><strong>Fashion Store Management System v1.0</strong></p>
+                <p>Java Swing + SQLite | Group Project | Due: 19/05/2026</p>
+                <p>✅ All requirements met + bonus features implemented</p>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>
