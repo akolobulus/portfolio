@@ -25,8 +25,8 @@ Java Swing desktop application for a group project with a client dashboard, prod
 
 ## Client login
 
-- Client username: `client`
-- Client password: `client123`
+- Client username: `client_user`
+- Client password: `password123`
 
 ## Run the application
 
