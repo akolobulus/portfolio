@@ -129,9 +129,9 @@ public class DashboardForm extends JFrame {
 
         add(controlPanel, BorderLayout.SOUTH);
 
-        // Product cards panel with grid layout (3 columns)
+        // Product cards panel with wrap-style layout and smaller card widths
         productCardsPanel = new JPanel();
-        productCardsPanel.setLayout(new java.awt.GridLayout(0, 3, 15, 15));
+        productCardsPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 20, 20));
         productCardsPanel.setBackground(new Color(250, 250, 250));
         productCardsPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
@@ -181,15 +181,17 @@ public class DashboardForm extends JFrame {
         };
         card.setOpaque(false);
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
-        card.setBorder(new EmptyBorder(10, 10, 10, 10));
+        card.setBorder(new EmptyBorder(12, 12, 12, 12));
+        card.setPreferredSize(new Dimension(250, 380));
+        card.setMaximumSize(new Dimension(250, 380));
 
         // Product image (larger, square format)
         JLabel imageLabel = new JLabel();
         imageLabel.setHorizontalAlignment(JLabel.CENTER);
         imageLabel.setVerticalAlignment(JLabel.CENTER);
-        imageLabel.setPreferredSize(new Dimension(220, 220));
-        imageLabel.setMaximumSize(new Dimension(220, 220));
-        imageLabel.setMinimumSize(new Dimension(220, 220));
+        imageLabel.setPreferredSize(new Dimension(180, 180));
+        imageLabel.setMaximumSize(new Dimension(180, 180));
+        imageLabel.setMinimumSize(new Dimension(180, 180));
         imageLabel.setOpaque(true);
         imageLabel.setBackground(new Color(240, 240, 245));
         
@@ -240,7 +242,7 @@ public class DashboardForm extends JFrame {
         card.add(Box.createVerticalStrut(8));
 
         // Product price
-        JLabel priceLabel = new JLabel("$" + String.format("%.2f", product.getPrice()));
+        JLabel priceLabel = new JLabel("₦" + String.format("%.2f", product.getPrice()));
         priceLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
         priceLabel.setForeground(new Color(46, 204, 113));
         priceLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);

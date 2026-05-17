@@ -69,7 +69,7 @@ public class DatabaseManager {
             ps.setString(2, "Shirts");
             ps.setDouble(3, 29.99);
             ps.setInt(4, 50);
-            ps.setString(5, "https://africanthings.org/wp-content/uploads/2024/10/Plain-round-neck-t-shirt-royal-blue-color.webp");
+            ps.setString(5, "shirt.jpg");
             ps.executeUpdate();
 
             // Product 2: Designer Jeans
@@ -77,15 +77,15 @@ public class DatabaseManager {
             ps.setString(2, "Jeans");
             ps.setDouble(3, 89.99);
             ps.setInt(4, 35);
-            ps.setString(5, "https://www.tenuejeans.com/cdn/shop/files/JACKSONRENO_0051.jpg?v=1746526707&width=1024");
+            ps.setString(5, "jeans.jpg");
             ps.executeUpdate();
 
-            // Product 3: Fashion Accessory
-            ps.setString(1, "Fashion Sunglasses");
+            // Product 3: Classic Heels
+            ps.setString(1, "Classic Heels");
             ps.setString(2, "Accessories");
             ps.setDouble(3, 49.99);
             ps.setInt(4, 25);
-            ps.setString(5, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTydlPnTwzPguLPlDF803Ebis3jd5WNW_tVw&s");
+            ps.setString(5, "heels.jpg");
             ps.executeUpdate();
         }
     }
