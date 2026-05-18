@@ -22,321 +22,141 @@
     --mono: 'IBM Plex Mono', monospace;
     --sans: 'Sora', sans-serif;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--sans);
-    font-size: 14px;
-    line-height: 1.6;
-    min-height: 100vh;
-  }
-
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 14px; line-height: 1.6; min-height: 100vh; }
   body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
+    content: ''; position: fixed; inset: 0;
     background-image:
       radial-gradient(ellipse 80% 50% at 20% 10%, rgba(124,106,247,0.06) 0%, transparent 60%),
       radial-gradient(ellipse 60% 40% at 80% 90%, rgba(82,217,160,0.04) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: 0;
+    pointer-events: none; z-index: 0;
   }
+  .shell { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; position: relative; z-index: 1; }
 
-  .shell {
-    display: grid;
-    grid-template-columns: 260px 1fr;
-    min-height: 100vh;
-    position: relative;
-    z-index: 1;
-  }
-
-  .sidebar {
-    background: var(--surface);
-    border-right: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    scrollbar-width: thin;
-    scrollbar-color: var(--border) transparent;
-  }
-
-  .sidebar-header {
-    padding: 24px 20px 16px;
-    border-bottom: 1px solid var(--border);
-  }
-  .sidebar-header .app-icon {
-    font-size: 28px;
-    line-height: 1;
-    margin-bottom: 6px;
-    display: block;
-  }
-  .sidebar-header h1 {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 4px;
-  }
-  .sidebar-header .by-label {
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 3px;
-  }
-  .sidebar-header .authors {
-    font-size: 11px;
-    color: #c4bfff;
-    line-height: 1.7;
-    margin-bottom: 6px;
-  }
-  .sidebar-header .authors span {
-    display: block;
-  }
-  .sidebar-header p {
-    font-size: 11px;
-    color: var(--muted);
-  }
-
+  /* SIDEBAR */
+  .sidebar { background: var(--surface); border-right: 1px solid var(--border); position: sticky; top: 0; height: 100vh; overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+  .sidebar-header { padding: 24px 20px 16px; border-bottom: 1px solid var(--border); }
+  .sidebar-header .app-icon { font-size: 28px; line-height: 1; margin-bottom: 6px; display: block; }
+  .sidebar-header h1 { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+  .sidebar-header .by-label { font-size: 9px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+  .sidebar-header .authors { font-size: 11px; color: #c4bfff; line-height: 1.7; margin-bottom: 6px; }
+  .sidebar-header .authors span { display: block; }
+  .sidebar-header p { font-size: 11px; color: var(--muted); }
   .sidebar-section { padding: 10px 0; }
-  .sidebar-section-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    padding: 6px 20px 4px;
-  }
-  .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    padding: 7px 20px;
-    cursor: pointer;
-    font-size: 12.5px;
-    color: var(--muted);
-    transition: all 0.15s;
-    border-left: 2px solid transparent;
-    font-family: var(--mono);
-  }
+  .sidebar-section-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding: 6px 20px 4px; }
+  .nav-item { display: flex; align-items: center; gap: 9px; padding: 7px 20px; cursor: pointer; font-size: 12.5px; color: var(--muted); transition: all 0.15s; border-left: 2px solid transparent; font-family: var(--mono); }
   .nav-item:hover { color: var(--text); background: rgba(255,255,255,0.03); }
-  .nav-item.active {
-    color: var(--accent);
-    background: var(--highlight);
-    border-left-color: var(--accent);
-  }
+  .nav-item.active { color: var(--accent); background: var(--highlight); border-left-color: var(--accent); }
   .nav-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 
-  .main {
-    overflow-y: auto;
-    padding: 40px 48px 80px;
-    max-width: 900px;
-  }
-
-  .file-section {
-    margin-bottom: 64px;
-    scroll-margin-top: 32px;
-  }
-
-  .file-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 8px;
-  }
-  .file-badge {
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 600;
-    padding: 3px 10px;
-    border-radius: 4px;
-    letter-spacing: 0.05em;
-  }
-  .file-title {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--text);
-    font-family: var(--mono);
-  }
-  .file-subtitle {
-    font-size: 13px;
-    color: var(--muted);
-    margin-bottom: 24px;
-    padding-left: 2px;
-    line-height: 1.5;
-  }
-
-  .purpose-box {
-    background: var(--highlight);
-    border: 1px solid rgba(124,106,247,0.25);
-    border-radius: 8px;
-    padding: 14px 18px;
-    margin-bottom: 28px;
-    font-size: 13px;
-    color: #c4bfff;
-    line-height: 1.65;
-  }
+  /* MAIN */
+  .main { overflow-y: auto; padding: 40px 48px 80px; max-width: 900px; }
+  .file-section { margin-bottom: 64px; scroll-margin-top: 32px; }
+  .file-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .file-badge { font-family: var(--mono); font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 4px; letter-spacing: 0.05em; }
+  .file-title { font-size: 22px; font-weight: 700; color: var(--text); font-family: var(--mono); }
+  .file-subtitle { font-size: 13px; color: var(--muted); margin-bottom: 24px; padding-left: 2px; line-height: 1.5; }
+  .purpose-box { background: var(--highlight); border: 1px solid rgba(124,106,247,0.25); border-radius: 8px; padding: 14px 18px; margin-bottom: 28px; font-size: 13px; color: #c4bfff; line-height: 1.65; }
   .purpose-box strong { color: var(--accent); font-weight: 600; }
 
-  .code-block {
-    background: var(--code-bg);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 10px;
+  /* DEMO SECTION */
+  .demo-section { margin-bottom: 64px; scroll-margin-top: 32px; }
+  .demo-upload-box {
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    padding: 40px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    background: rgba(124,106,247,0.04);
+    position: relative;
   }
-  .code-block-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 9px 16px;
-    background: rgba(255,255,255,0.03);
-    border-bottom: 1px solid var(--border);
-    font-size: 11px;
-    color: var(--muted);
-    font-family: var(--mono);
+  .demo-upload-box:hover { border-color: var(--accent); background: rgba(124,106,247,0.08); }
+  .demo-upload-box.has-media { padding: 0; overflow: hidden; }
+  .demo-upload-box .upload-icon { font-size: 40px; margin-bottom: 12px; display: block; }
+  .demo-upload-box .upload-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .demo-upload-box .upload-sub { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+  .demo-upload-box .upload-btn {
+    display: inline-block; padding: 8px 20px; background: var(--accent); color: #fff;
+    border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: var(--sans);
+    border: none; transition: opacity 0.15s;
   }
+  .demo-upload-box .upload-btn:hover { opacity: 0.85; }
+  #demo-file-input { display: none; }
+  #demo-preview { width: 100%; border-radius: 10px; display: block; max-height: 480px; object-fit: contain; background: #000; }
+  .demo-remove-btn {
+    position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.6);
+    color: #fff; border: none; border-radius: 50%; width: 28px; height: 28px;
+    font-size: 14px; cursor: pointer; display: none; align-items: center; justify-content: center;
+    font-family: var(--sans);
+  }
+  .demo-remove-btn.visible { display: flex; }
+  .demo-placeholder { pointer-events: none; }
+  .demo-formats { font-size: 11px; color: var(--muted); margin-top: 12px; }
+
+  /* CODE BLOCK */
+  .code-block { background: var(--code-bg); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 10px; }
+  .code-block-header { display: flex; align-items: center; gap: 8px; padding: 9px 16px; background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--border); font-size: 11px; color: var(--muted); font-family: var(--mono); }
   .dot-red   { width:10px;height:10px;border-radius:50%;background:#f76a8a;flex-shrink:0; }
   .dot-yellow{ width:10px;height:10px;border-radius:50%;background:#f7d76a;flex-shrink:0; }
   .dot-green { width:10px;height:10px;border-radius:50%;background:#52d9a0;flex-shrink:0; }
-
   .annotated-code { padding: 0; }
-
   .code-line-group { position: relative; }
-
-  .code-line {
-    display: grid;
-    grid-template-columns: 36px 1fr;
-    font-family: var(--mono);
-    font-size: 12.5px;
-    line-height: 1.7;
-    transition: background 0.1s;
-    cursor: default;
-  }
+  .code-line { display: grid; grid-template-columns: 36px 1fr; font-family: var(--mono); font-size: 12.5px; line-height: 1.7; transition: background 0.1s; cursor: default; }
   .code-line:hover { background: rgba(255,255,255,0.025); }
   .code-line.has-note:hover { background: rgba(124,106,247,0.08); cursor: pointer; }
   .code-line.highlighted { background: rgba(124,106,247,0.1); }
-
-  .line-num {
-    color: var(--border);
-    font-size: 11px;
-    text-align: right;
-    padding: 0 10px 0 0;
-    user-select: none;
-    padding-top: 1px;
-  }
+  .line-num { color: var(--border); font-size: 11px; text-align: right; padding: 0 10px 0 0; user-select: none; padding-top: 1px; }
   .line-code { color: var(--text); padding: 0 16px 0 0; white-space: pre; }
-
-  .kw  { color: #c792ea; }
-  .typ { color: #82aaff; }
-  .str { color: #c3e88d; }
-  .cmt { color: #546e7a; font-style: italic; }
-  .num { color: #f7a26a; }
-  .fn  { color: #82aaff; }
-  .pkg { color: #52d9a0; }
-  .ann { color: #f7a26a; }
-  .var { color: #f07178; }
-  .op  { color: #89ddff; }
-  .punc{ color: #89ddff; }
-  .sh-kw  { color: #c792ea; }
-  .sh-var { color: #f07178; }
-  .sh-str { color: #c3e88d; }
-  .sh-cmt { color: #546e7a; font-style: italic; }
-  .sh-cmd { color: #82aaff; }
-  .sh-flag{ color: #f7a26a; }
+  .kw  { color: #c792ea; } .typ { color: #82aaff; } .str { color: #c3e88d; }
+  .cmt { color: #546e7a; font-style: italic; } .num { color: #f7a26a; }
+  .fn  { color: #82aaff; } .pkg { color: #52d9a0; } .ann { color: #f7a26a; }
+  .var { color: #f07178; } .op  { color: #89ddff; } .punc{ color: #89ddff; }
+  .sh-kw { color: #c792ea; } .sh-var { color: #f07178; } .sh-str { color: #c3e88d; }
+  .sh-cmt { color: #546e7a; font-style: italic; } .sh-cmd { color: #82aaff; } .sh-flag { color: #f7a26a; }
 
   .inline-note {
-    display: none;
-    grid-column: 2;
-    background: rgba(124,106,247,0.12);
-    border-left: 3px solid var(--accent);
-    margin: 2px 16px 6px 0;
-    padding: 10px 14px;
-    border-radius: 0 6px 6px 0;
-    font-size: 12px;
-    color: #c4bfff;
-    line-height: 1.6;
-    font-family: var(--sans);
-    animation: noteIn 0.18s ease;
+    display: none; grid-column: 2; background: rgba(124,106,247,0.12);
+    border-left: 3px solid var(--accent); margin: 2px 16px 6px 0;
+    padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 12px;
+    color: #c4bfff; line-height: 1.6; font-family: var(--sans); animation: noteIn 0.18s ease;
   }
   .inline-note.visible { display: block; }
-  @keyframes noteIn {
-    from { opacity:0; transform: translateY(-4px); }
-    to   { opacity:1; transform: translateY(0); }
-  }
+  @keyframes noteIn { from { opacity:0; transform: translateY(-4px); } to { opacity:1; transform: translateY(0); } }
   .inline-note .note-icon { color: var(--accent); font-weight: 700; margin-right: 6px; }
   .inline-note em { color: var(--accent2); font-style: normal; font-weight: 600; }
   .inline-note code { background: rgba(255,255,255,0.08); padding: 1px 5px; border-radius: 3px; font-family: var(--mono); font-size: 11px; color: var(--accent3); }
 
-  .section-div {
-    height: 1px;
-    background: linear-gradient(90deg, var(--border), transparent);
-    margin: 32px 0;
-  }
+  .section-div { height: 1px; background: linear-gradient(90deg, var(--border), transparent); margin: 32px 0; }
 
-  .concept-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-  .concept-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px 16px;
-  }
-  .concept-card .cc-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 5px;
-  }
-  .concept-card .cc-title {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 4px;
-    font-family: var(--mono);
-  }
-  .concept-card .cc-desc {
-    font-size: 12px;
-    color: var(--muted);
-    line-height: 1.55;
-  }
+  .concept-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+  .concept-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .concept-card .cc-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+  .concept-card .cc-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; font-family: var(--mono); }
+  .concept-card .cc-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
 
-  .hint-strip {
-    font-size: 11px;
-    color: var(--muted);
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
+  .hint-strip { font-size: 11px; color: var(--muted); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
   .hint-strip::before { content: ''; width: 14px; height: 1px; background: var(--border); }
 
-  .badge-main   { background: rgba(124,106,247,0.18); color: #a49aff; }
-  .badge-model  { background: rgba(82,217,160,0.15);  color: #52d9a0; }
-  .badge-db     { background: rgba(247,162,106,0.15); color: #f7a26a; }
-  .badge-ui     { background: rgba(247,106,138,0.15); color: #f76a8a; }
-  .badge-login  { background: rgba(247,106,138,0.15); color: #f76a8a; }
-  .badge-dash   { background: rgba(126,200,247,0.15); color: #7ec8f7; }
-  .badge-shell  { background: rgba(82,217,160,0.15);  color: #52d9a0; }
+  /* BADGE & DOT COLORS */
+  .badge-demo  { background: rgba(247,162,106,0.18); color: #f7a26a; }
+  .badge-main  { background: rgba(124,106,247,0.18); color: #a49aff; }
+  .badge-model { background: rgba(82,217,160,0.15);  color: #52d9a0; }
+  .badge-db    { background: rgba(247,162,106,0.15); color: #f7a26a; }
+  .badge-login { background: rgba(247,106,138,0.15); color: #f76a8a; }
+  .badge-dash  { background: rgba(126,200,247,0.15); color: #7ec8f7; }
+  .badge-client{ background: rgba(82,217,160,0.15);  color: #52d9a0; }
+  .badge-checkout { background: rgba(247,162,106,0.15); color: #f7a26a; }
+  .badge-shell { background: rgba(82,217,160,0.15);  color: #52d9a0; }
 
+  .dot-demo   { background: #f7a26a; }
   .dot-main   { background: #a49aff; }
   .dot-model  { background: #52d9a0; }
   .dot-db     { background: #f7a26a; }
   .dot-login  { background: #f76a8a; }
   .dot-dash   { background: #7ec8f7; }
+  .dot-client { background: #52d9a0; }
+  .dot-checkout { background: #f7a26a; }
   .dot-shell  { background: #52d9a0; }
 
   ::-webkit-scrollbar { width: 6px; }
@@ -347,7 +167,7 @@
 <body>
 <div class="shell">
 
-<!-- ═══════════ SIDEBAR ═══════════ -->
+<!-- SIDEBAR -->
 <nav class="sidebar">
   <div class="sidebar-header">
     <span class="app-icon">👗</span>
@@ -362,6 +182,13 @@
   </div>
 
   <div class="sidebar-section">
+    <div class="sidebar-section-label">Demo</div>
+    <div class="nav-item" onclick="navScrollTo('demo')" id="nav-demo">
+      <span class="nav-dot dot-demo"></span> App Demo
+    </div>
+  </div>
+
+  <div class="sidebar-section">
     <div class="sidebar-section-label">Entry Point</div>
     <div class="nav-item active" onclick="navScrollTo('main')" id="nav-main">
       <span class="nav-dot dot-main"></span> Main.java
@@ -369,9 +196,12 @@
   </div>
 
   <div class="sidebar-section">
-    <div class="sidebar-section-label">Data Model</div>
+    <div class="sidebar-section-label">Data Models</div>
     <div class="nav-item" onclick="navScrollTo('product')" id="nav-product">
       <span class="nav-dot dot-model"></span> Product.java
+    </div>
+    <div class="nav-item" onclick="navScrollTo('cartitem')" id="nav-cartitem">
+      <span class="nav-dot dot-model"></span> CartItem.java
     </div>
   </div>
 
@@ -390,6 +220,12 @@
     <div class="nav-item" onclick="navScrollTo('dash')" id="nav-dash">
       <span class="nav-dot dot-dash"></span> DashboardForm.java
     </div>
+    <div class="nav-item" onclick="navScrollTo('client')" id="nav-client">
+      <span class="nav-dot dot-client"></span> ClientDashboardForm.java
+    </div>
+    <div class="nav-item" onclick="navScrollTo('checkout')" id="nav-checkout">
+      <span class="nav-dot dot-checkout"></span> CheckoutDialog.java
+    </div>
   </div>
 
   <div class="sidebar-section">
@@ -406,297 +242,253 @@
   </div>
 </nav>
 
-<!-- ═══════════ MAIN ═══════════ -->
+<!-- MAIN -->
 <main class="main" id="main-content">
 
-<!-- ══════════════════════════════════
-     MAIN.JAVA
-══════════════════════════════════ -->
+<!-- ══ DEMO ══ -->
+<section class="demo-section" id="demo">
+  <div class="file-header">
+    <span class="file-badge badge-demo">Demo</span>
+    <span class="file-title">App Demo</span>
+  </div>
+  <p class="file-subtitle">Upload a screen recording or GIF of the running application so readers can see all the features in action before diving into the code.</p>
+
+  <div class="demo-upload-box" id="demo-drop-zone" onclick="document.getElementById('demo-file-input').click()">
+    <div class="demo-placeholder" id="demo-placeholder">
+      <span class="upload-icon">🎬</span>
+      <div class="upload-title">Drop your demo here</div>
+      <div class="upload-sub">Drag &amp; drop a GIF or screen recording, or click to browse</div>
+      <label class="upload-btn" onclick="event.stopPropagation(); document.getElementById('demo-file-input').click()">Choose File</label>
+      <div class="demo-formats">Supports: .gif &nbsp;·&nbsp; .mp4 &nbsp;·&nbsp; .webm &nbsp;·&nbsp; .mov</div>
+    </div>
+    <img id="demo-preview-img" style="display:none; width:100%; border-radius:10px; max-height:480px; object-fit:contain; background:#000;" alt="App demo" />
+    <video id="demo-preview-vid" style="display:none; width:100%; border-radius:10px; max-height:480px; background:#000;" controls loop></video>
+    <button class="demo-remove-btn" id="demo-remove-btn" onclick="event.stopPropagation(); removeDemoMedia()">✕</button>
+  </div>
+  <input type="file" id="demo-file-input" accept=".gif,.mp4,.webm,.mov,image/gif,video/mp4,video/webm,video/quicktime" />
+</section>
+
+<div class="section-div"></div>
+
+<!-- ══ MAIN.JAVA ══ -->
 <section class="file-section" id="main">
   <div class="file-header">
     <span class="file-badge badge-main">Entry Point</span>
     <span class="file-title">Main.java</span>
   </div>
-  <p class="file-subtitle">This is the very first file Java runs when you start the application. Think of it as the "on" switch — it sets everything else in motion.</p>
-
+  <p class="file-subtitle">The very first file Java runs when you start the application. Sets up the database and hands off to the Login screen.</p>
   <div class="purpose-box">
-    <strong>What this file does:</strong> It starts the application in the correct way for a graphical program, prepares the database, and shows the Login screen to the user.
+    <strong>What this file does:</strong> Starts the application on the correct GUI thread, initialises the database, and opens the Login window.
   </div>
-
   <div class="concept-row">
-    <div class="concept-card">
-      <div class="cc-label">Concept</div>
-      <div class="cc-title">package</div>
-      <div class="cc-desc">Like a folder name. Groups related files together so Java knows where to find them.</div>
-    </div>
-    <div class="concept-card">
-      <div class="cc-label">Concept</div>
-      <div class="cc-title">import</div>
-      <div class="cc-desc">Tells Java "I want to use code that already exists elsewhere." You import it so you don't have to write it from scratch.</div>
-    </div>
-    <div class="concept-card">
-      <div class="cc-label">Concept</div>
-      <div class="cc-title">public static void main</div>
-      <div class="cc-desc">The special method Java looks for first. Every Java program must have exactly one — it's the starting line of the race.</div>
-    </div>
-    <div class="concept-card">
-      <div class="cc-label">Concept</div>
-      <div class="cc-title">SwingUtilities.invokeLater</div>
-      <div class="cc-desc">GUI programs need to be started on a special thread. This method safely hands control to that thread before showing any windows.</div>
-    </div>
+    <div class="concept-card"><div class="cc-label">Concept</div><div class="cc-title">package</div><div class="cc-desc">Like a folder name. Groups related files so Java knows where to find them.</div></div>
+    <div class="concept-card"><div class="cc-label">Concept</div><div class="cc-title">import</div><div class="cc-desc">Brings in code that lives elsewhere so you don't have to rewrite it.</div></div>
+    <div class="concept-card"><div class="cc-label">Concept</div><div class="cc-title">public static void main</div><div class="cc-desc">The special method Java looks for first — the starting line of every Java program.</div></div>
+    <div class="concept-card"><div class="cc-label">Concept</div><div class="cc-title">SwingUtilities.invokeLater</div><div class="cc-desc">Safely hands GUI work to the Event Dispatch Thread before any window appears.</div></div>
   </div>
-
   <div class="hint-strip">Click a highlighted line to read the explanation</div>
   <div class="code-block">
-    <div class="code-block-header">
-      <span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span>
-      <span style="margin-left:6px;">Main.java</span>
-    </div>
+    <div class="code-block-header"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span><span style="margin-left:6px;">Main.java</span></div>
     <div class="annotated-code" id="code-main"></div>
   </div>
 </section>
 
 <div class="section-div"></div>
 
-<!-- ══════════════════════════════════
-     PRODUCT.JAVA
-══════════════════════════════════ -->
+<!-- ══ PRODUCT.JAVA ══ -->
 <section class="file-section" id="product">
   <div class="file-header">
     <span class="file-badge badge-model">Data Model</span>
     <span class="file-title">Product.java</span>
   </div>
-  <p class="file-subtitle">A blueprint that describes what a "Product" is in this application. Whenever the app needs to work with a product, it creates an object from this blueprint.</p>
-
+  <p class="file-subtitle">A blueprint describing what a "Product" is. Every product in the system is an object made from this template.</p>
   <div class="purpose-box">
-    <strong>What this file does:</strong> Defines a Product as a bundle of six pieces of information — ID, name, category, price, quantity, and image. Also provides "getter" methods so other parts of the code can safely read those values.
+    <strong>What this file does:</strong> Defines a Product as six immutable fields — ID, name, category, price, quantity, and image filename — plus getter methods to read them safely.
   </div>
-
   <div class="concept-row">
-    <div class="concept-card">
-      <div class="cc-label">Concept</div>
-      <div class="cc-title">class</div>
-      <div class="cc-desc">A blueprint or template. You can create as many Product objects as you like from this one class — like stamping coins from a single mould.</div>
-    </div>
-    <div class="concept-card">
-      <div class="cc-label">Concept</div>
-      <div class="cc-title">private final</div>
-      <div class="cc-desc"><em>private</em> means only this class can see the variable. <em>final</em> means once set, the value never changes — it's locked.</div>
-    </div>
-    <div class="concept-card">
-      <div class="cc-label">Concept</div>
-      <div class="cc-title">constructor</div>
-      <div class="cc-desc">A special method with the same name as the class. It runs once when you create a new object, filling in all the initial values.</div>
-    </div>
-    <div class="concept-card">
-      <div class="cc-label">Concept</div>
-      <div class="cc-title">getter method</div>
-      <div class="cc-desc">A small method whose only job is to return one private value. e.g. <code style="background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:3px;font-family:monospace;font-size:11px;color:#52d9a0">getName()</code> returns the product's name.</div>
-    </div>
+    <div class="concept-card"><div class="cc-label">Concept</div><div class="cc-title">class</div><div class="cc-desc">A blueprint. Create as many Product objects as you like from this one definition.</div></div>
+    <div class="concept-card"><div class="cc-label">Concept</div><div class="cc-title">private final</div><div class="cc-desc"><em>private</em>: only this class can touch the field. <em>final</em>: locked after the constructor sets it — never changes.</div></div>
+    <div class="concept-card"><div class="cc-label">Concept</div><div class="cc-title">constructor overloading</div><div class="cc-desc">Two constructors with different parameter lists. The 5-param one is for new products (no ID yet); the 6-param one is for products loaded from the database.</div></div>
+    <div class="concept-card"><div class="cc-label">Concept</div><div class="cc-title">getter methods</div><div class="cc-desc">Small methods like <code>getName()</code> that safely expose private fields to other classes.</div></div>
   </div>
-
   <div class="hint-strip">Click a highlighted line to read the explanation</div>
   <div class="code-block">
-    <div class="code-block-header">
-      <span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span>
-      <span style="margin-left:6px;">Product.java</span>
-    </div>
+    <div class="code-block-header"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span><span style="margin-left:6px;">Product.java</span></div>
     <div class="annotated-code" id="code-product"></div>
   </div>
 </section>
 
 <div class="section-div"></div>
 
-<!-- ══════════════════════════════════
-     DATABASEMANAGER.JAVA
-══════════════════════════════════ -->
+<!-- ══ CARTITEM.JAVA ══ -->
+<section class="file-section" id="cartitem">
+  <div class="file-header">
+    <span class="file-badge badge-model">Data Model</span>
+    <span class="file-title">CartItem.java</span>
+  </div>
+  <p class="file-subtitle">A small wrapper that pairs a Product with a chosen quantity. Used to represent one line in a customer's shopping cart.</p>
+  <div class="purpose-box">
+    <strong>What this file does:</strong> Holds a reference to a Product and the number of units the customer wants to buy. The cart in ClientDashboardForm is a <code>Map&lt;Integer, CartItem&gt;</code> — each product's ID maps to one CartItem.
+  </div>
+  <div class="concept-row">
+    <div class="concept-card"><div class="cc-label">Concept</div><div class="cc-title">composition</div><div class="cc-desc">CartItem <em>has-a</em> Product rather than extending it. This is the preferred way to combine behaviour in Java — favour composition over inheritance.</div></div>
+    <div class="concept-card"><div class="cc-label">Concept</div><div class="cc-title">immutable object</div><div class="cc-desc">Both fields are <em>private final</em>. To change a cart quantity the app creates a new CartItem rather than mutating the old one — simpler and safer.</div></div>
+    <div class="concept-card"><div class="cc-label">Concept</div><div class="cc-title">getProduct()</div><div class="cc-desc">Returns the full Product object stored inside. Other code calls this to read the name, price, image, etc. without knowing the internal structure of CartItem.</div></div>
+    <div class="concept-card"><div class="cc-label">Concept</div><div class="cc-title">getQuantity()</div><div class="cc-desc">Returns how many of this product the customer wants. Multiplied by the product price in the checkout to calculate the line total.</div></div>
+  </div>
+  <div class="hint-strip">Click a highlighted line to read the explanation</div>
+  <div class="code-block">
+    <div class="code-block-header"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span><span style="margin-left:6px;">CartItem.java</span></div>
+    <div class="annotated-code" id="code-cartitem"></div>
+  </div>
+</section>
+
+<div class="section-div"></div>
+
+<!-- ══ DATABASEMANAGER.JAVA ══ -->
 <section class="file-section" id="db">
   <div class="file-header">
     <span class="file-badge badge-db">Database Layer</span>
     <span class="file-title">DatabaseManager.java</span>
   </div>
-  <p class="file-subtitle">The only file that talks directly to the SQLite database. All other files go through this one whenever they need to save, update, delete, or fetch data.</p>
-
+  <p class="file-subtitle">The single file that talks directly to SQLite. Everything else goes through this class to read or write data.</p>
   <div class="purpose-box">
-    <strong>What this file does:</strong> Creates and manages the database file, provides a single shared instance of itself (Singleton pattern), and contains one method for every database action: init, check credentials, add/update/delete products, and search.
+    <strong>What this file does:</strong> Creates tables and seed data on first launch, provides a Singleton connection manager, authenticates users (now including a <em>client_user</em> account), and handles all CRUD operations for products.
   </div>
-
   <div class="concept-row">
-    <div class="concept-card">
-      <div class="cc-label">Pattern</div>
-      <div class="cc-title">Singleton</div>
-      <div class="cc-desc">A design rule that says "only one copy of this object may exist at a time." Used here so the whole app shares one database connection manager.</div>
-    </div>
-    <div class="concept-card">
-      <div class="cc-label">Concept</div>
-      <div class="cc-title">PreparedStatement</div>
-      <div class="cc-desc">A safe way to run SQL queries. Values are inserted as parameters, not as raw text — this prevents hackers from injecting malicious SQL.</div>
-    </div>
-    <div class="concept-card">
-      <div class="cc-label">Concept</div>
-      <div class="cc-title">try-with-resources</div>
-      <div class="cc-desc">The <code style="background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:3px;font-family:monospace;font-size:11px;color:#52d9a0">try (Connection conn = …)</code> syntax automatically closes the connection when done, even if an error occurs — preventing memory leaks.</div>
-    </div>
-    <div class="concept-card">
-      <div class="cc-label">Concept</div>
-      <div class="cc-title">ResultSet</div>
-      <div class="cc-desc">The rows returned from a SELECT query. You call <code style="background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:3px;font-family:monospace;font-size:11px;color:#52d9a0">rs.next()</code> to move to the next row, and <code style="background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:3px;font-family:monospace;font-size:11px;color:#52d9a0">rs.getString()</code> etc. to read each column.</div>
-    </div>
+    <div class="concept-card"><div class="cc-label">Pattern</div><div class="cc-title">Singleton</div><div class="cc-desc">Guarantees only one DatabaseManager ever exists, so the whole app shares one managed connection point.</div></div>
+    <div class="concept-card"><div class="cc-label">Concept</div><div class="cc-title">PreparedStatement</div><div class="cc-desc">Parameterised SQL — values go in as <code>?</code> slots, never as raw text. Prevents SQL injection attacks.</div></div>
+    <div class="concept-card"><div class="cc-label">Concept</div><div class="cc-title">try-with-resources</div><div class="cc-desc">Auto-closes connections and statements when the block ends — even if an exception is thrown. No resource leaks.</div></div>
+    <div class="concept-card"><div class="cc-label">New</div><div class="cc-title">Dual default users</div><div class="cc-desc">Now seeds both an <em>admin</em> and a <em>client_user</em> account so both roles can be tested out of the box.</div></div>
   </div>
-
   <div class="hint-strip">Click a highlighted line to read the explanation</div>
   <div class="code-block">
-    <div class="code-block-header">
-      <span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span>
-      <span style="margin-left:6px;">DatabaseManager.java</span>
-    </div>
+    <div class="code-block-header"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span><span style="margin-left:6px;">DatabaseManager.java</span></div>
     <div class="annotated-code" id="code-db"></div>
   </div>
 </section>
 
 <div class="section-div"></div>
 
-<!-- ══════════════════════════════════
-     LOGINFORM.JAVA
-══════════════════════════════════ -->
+<!-- ══ LOGINFORM.JAVA ══ -->
 <section class="file-section" id="login">
   <div class="file-header">
     <span class="file-badge badge-login">UI — Login</span>
     <span class="file-title">LoginForm.java</span>
   </div>
-  <p class="file-subtitle">Builds and displays the Login window — the first screen the user sees. Handles drawing the UI components and validating credentials when the Login button is clicked.</p>
-
+  <p class="file-subtitle">The first screen the user sees. Now routes to two different dashboards depending on who logs in.</p>
   <div class="purpose-box">
-    <strong>What this file does:</strong> Creates the window frame, draws a white rounded card, lays out the email field, password field, and login button, and wires up the login action that checks credentials against the database.
+    <strong>What this file does:</strong> Draws the login card, validates credentials, then opens <em>DashboardForm</em> for the admin account or <em>ClientDashboardForm</em> for any other account. Role-based routing happens entirely inside the <code>login()</code> method.
   </div>
-
   <div class="concept-row">
-    <div class="concept-card">
-      <div class="cc-label">Concept</div>
-      <div class="cc-title">extends JFrame</div>
-      <div class="cc-desc">LoginForm <em>inherits</em> from JFrame — it gets all the window behaviour (title bar, close button, size) for free just by extending it.</div>
-    </div>
-    <div class="concept-card">
-      <div class="cc-label">Concept</div>
-      <div class="cc-title">paintComponent</div>
-      <div class="cc-desc">Override this to draw custom graphics. Here it's used to draw rounded rectangles for the card and the button instead of default square shapes.</div>
-    </div>
-    <div class="concept-card">
-      <div class="cc-label">Concept</div>
-      <div class="cc-title">FocusListener</div>
-      <div class="cc-desc">Detects when a text field gains or loses focus. Used here to show/hide placeholder text — the grey hint that disappears when you click the field.</div>
-    </div>
-    <div class="concept-card">
-      <div class="cc-label">Concept</div>
-      <div class="cc-title">ActionListener (lambda)</div>
-      <div class="cc-desc"><code style="background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:3px;font-family:monospace;font-size:11px;color:#52d9a0">e -> login()</code> is a lambda — a short way to say "when this button is clicked, call the login() method."</div>
-    </div>
+    <div class="concept-card"><div class="cc-label">New</div><div class="cc-title">Role-based routing</div><div class="cc-desc">After authentication, an <code>if/else</code> check on the username decides which dashboard to open. "admin" → inventory dashboard; anything else → client shopping dashboard.</div></div>
+    <div class="concept-card"><div class="cc-label">Concept</div><div class="cc-title">extends JFrame</div><div class="cc-desc">LoginForm inherits all window behaviour from JFrame for free — title bar, close button, sizing.</div></div>
+    <div class="concept-card"><div class="cc-label">Concept</div><div class="cc-title">FocusListener</div><div class="cc-desc">Detects when a text field gains or loses focus — used to show/hide grey placeholder text.</div></div>
+    <div class="concept-card"><div class="cc-label">Concept</div><div class="cc-title">dispose()</div><div class="cc-desc">Destroys the login window after a successful login so it doesn't sit in memory behind the new dashboard.</div></div>
   </div>
-
   <div class="hint-strip">Click a highlighted line to read the explanation</div>
   <div class="code-block">
-    <div class="code-block-header">
-      <span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span>
-      <span style="margin-left:6px;">LoginForm.java</span>
-    </div>
+    <div class="code-block-header"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span><span style="margin-left:6px;">LoginForm.java</span></div>
     <div class="annotated-code" id="code-login"></div>
   </div>
 </section>
 
 <div class="section-div"></div>
 
-<!-- ══════════════════════════════════
-     DASHBOARDFORM.JAVA
-══════════════════════════════════ -->
+<!-- ══ DASHBOARDFORM.JAVA ══ -->
 <section class="file-section" id="dash">
   <div class="file-header">
-    <span class="file-badge badge-dash">UI — Dashboard</span>
+    <span class="file-badge badge-dash">UI — Admin Dashboard</span>
     <span class="file-title">DashboardForm.java</span>
   </div>
-  <p class="file-subtitle">The main application window after login. Displays product cards in a scrollable grid and handles all product management actions: add, edit, delete, search, and refresh.</p>
-
+  <p class="file-subtitle">The admin's inventory management window. Shown only to the admin account after login.</p>
   <div class="purpose-box">
-    <strong>What this file does:</strong> Builds a header bar, control bar, and scrollable product grid. Fetches products from the database and renders each one as a card. Opens modal dialogs for adding and editing products.
+    <strong>What this file does:</strong> Displays all products in a scrollable card grid. Provides Add, Edit, Delete, Search, and Refresh controls. Includes a Logout button that returns to the Login screen. Only the admin sees this view.
   </div>
-
   <div class="concept-row">
-    <div class="concept-card">
-      <div class="cc-label">Concept</div>
-      <div class="cc-title">BorderLayout</div>
-      <div class="cc-desc">Divides a panel into five zones: NORTH, SOUTH, EAST, WEST, CENTER. Used to place the header at top, control bar at bottom, and products in the middle.</div>
-    </div>
-    <div class="concept-card">
-      <div class="cc-label">Concept</div>
-      <div class="cc-title">FlowLayout</div>
-      <div class="cc-desc">Arranges children left-to-right and wraps to the next row when the line is full — like words in a paragraph. Used for the product card grid.</div>
-    </div>
-    <div class="concept-card">
-      <div class="cc-label">Concept</div>
-      <div class="cc-title">JScrollPane</div>
-      <div class="cc-desc">Wraps another panel and adds scroll bars automatically when the content is taller than the visible area.</div>
-    </div>
-    <div class="concept-card">
-      <div class="cc-label">Concept</div>
-      <div class="cc-title">JDialog</div>
-      <div class="cc-desc">A smaller modal window that appears on top of the main window. Used for the "Add Product" and "Edit Product" forms. The user must close it before returning to the dashboard.</div>
-    </div>
+    <div class="concept-card"><div class="cc-label">Concept</div><div class="cc-title">BorderLayout</div><div class="cc-desc">Divides the window into NORTH (header), SOUTH (controls), and CENTER (product grid) zones.</div></div>
+    <div class="concept-card"><div class="cc-label">Concept</div><div class="cc-title">FlowLayout</div><div class="cc-desc">Arranges product cards left-to-right, wrapping to the next row when the line fills — like words in a paragraph.</div></div>
+    <div class="concept-card"><div class="cc-label">New</div><div class="cc-title">Logout button</div><div class="cc-desc">Calls <code>dispose()</code> on the dashboard and opens a fresh LoginForm — letting a different user sign in without restarting the app.</div></div>
+    <div class="concept-card"><div class="cc-label">Concept</div><div class="cc-title">JDialog</div><div class="cc-desc">Modal sub-window used for Add/Edit product forms. Blocks interaction with the dashboard until closed.</div></div>
   </div>
-
   <div class="hint-strip">Click a highlighted line to read the explanation</div>
   <div class="code-block">
-    <div class="code-block-header">
-      <span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span>
-      <span style="margin-left:6px;">DashboardForm.java</span>
-    </div>
+    <div class="code-block-header"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span><span style="margin-left:6px;">DashboardForm.java</span></div>
     <div class="annotated-code" id="code-dash"></div>
   </div>
 </section>
 
 <div class="section-div"></div>
 
-<!-- ══════════════════════════════════
-     RUN.SH
-══════════════════════════════════ -->
+<!-- ══ CLIENTDASHBOARDFORM.JAVA ══ -->
+<section class="file-section" id="client">
+  <div class="file-header">
+    <span class="file-badge badge-client">UI — Client Dashboard</span>
+    <span class="file-title">ClientDashboardForm.java</span>
+  </div>
+  <p class="file-subtitle">The shopping interface for non-admin users. Customers browse products, add them to a cart, and proceed to checkout.</p>
+  <div class="purpose-box">
+    <strong>What this file does:</strong> Shows a product grid with an "Add to Cart" button on each card. Maintains an in-memory cart (<code>Map&lt;Integer, CartItem&gt;</code>), updates the cart button counter, enforces stock limits, and opens the CheckoutDialog when the customer is ready to pay. After payment it deducts stock from the database.
+  </div>
+  <div class="concept-row">
+    <div class="concept-card"><div class="cc-label">New</div><div class="cc-title">Shopping cart</div><div class="cc-desc">A <code>LinkedHashMap&lt;Integer, CartItem&gt;</code> keyed by product ID. LinkedHashMap preserves insertion order so items appear in the cart in the order they were added.</div></div>
+    <div class="concept-card"><div class="cc-label">New</div><div class="cc-title">Stock enforcement</div><div class="cc-desc">Before adding to the cart, the code re-fetches the product from the database to get the live stock count — preventing customers from adding more than what's available.</div></div>
+    <div class="concept-card"><div class="cc-label">New</div><div class="cc-title">completePurchase()</div><div class="cc-desc">Called by CheckoutDialog on payment. Loops through cart items and calls <code>updateProduct()</code> to reduce each product's stock in the database, then clears the cart.</div></div>
+    <div class="concept-card"><div class="cc-label">Concept</div><div class="cc-title">Runnable callback</div><div class="cc-desc">A <code>Runnable</code> is passed into CheckoutDialog. When payment succeeds, the dialog calls <code>onPaymentComplete.run()</code> — triggering <code>completePurchase()</code> back in this class without the dialog needing to know about it directly.</div></div>
+  </div>
+  <div class="hint-strip">Click a highlighted line to read the explanation</div>
+  <div class="code-block">
+    <div class="code-block-header"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span><span style="margin-left:6px;">ClientDashboardForm.java</span></div>
+    <div class="annotated-code" id="code-client"></div>
+  </div>
+</section>
+
+<div class="section-div"></div>
+
+<!-- ══ CHECKOUTDIALOG.JAVA ══ -->
+<section class="file-section" id="checkout">
+  <div class="file-header">
+    <span class="file-badge badge-checkout">UI — Checkout</span>
+    <span class="file-title">CheckoutDialog.java</span>
+  </div>
+  <p class="file-subtitle">A three-step modal dialog that guides the customer through Cart review → Shipping details → Payment. The most complex UI component in the project.</p>
+  <div class="purpose-box">
+    <strong>What this file does:</strong> Uses a <em>CardLayout</em> to host three panels in one dialog and a step index to track which panel is visible. Validates each step before advancing. On the final step it calls the <code>onPaymentComplete</code> callback to trigger stock deduction and cart clearing in the parent window.
+  </div>
+  <div class="concept-row">
+    <div class="concept-card"><div class="cc-label">New</div><div class="cc-title">CardLayout (multi-step)</div><div class="cc-desc">All three step panels live in the same container; CardLayout shows only one at a time. Switching steps is just <code>show(cards, stateName)</code> — no panels are created or destroyed mid-flow.</div></div>
+    <div class="concept-card"><div class="cc-label">New</div><div class="cc-title">enum CardState</div><div class="cc-desc">An <em>enum</em> is a fixed list of named constants. <code>CardState.CART</code>, <code>SHIPPING</code>, and <code>PAYMENT</code> make the step logic readable and type-safe — impossible to accidentally pass an invalid step name.</div></div>
+    <div class="concept-card"><div class="cc-label">New</div><div class="cc-title">Order summary panel</div><div class="cc-desc">The Cart Review step shows each CartItem with its thumbnail, quantity controls, and a running total. The summary column shows subtotal + shipping + 8% tax.</div></div>
+    <div class="concept-card"><div class="cc-label">New</div><div class="cc-title">Custom card icons</div><div class="cc-desc"><code>createCardIcon()</code> paints mini payment-brand badges (Visa, Mastercard, Verve) using <code>Graphics2D.fillRoundRect</code> and centred text — no images needed.</div></div>
+  </div>
+  <div class="hint-strip">Click a highlighted line to read the explanation</div>
+  <div class="code-block">
+    <div class="code-block-header"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span><span style="margin-left:6px;">CheckoutDialog.java</span></div>
+    <div class="annotated-code" id="code-checkout"></div>
+  </div>
+</section>
+
+<div class="section-div"></div>
+
+<!-- ══ RUN.SH ══ -->
 <section class="file-section" id="shell">
   <div class="file-header">
     <span class="file-badge badge-shell">Build &amp; Run</span>
     <span class="file-title">run.sh</span>
   </div>
-  <p class="file-subtitle">A Bash shell script that launches the compiled application. Instead of typing the full <code style="background:rgba(255,255,255,0.06);padding:2px 7px;border-radius:3px;font-family:monospace;font-size:12px;color:#52d9a0">java -jar …</code> command each time, you just run <code style="background:rgba(255,255,255,0.06);padding:2px 7px;border-radius:3px;font-family:monospace;font-size:12px;color:#52d9a0">./run.sh</code>.</p>
-
+  <p class="file-subtitle">A Bash script that launches the compiled JAR. Run <code style="background:rgba(255,255,255,0.06);padding:2px 7px;border-radius:3px;font-family:monospace;font-size:12px;color:#52d9a0">./run.sh</code> instead of typing the full java command each time.</p>
   <div class="purpose-box">
-    <strong>What this file does:</strong> Checks that the compiled JAR file exists before trying to run it, prints a helpful error message if it doesn't (and reminds you to build first), then executes the JAR, forwarding any extra command-line arguments.
+    <strong>What this file does:</strong> Checks the JAR exists, prints a helpful build reminder if it doesn't, then executes it — forwarding any extra arguments.
   </div>
-
   <div class="concept-row">
-    <div class="concept-card">
-      <div class="cc-label">Concept</div>
-      <div class="cc-title">shebang (#!)</div>
-      <div class="cc-desc">The very first line of any shell script. Tells the operating system which interpreter to use — here <em>/usr/bin/env bash</em> finds Bash wherever it's installed on the machine.</div>
-    </div>
-    <div class="concept-card">
-      <div class="cc-label">Concept</div>
-      <div class="cc-title">set -euo pipefail</div>
-      <div class="cc-desc">Three safety flags in one: <em>-e</em> exits on any error, <em>-u</em> treats unset variables as errors, <em>-o pipefail</em> catches failures in piped commands. Together they prevent silent failures.</div>
-    </div>
-    <div class="concept-card">
-      <div class="cc-label">Concept</div>
-      <div class="cc-title">[ ! -f "$VAR" ]</div>
-      <div class="cc-desc">A file-existence check. <em>-f</em> is true if the path is a regular file. The <em>!</em> negates it — so the block runs when the file is <em>missing</em>.</div>
-    </div>
-    <div class="concept-card">
-      <div class="cc-label">Concept</div>
-      <div class="cc-title">"$@"</div>
-      <div class="cc-desc">Passes all arguments the user gave to <em>run.sh</em> straight through to <em>java -jar</em>. Useful for future flags without changing the script.</div>
-    </div>
+    <div class="concept-card"><div class="cc-label">Concept</div><div class="cc-title">shebang (#!)</div><div class="cc-desc">First line of any shell script. Tells the OS which interpreter to use — here Bash, located via <em>/usr/bin/env</em> for portability.</div></div>
+    <div class="concept-card"><div class="cc-label">Concept</div><div class="cc-title">set -euo pipefail</div><div class="cc-desc">Three safety flags: exit on error (-e), treat unset variables as errors (-u), catch pipeline failures (-o pipefail).</div></div>
+    <div class="concept-card"><div class="cc-label">Concept</div><div class="cc-title">[ ! -f "$VAR" ]</div><div class="cc-desc">File-existence test. True when the file is <em>missing</em>. Guards against running a non-existent JAR.</div></div>
+    <div class="concept-card"><div class="cc-label">Concept</div><div class="cc-title">"$@"</div><div class="cc-desc">Forwards all arguments passed to run.sh straight through to java — useful for future flags.</div></div>
   </div>
-
   <div class="hint-strip">Click a highlighted line to read the explanation</div>
   <div class="code-block">
-    <div class="code-block-header">
-      <span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span>
-      <span style="margin-left:6px;">run.sh</span>
-    </div>
+    <div class="code-block-header"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span><span style="margin-left:6px;">run.sh</span></div>
     <div class="annotated-code" id="code-shell"></div>
   </div>
 </section>
@@ -705,426 +497,402 @@
 </div>
 
 <script>
-// ═══════════════════════════════════════════════════════════
-//  DATA
-// ═══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════
+//  DEMO UPLOAD
+// ═══════════════════════════════════════════════
+const demoInput   = document.getElementById('demo-file-input');
+const dropZone    = document.getElementById('demo-drop-zone');
+const placeholder = document.getElementById('demo-placeholder');
+const previewImg  = document.getElementById('demo-preview-img');
+const previewVid  = document.getElementById('demo-preview-vid');
+const removeBtn   = document.getElementById('demo-remove-btn');
+
+demoInput.addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (file) loadDemoMedia(file);
+});
+
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.style.borderColor = 'var(--accent)'; });
+dropZone.addEventListener('dragleave', () => { dropZone.style.borderColor = 'var(--border)'; });
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.style.borderColor = 'var(--border)';
+  const file = e.dataTransfer.files[0];
+  if (file) loadDemoMedia(file);
+});
+
+function loadDemoMedia(file) {
+  const url = URL.createObjectURL(file);
+  const isVideo = file.type.startsWith('video/');
+  placeholder.style.display = 'none';
+  removeBtn.classList.add('visible');
+  if (isVideo) {
+    previewImg.style.display = 'none';
+    previewVid.src = url;
+    previewVid.style.display = 'block';
+  } else {
+    previewVid.style.display = 'none';
+    previewImg.src = url;
+    previewImg.style.display = 'block';
+  }
+}
+
+function removeDemoMedia() {
+  previewImg.style.display = 'none';
+  previewVid.style.display = 'none';
+  previewImg.src = '';
+  previewVid.src = '';
+  placeholder.style.display = '';
+  removeBtn.classList.remove('visible');
+  demoInput.value = '';
+}
+
+// ═══════════════════════════════════════════════
+//  CODE DATA
+// ═══════════════════════════════════════════════
 const files = {
 
-// ─── MAIN.JAVA ───────────────────────────────────────────
 main: [
-  { code: `<span class="kw">package</span> <span class="pkg">com.fashionstore</span>;`, note: `<span class="note-icon">📦</span> Declares this file belongs to the <em>com.fashionstore</em> package — think of it as the folder address. Java uses this to organise and locate files.` },
+  { code: `<span class="kw">package</span> <span class="pkg">com.fashionstore</span>;`, note: `<span class="note-icon">📦</span> Declares this file belongs to the <em>com.fashionstore</em> package — Java's way of organising files into logical folders.` },
   { code: `` },
-  { code: `<span class="kw">import</span> <span class="pkg">javax.swing.SwingUtilities</span>;`, note: `<span class="note-icon">📥</span> Imports <em>SwingUtilities</em> — a helper class from Java's built-in Swing GUI library. We specifically need its <code>invokeLater</code> method.` },
+  { code: `<span class="kw">import</span> <span class="pkg">javax.swing.SwingUtilities</span>;`, note: `<span class="note-icon">📥</span> Imports <em>SwingUtilities</em> from Java's built-in Swing GUI library. We need its <code>invokeLater</code> method to start the UI safely.` },
+  { code: `<span class="kw">import</span> <span class="pkg">com.fashionstore.db.DatabaseManager</span>;`, note: `<span class="note-icon">📥</span> Our own database manager class so we can call <code>initializeDatabase()</code> before the UI opens.` },
+  { code: `<span class="kw">import</span> <span class="pkg">com.fashionstore.ui.LoginForm</span>;`, note: `<span class="note-icon">📥</span> The login window class — the first screen we want to display.` },
   { code: `` },
-  { code: `<span class="kw">import</span> <span class="pkg">com.fashionstore.db.DatabaseManager</span>;`, note: `<span class="note-icon">📥</span> Imports our own <em>DatabaseManager</em> class from the <code>db</code> sub-package so we can call its methods here.` },
-  { code: `<span class="kw">import</span> <span class="pkg">com.fashionstore.ui.LoginForm</span>;`, note: `<span class="note-icon">📥</span> Imports our own <em>LoginForm</em> class from the <code>ui</code> sub-package — this is the login window we want to display.` },
-  { code: `` },
-  { code: `<span class="kw">public class</span> <span class="typ">Main</span> {`, note: `<span class="note-icon">🏗️</span> Declares a <em>public class</em> named <em>Main</em>. Public means any other class can see and use it. The curly brace opens the class body — everything between <code>{</code> and <code>}</code> belongs to this class.` },
-  { code: `    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="typ">String</span>[] <span class="var">args</span>) {`, note: `<span class="note-icon">🚀</span> This is <em>the</em> entry point — the very first line Java executes. <em>public</em>: everyone can call it. <em>static</em>: belongs to the class, not an object. <em>void</em>: returns nothing. <em>String[] args</em>: command-line arguments (we don't use them here).` },
-  { code: `        <span class="typ">SwingUtilities</span>.<span class="fn">invokeLater</span>(() -> {`, note: `<span class="note-icon">🧵</span> GUI programs must run on a special thread called the <em>Event Dispatch Thread (EDT)</em>. <em>invokeLater</em> schedules the code inside the lambda <code>() -> { }</code> to run on that thread — preventing visual glitches and thread-safety issues.` },
-  { code: `            <span class="typ">DatabaseManager</span> <span class="var">db</span> = <span class="typ">DatabaseManager</span>.<span class="fn">getInstance</span>();`, note: `<span class="note-icon">🗄️</span> Calls <em>getInstance()</em> — the Singleton method that returns the one shared instance of DatabaseManager. We store it in the variable <em>db</em>.` },
-  { code: `            <span class="var">db</span>.<span class="fn">initializeDatabase</span>();`, note: `<span class="note-icon">⚙️</span> Tells the database manager to set up the database — creates the tables and inserts default data if they don't already exist. This must happen before the UI opens, so the app always has a working database ready.` },
-  { code: `            <span class="kw">new</span> <span class="typ">LoginForm</span>().<span class="fn">setVisible</span>(<span class="kw">true</span>);`, note: `<span class="note-icon">🪟</span> Creates a brand new LoginForm object (which builds the window) and immediately calls <em>setVisible(true)</em> to display it on screen. Without that call the window exists but is hidden.` },
+  { code: `<span class="kw">public class</span> <span class="typ">Main</span> {`, note: `<span class="note-icon">🏗️</span> Declares the class. <em>public</em> means any other file can see it. The curly brace opens the class body.` },
+  { code: `    <span class="kw">public static void</span> <span class="fn">main</span>(<span class="typ">String</span>[] <span class="var">args</span>) {`, note: `<span class="note-icon">🚀</span> The entry point Java looks for first. <em>static</em>: no object needed to call it. <em>void</em>: returns nothing. <em>String[] args</em>: command-line arguments (unused here).` },
+  { code: `        <span class="typ">SwingUtilities</span>.<span class="fn">invokeLater</span>(() -> {`, note: `<span class="note-icon">🧵</span> Schedules everything inside the lambda to run on the <em>Event Dispatch Thread</em> — the dedicated thread for all Swing GUI work. Required to avoid visual glitches.` },
+  { code: `            <span class="typ">DatabaseManager</span> <span class="var">db</span> = <span class="typ">DatabaseManager</span>.<span class="fn">getInstance</span>();`, note: `<span class="note-icon">🗄️</span> Gets the single shared DatabaseManager instance (Singleton pattern). Stored in <em>db</em> for the next call.` },
+  { code: `            <span class="var">db</span>.<span class="fn">initializeDatabase</span>();`, note: `<span class="note-icon">⚙️</span> Creates tables and seeds default data if the database file doesn't exist yet. Must run before any UI opens so the app always has a working database.` },
+  { code: `            <span class="kw">new</span> <span class="typ">LoginForm</span>().<span class="fn">setVisible</span>(<span class="kw">true</span>);`, note: `<span class="note-icon">🪟</span> Creates the LoginForm (building the window in its constructor) and makes it visible. Without <code>setVisible(true)</code> the window is built but hidden.` },
   { code: `        });` },
   { code: `    }` },
   { code: `}` },
 ],
 
-// ─── PRODUCT.JAVA ─────────────────────────────────────────
 product: [
-  { code: `<span class="kw">package</span> <span class="pkg">com.fashionstore.model</span>;`, note: `<span class="note-icon">📦</span> Places this class in the <em>model</em> sub-package — a common convention meaning "data structure." Keeps data classes separate from UI and database classes.` },
+  { code: `<span class="kw">package</span> <span class="pkg">com.fashionstore.model</span>;`, note: `<span class="note-icon">📦</span> In the <em>model</em> sub-package — a naming convention meaning "data structure." Keeps data classes separate from UI and database code.` },
   { code: `` },
-  { code: `<span class="kw">public class</span> <span class="typ">Product</span> {`, note: `<span class="note-icon">🏗️</span> Declares the <em>Product</em> class. This is a data blueprint — it does not draw windows or talk to databases; it just holds and exposes product information.` },
-  { code: `    <span class="kw">private final int</span> <span class="var">id</span>;`, note: `<span class="note-icon">🔒</span> Declares a <em>private final int</em> field called <em>id</em>. <em>private</em>: only code inside this class can directly read it. <em>final</em>: once assigned in the constructor, it can never change. <em>int</em>: a whole number (the database row ID).` },
-  { code: `    <span class="kw">private final</span> <span class="typ">String</span> <span class="var">name</span>;`, note: `<span class="note-icon">🔒</span> The product's name as text (a <em>String</em>). Also private and final — immutable after construction.` },
-  { code: `    <span class="kw">private final</span> <span class="typ">String</span> <span class="var">category</span>;`, note: `<span class="note-icon">🔒</span> The category (e.g. "Shirts", "Jeans"). Same rules: private, final, String.` },
-  { code: `    <span class="kw">private final double</span> <span class="var">price</span>;`, note: `<span class="note-icon">🔒</span> The price as a <em>double</em> — a decimal number (e.g. 29.99). Final so the price stored in memory cannot be accidentally changed.` },
-  { code: `    <span class="kw">private final int</span> <span class="var">quantity</span>;`, note: `<span class="note-icon">🔒</span> How many units are in stock — stored as a whole number (<em>int</em>).` },
-  { code: `    <span class="kw">private final</span> <span class="typ">String</span> <span class="var">imageUrl</span>;`, note: `<span class="note-icon">🔒</span> The filename of the product's image (e.g. "shirt.jpg"). Despite being called <em>imageUrl</em>, in practice it stores just the filename that the UI uses to find the image in the resources folder.` },
+  { code: `<span class="kw">public class</span> <span class="typ">Product</span> {`, note: `<span class="note-icon">🏗️</span> The Product blueprint. All the other layers (UI, database, cart) pass Product objects around instead of raw strings and numbers.` },
+  { code: `    <span class="kw">private final int</span> <span class="var">id</span>;`, note: `<span class="note-icon">🔒</span> <em>private</em>: only readable inside this class. <em>final</em>: set once in the constructor, never changed. <em>int</em>: the database row ID (a whole number).` },
+  { code: `    <span class="kw">private final</span> <span class="typ">String</span> <span class="var">name</span>;`, note: `<span class="note-icon">🔒</span> The product's display name as text. Immutable after construction.` },
+  { code: `    <span class="kw">private final</span> <span class="typ">String</span> <span class="var">category</span>;`, note: `<span class="note-icon">🔒</span> Category label (e.g. "Shirts", "Jeans", "Accessories").` },
+  { code: `    <span class="kw">private final double</span> <span class="var">price</span>;`, note: `<span class="note-icon">🔒</span> Price as a decimal number. <em>double</em> can hold values like 29.99.` },
+  { code: `    <span class="kw">private final int</span> <span class="var">quantity</span>;`, note: `<span class="note-icon">🔒</span> Current stock level. When a customer buys units, the app creates a new Product with a reduced quantity and calls <code>updateProduct()</code>.` },
+  { code: `    <span class="kw">private final</span> <span class="typ">String</span> <span class="var">imageUrl</span>;`, note: `<span class="note-icon">🔒</span> The image filename (e.g. "shirt.jpg"). The UI prepends "/images/" to locate the file in the resources folder.` },
   { code: `` },
-  { code: `    <span class="kw">public</span> <span class="typ">Product</span>(<span class="kw">int</span> <span class="var">id</span>, <span class="typ">String</span> <span class="var">name</span>, <span class="typ">String</span> <span class="var">category</span>,`, note: `<span class="note-icon">🏗️</span> The <em>full constructor</em> — used when loading products FROM the database (where the database assigns an ID). Accepts all six values as parameters.` },
+  { code: `    <span class="kw">public</span> <span class="typ">Product</span>(<span class="kw">int</span> <span class="var">id</span>, <span class="typ">String</span> <span class="var">name</span>, <span class="typ">String</span> <span class="var">category</span>,`, note: `<span class="note-icon">🏗️</span> The <em>full constructor</em> — used when reading a product FROM the database, where the database has already assigned an ID.` },
   { code: `            <span class="kw">double</span> <span class="var">price</span>, <span class="kw">int</span> <span class="var">quantity</span>, <span class="typ">String</span> <span class="var">imageUrl</span>) {` },
-  { code: `        <span class="kw">this</span>.<span class="var">id</span> = <span class="var">id</span>;`, note: `<span class="note-icon">➡️</span> <em>this.id</em> refers to the object's own <em>id</em> field. This line assigns the parameter value into the field. <em>this</em> distinguishes the field from the parameter when both have the same name.` },
-  { code: `        <span class="kw">this</span>.<span class="var">name</span> = <span class="var">name</span>;`, note: `<span class="note-icon">➡️</span> Assigns the <em>name</em> parameter to the <em>name</em> field of this object.` },
-  { code: `        <span class="kw">this</span>.<span class="var">category</span> = <span class="var">category</span>;`, note: `<span class="note-icon">➡️</span> Assigns the <em>category</em> parameter to the field.` },
-  { code: `        <span class="kw">this</span>.<span class="var">price</span> = <span class="var">price</span>;`, note: `<span class="note-icon">➡️</span> Assigns the <em>price</em> decimal value.` },
-  { code: `        <span class="kw">this</span>.<span class="var">quantity</span> = <span class="var">quantity</span>;`, note: `<span class="note-icon">➡️</span> Assigns the <em>quantity</em> integer.` },
-  { code: `        <span class="kw">this</span>.<span class="var">imageUrl</span> = <span class="var">imageUrl</span>;`, note: `<span class="note-icon">➡️</span> Assigns the image filename string.` },
+  { code: `        <span class="kw">this</span>.<span class="var">id</span> = <span class="var">id</span>;`, note: `<span class="note-icon">➡️</span> <em>this.id</em> is the object's own field; <em>id</em> is the parameter. This line copies the parameter value into the field. <em>this</em> is needed because both have the same name.` },
+  { code: `        <span class="kw">this</span>.<span class="var">name</span> = <span class="var">name</span>;` },
+  { code: `        <span class="kw">this</span>.<span class="var">category</span> = <span class="var">category</span>;` },
+  { code: `        <span class="kw">this</span>.<span class="var">price</span> = <span class="var">price</span>;` },
+  { code: `        <span class="kw">this</span>.<span class="var">quantity</span> = <span class="var">quantity</span>;` },
+  { code: `        <span class="kw">this</span>.<span class="var">imageUrl</span> = <span class="var">imageUrl</span>;` },
   { code: `    }` },
   { code: `` },
-  { code: `    <span class="kw">public</span> <span class="typ">Product</span>(<span class="typ">String</span> <span class="var">name</span>, <span class="typ">String</span> <span class="var">category</span>,`, note: `<span class="note-icon">🏗️</span> A second <em>convenience constructor</em> — used when ADDING a new product (before the database creates an ID). It only takes 5 parameters instead of 6. This is called <em>constructor overloading</em>.` },
+  { code: `    <span class="kw">public</span> <span class="typ">Product</span>(<span class="typ">String</span> <span class="var">name</span>, <span class="typ">String</span> <span class="var">category</span>,`, note: `<span class="note-icon">🏗️</span> <em>Convenience constructor</em> — used when ADDING a new product. No ID yet (the database will assign one), so only 5 parameters are needed. This is <em>constructor overloading</em>.` },
   { code: `            <span class="kw">double</span> <span class="var">price</span>, <span class="kw">int</span> <span class="var">quantity</span>, <span class="typ">String</span> <span class="var">imageUrl</span>) {` },
-  { code: `        <span class="kw">this</span>(<span class="num">0</span>, <span class="var">name</span>, <span class="var">category</span>, <span class="var">price</span>, <span class="var">quantity</span>, <span class="var">imageUrl</span>);`, note: `<span class="note-icon">♻️</span> <em>this(...)</em> calls the other (full) constructor, passing <em>0</em> as a placeholder id. This avoids duplicating all the assignment code — a clean pattern called <em>constructor chaining</em>.` },
+  { code: `        <span class="kw">this</span>(<span class="num">0</span>, <span class="var">name</span>, <span class="var">category</span>, <span class="var">price</span>, <span class="var">quantity</span>, <span class="var">imageUrl</span>);`, note: `<span class="note-icon">♻️</span> <em>Constructor chaining</em> — calls the full 6-param constructor with <em>0</em> as a placeholder ID. Avoids duplicating the field assignments.` },
   { code: `    }` },
   { code: `` },
-  { code: `    <span class="kw">public int</span> <span class="fn">getId</span>() { <span class="kw">return</span> <span class="var">id</span>; }`, note: `<span class="note-icon">🔍</span> A <em>getter</em> method. Because <em>id</em> is private, other classes cannot do <code>product.id</code> directly — they must call <code>product.getId()</code> instead. This enforces <em>encapsulation</em>: the field stays private and safe.` },
-  { code: `    <span class="kw">public</span> <span class="typ">String</span> <span class="fn">getName</span>() { <span class="kw">return</span> <span class="var">name</span>; }`, note: `<span class="note-icon">🔍</span> Returns the product's name. Called by the UI to display the name on a product card.` },
-  { code: `    <span class="kw">public</span> <span class="typ">String</span> <span class="fn">getCategory</span>() { <span class="kw">return</span> <span class="var">category</span>; }`, note: `<span class="note-icon">🔍</span> Returns the category string (e.g. "Shirts"). Used on the product card label.` },
-  { code: `    <span class="kw">public double</span> <span class="fn">getPrice</span>() { <span class="kw">return</span> <span class="var">price</span>; }`, note: `<span class="note-icon">🔍</span> Returns the price as a double. The dashboard formats it with <code>String.format("%.2f", ...)</code> to show two decimal places.` },
-  { code: `    <span class="kw">public int</span> <span class="fn">getQuantity</span>() { <span class="kw">return</span> <span class="var">quantity</span>; }`, note: `<span class="note-icon">🔍</span> Returns the stock quantity. Displayed on the card as "Stock: 50".` },
-  { code: `    <span class="kw">public</span> <span class="typ">String</span> <span class="fn">getImageUrl</span>() { <span class="kw">return</span> <span class="var">imageUrl</span>; }`, note: `<span class="note-icon">🔍</span> Returns the image filename. The UI appends this to "/images/" to locate and load the image from the app's resources.` },
+  { code: `    <span class="kw">public int</span> <span class="fn">getId</span>() { <span class="kw">return</span> <span class="var">id</span>; }`, note: `<span class="note-icon">🔍</span> Getter for the database ID. Other classes call <code>product.getId()</code> rather than accessing <code>product.id</code> directly — the field stays private and safe.` },
+  { code: `    <span class="kw">public</span> <span class="typ">String</span> <span class="fn">getName</span>() { <span class="kw">return</span> <span class="var">name</span>; }`, note: `<span class="note-icon">🔍</span> Returns the product's display name. Used on product cards and in cart rows.` },
+  { code: `    <span class="kw">public</span> <span class="typ">String</span> <span class="fn">getCategory</span>() { <span class="kw">return</span> <span class="var">category</span>; }`, note: `<span class="note-icon">🔍</span> Returns the category string displayed below the product name on each card.` },
+  { code: `    <span class="kw">public double</span> <span class="fn">getPrice</span>() { <span class="kw">return</span> <span class="var">price</span>; }`, note: `<span class="note-icon">🔍</span> Returns the price. Checkout multiplies this by the quantity to get line totals.` },
+  { code: `    <span class="kw">public int</span> <span class="fn">getQuantity</span>() { <span class="kw">return</span> <span class="var">quantity</span>; }`, note: `<span class="note-icon">🔍</span> Returns current stock. Used to decide whether the "Add to Cart" button is enabled or shows "Out of Stock".` },
+  { code: `    <span class="kw">public</span> <span class="typ">String</span> <span class="fn">getImageUrl</span>() { <span class="kw">return</span> <span class="var">imageUrl</span>; }`, note: `<span class="note-icon">🔍</span> Returns the image filename. Prepended with "/images/" to load from the JAR's resource folder.` },
   { code: `}` },
 ],
 
-// ─── DATABASEMANAGER.JAVA ─────────────────────────────────
-db: [
-  { code: `<span class="kw">package</span> <span class="pkg">com.fashionstore.db</span>;` },
+cartitem: [
+  { code: `<span class="kw">package</span> <span class="pkg">com.fashionstore.model</span>;`, note: `<span class="note-icon">📦</span> Sits in the <em>model</em> package alongside Product — both are plain data-holding classes.` },
   { code: `` },
-  { code: `<span class="kw">import</span> <span class="pkg">java.sql.Connection</span>; <span class="cmt">// ...</span>`, note: `<span class="note-icon">📥</span> All the <em>java.sql.*</em> imports bring in JDBC — Java's standard API for talking to any SQL database. Connection handles the link, PreparedStatement builds queries, ResultSet holds query results.` },
-  { code: `<span class="kw">import</span> <span class="pkg">com.fashionstore.model.Product</span>;`, note: `<span class="note-icon">📥</span> Imports our own Product class so we can return and receive Product objects in the database methods.` },
+  { code: `<span class="kw">public class</span> <span class="typ">CartItem</span> {`, note: `<span class="note-icon">🛒</span> A simple wrapper that bundles a Product with a chosen quantity. Every entry in the customer's cart is one CartItem.` },
+  { code: `    <span class="kw">private final</span> <span class="typ">Product</span> <span class="var">product</span>;`, note: `<span class="note-icon">🔒</span> Holds the full Product object — not just an ID. This gives the checkout direct access to the name, price, and image without a second database lookup.` },
+  { code: `    <span class="kw">private final int</span> <span class="var">quantity</span>;`, note: `<span class="note-icon">🔒</span> How many units the customer wants. <em>final</em>: to change the quantity a new CartItem is created rather than mutating this one. Immutable objects are easier to reason about.` },
   { code: `` },
-  { code: `<span class="kw">public class</span> <span class="typ">DatabaseManager</span> {`, note: `<span class="note-icon">🏗️</span> Declares the class. This is the single point of contact between the rest of the app and the database — a pattern called the <em>Data Access Object (DAO)</em> or <em>Repository</em>.` },
-  { code: `    <span class="kw">private static final</span> <span class="typ">String</span> <span class="var">DB_URL</span> = <span class="str">"jdbc:sqlite:fashion_store.db"</span>;`, note: `<span class="note-icon">🔗</span> The JDBC connection string. <em>jdbc:sqlite:</em> tells Java which database driver to use. <em>fashion_store.db</em> is the database filename — SQLite creates this file in the working directory on first use.` },
-  { code: `    <span class="kw">private static</span> <span class="typ">DatabaseManager</span> <span class="var">instance</span>;`, note: `<span class="note-icon">🔑</span> The Singleton's secret ingredient — a <em>static</em> variable that holds the one and only instance of this class. Static means it belongs to the class itself, not any object.` },
-  { code: `` },
-  { code: `    <span class="kw">private</span> <span class="typ">DatabaseManager</span>() {`, note: `<span class="note-icon">🔒</span> A <em>private constructor</em> — key to the Singleton pattern. Because it is private, no other class can do <code>new DatabaseManager()</code>. They are forced to use <em>getInstance()</em> instead.` },
-  { code: `        <span class="kw">try</span> {` },
-  { code: `            <span class="typ">Class</span>.<span class="fn">forName</span>(<span class="str">"org.sqlite.JDBC"</span>);`, note: `<span class="note-icon">🔌</span> Dynamically loads the SQLite JDBC driver class into memory. This registers the driver so that subsequent calls to <em>DriverManager.getConnection()</em> know how to handle a <code>jdbc:sqlite:</code> URL.` },
-  { code: `        } <span class="kw">catch</span> (<span class="typ">ClassNotFoundException</span> <span class="var">e</span>) {` },
-  { code: `            <span class="kw">throw new</span> <span class="typ">RuntimeException</span>(<span class="str">"SQLite JDBC driver not found."</span>, <span class="var">e</span>);`, note: `<span class="note-icon">💥</span> If the SQLite driver JAR is missing from the classpath, the app cannot run at all — so we throw an unchecked <em>RuntimeException</em> immediately rather than silently continuing with a broken state.` },
-  { code: `        }` },
+  { code: `    <span class="kw">public</span> <span class="typ">CartItem</span>(<span class="typ">Product</span> <span class="var">product</span>, <span class="kw">int</span> <span class="var">quantity</span>) {`, note: `<span class="note-icon">🏗️</span> The only constructor. Both values are required — you cannot create a CartItem without knowing which product and how many.` },
+  { code: `        <span class="kw">this</span>.<span class="var">product</span> = <span class="var">product</span>;`, note: `<span class="note-icon">➡️</span> Stores the reference to the Product object. Java stores objects by reference, so this CartItem and the dashboard card point to the same Product in memory.` },
+  { code: `        <span class="kw">this</span>.<span class="var">quantity</span> = <span class="var">quantity</span>;` },
   { code: `    }` },
   { code: `` },
-  { code: `    <span class="kw">public static synchronized</span> <span class="typ">DatabaseManager</span> <span class="fn">getInstance</span>() {`, note: `<span class="note-icon">🔑</span> The Singleton accessor. <em>static</em>: callable on the class, not an object. <em>synchronized</em>: thread-safe — if two threads call this simultaneously, only one enters at a time, preventing two instances from being created.` },
-  { code: `        <span class="kw">if</span> (<span class="var">instance</span> == <span class="kw">null</span>) {` },
-  { code: `            <span class="var">instance</span> = <span class="kw">new</span> <span class="typ">DatabaseManager</span>();`, note: `<span class="note-icon">🆕</span> Only creates a new instance if none exists yet. After this line, every future call to <em>getInstance()</em> returns this same object — that is the entire Singleton pattern.` },
-  { code: `        }` },
+  { code: `    <span class="kw">public</span> <span class="typ">Product</span> <span class="fn">getProduct</span>() {`, note: `<span class="note-icon">🔍</span> Returns the embedded Product object. The checkout dialog calls <code>item.getProduct().getPrice()</code> and <code>item.getProduct().getName()</code> to build the order summary.` },
+  { code: `        <span class="kw">return</span> <span class="var">product</span>;` },
+  { code: `    }` },
+  { code: `` },
+  { code: `    <span class="kw">public int</span> <span class="fn">getQuantity</span>() {`, note: `<span class="note-icon">🔍</span> Returns the unit count. Multiplied by the product price for line totals. Also used in <code>updateCartButtonText()</code> to count how many items are in the cart overall.` },
+  { code: `        <span class="kw">return</span> <span class="var">quantity</span>;` },
+  { code: `    }` },
+  { code: `}` },
+],
+
+db: [
+  { code: `<span class="kw">package</span> <span class="pkg">com.fashionstore.db</span>;` },
+  { code: `<span class="cmt">// java.sql.* imports + Product import</span>`, note: `<span class="note-icon">📥</span> <em>java.sql.*</em> provides the JDBC API — Connection, PreparedStatement, ResultSet, etc. — for talking to any SQL database from Java.` },
+  { code: `` },
+  { code: `<span class="kw">public class</span> <span class="typ">DatabaseManager</span> {` },
+  { code: `    <span class="kw">private static final</span> <span class="typ">String</span> <span class="var">DB_URL</span> = <span class="str">"jdbc:sqlite:fashion_store.db"</span>;`, note: `<span class="note-icon">🔗</span> The JDBC URL. <em>jdbc:sqlite:</em> selects the SQLite driver; <em>fashion_store.db</em> is the file SQLite creates on disk on first connection.` },
+  { code: `    <span class="kw">private static</span> <span class="typ">DatabaseManager</span> <span class="var">instance</span>;`, note: `<span class="note-icon">🔑</span> The one-and-only instance storage for the Singleton. <em>static</em>: belongs to the class, not any object.` },
+  { code: `` },
+  { code: `    <span class="kw">private</span> <span class="typ">DatabaseManager</span>() {`, note: `<span class="note-icon">🔒</span> Private constructor — prevents <code>new DatabaseManager()</code> from anywhere else. Callers must use <code>getInstance()</code>.` },
+  { code: `        <span class="typ">Class</span>.<span class="fn">forName</span>(<span class="str">"org.sqlite.JDBC"</span>);`, note: `<span class="note-icon">🔌</span> Loads the SQLite JDBC driver JAR into memory so <code>DriverManager</code> knows how to handle <code>jdbc:sqlite:</code> URLs.` },
+  { code: `    }` },
+  { code: `` },
+  { code: `    <span class="kw">public static synchronized</span> <span class="typ">DatabaseManager</span> <span class="fn">getInstance</span>() {`, note: `<span class="note-icon">🔑</span> <em>synchronized</em> makes this thread-safe — if two threads call it at the same moment, only one enters at a time, preventing two instances from being created.` },
+  { code: `        <span class="kw">if</span> (<span class="var">instance</span> == <span class="kw">null</span>) <span class="var">instance</span> = <span class="kw">new</span> <span class="typ">DatabaseManager</span>();`, note: `<span class="note-icon">🆕</span> Creates the instance only on the very first call. Every subsequent call skips this line and returns the existing object.` },
   { code: `        <span class="kw">return</span> <span class="var">instance</span>;` },
   { code: `    }` },
   { code: `` },
-  { code: `    <span class="kw">public</span> <span class="typ">Connection</span> <span class="fn">getConnection</span>() <span class="kw">throws</span> <span class="typ">SQLException</span> {`, note: `<span class="note-icon">🔗</span> Opens and returns a fresh database connection. We open a new connection per operation rather than holding one open permanently — simpler and safer for a desktop app. The <em>throws SQLException</em> means callers must handle connection errors.` },
-  { code: `        <span class="kw">return</span> <span class="typ">DriverManager</span>.<span class="fn">getConnection</span>(<span class="var">DB_URL</span>);` },
+  { code: `    <span class="kw">public void</span> <span class="fn">initializeDatabase</span>() {`, note: `<span class="note-icon">⚙️</span> Called once at startup. Idempotent — safe to call every launch because all DDL uses <em>IF NOT EXISTS</em> and inserts use <em>INSERT OR IGNORE</em>.` },
+  { code: `        <span class="var">stmt</span>.<span class="fn">executeUpdate</span>(<span class="str">"CREATE TABLE IF NOT EXISTS users ..."</span>);`, note: `<span class="note-icon">📋</span> Creates the <em>users</em> table only if it doesn't already exist. Columns: username (primary key) and password.` },
+  { code: `        <span class="var">stmt</span>.<span class="fn">executeUpdate</span>(<span class="str">"CREATE TABLE IF NOT EXISTS products ..."</span>);`, note: `<span class="note-icon">📋</span> Creates the <em>products</em> table with product_id (AUTOINCREMENT), product_name, category, price, quantity, and image_url.` },
+  { code: `        <span class="fn">insertDefaultUser</span>(<span class="var">conn</span>);` },
+  { code: `        <span class="fn">insertDefaultProducts</span>(<span class="var">conn</span>);` },
   { code: `    }` },
   { code: `` },
-  { code: `    <span class="kw">public void</span> <span class="fn">initializeDatabase</span>() {`, note: `<span class="note-icon">⚙️</span> Called once at startup. Creates the tables, default user, and sample products — but only if they do not already exist. Safe to call every time the app launches.` },
-  { code: `        <span class="kw">try</span> (<span class="typ">Connection</span> <span class="var">conn</span> = <span class="fn">getConnection</span>(); <span class="typ">Statement</span> <span class="var">stmt</span> = <span class="var">conn</span>.<span class="fn">createStatement</span>()) {`, note: `<span class="note-icon">🛡️</span> <em>try-with-resources</em> — both <em>conn</em> and <em>stmt</em> implement AutoCloseable, so Java automatically calls <em>.close()</em> on them when the try block finishes, even if an exception is thrown. No memory leaks.` },
-  { code: `            <span class="var">stmt</span>.<span class="fn">executeUpdate</span>(<span class="str">"CREATE TABLE IF NOT EXISTS users ..."</span>);`, note: `<span class="note-icon">📋</span> Runs a SQL DDL statement to create the <em>users</em> table. <em>IF NOT EXISTS</em> makes it idempotent — harmless to run on every startup because it only acts when the table is missing.` },
-  { code: `            <span class="var">stmt</span>.<span class="fn">executeUpdate</span>(<span class="str">"CREATE TABLE IF NOT EXISTS products ..."</span>);`, note: `<span class="note-icon">📋</span> Creates the <em>products</em> table with columns: product_id (auto-incremented primary key), product_name, category, price, quantity, image_url.` },
-  { code: `            <span class="fn">insertDefaultUser</span>(<span class="var">conn</span>);` },
-  { code: `            <span class="fn">insertDefaultProducts</span>(<span class="var">conn</span>);` },
-  { code: `        } <span class="kw">catch</span> (<span class="typ">SQLException</span> <span class="var">e</span>) {` },
-  { code: `            <span class="kw">throw new</span> <span class="typ">RuntimeException</span>(<span class="str">"Failed to initialize database"</span>, <span class="var">e</span>);`, note: `<span class="note-icon">💥</span> If database setup fails the app cannot work at all — wrapping in RuntimeException converts the checked SQLException into an unchecked one that will bubble up and halt the application with a clear message.` },
-  { code: `        }` },
+  { code: `    <span class="kw">private void</span> <span class="fn">insertDefaultUser</span>(<span class="typ">Connection</span> <span class="var">conn</span>) <span class="kw">throws</span> <span class="typ">SQLException</span> {`, note: `<span class="note-icon">👤</span> Seeds two accounts on first run. Now inserts BOTH <em>admin</em> (inventory access) and <em>client_user</em> (shopping access). Uses <em>INSERT OR IGNORE</em> so re-running never duplicates them.` },
+  { code: `        <span class="cmt">// First: admin / password123</span>` },
+  { code: `        <span class="var">ps</span>.<span class="fn">setString</span>(<span class="num">1</span>, <span class="str">"admin"</span>); <span class="var">ps</span>.<span class="fn">setString</span>(<span class="num">2</span>, <span class="str">"password123"</span>); <span class="var">ps</span>.<span class="fn">executeUpdate</span>();`, note: `<span class="note-icon">1️⃣</span> Inserts the admin account. Username "admin" gives access to the inventory DashboardForm after login.` },
+  { code: `        <span class="cmt">// Second: client_user / password123</span>` },
+  { code: `        <span class="var">ps</span>.<span class="fn">setString</span>(<span class="num">1</span>, <span class="str">"client_user"</span>); <span class="var">ps</span>.<span class="fn">setString</span>(<span class="num">2</span>, <span class="str">"password123"</span>); <span class="var">ps</span>.<span class="fn">executeUpdate</span>();`, note: `<span class="note-icon">2️⃣</span> Inserts the client account. Any non-admin username routes to the ClientDashboardForm shopping interface instead.` },
   { code: `    }` },
   { code: `` },
-  { code: `    <span class="kw">private void</span> <span class="fn">insertDefaultUser</span>(<span class="typ">Connection</span> <span class="var">conn</span>) <span class="kw">throws</span> <span class="typ">SQLException</span> {` },
-  { code: `        <span class="typ">String</span> <span class="var">sql</span> = <span class="str">"INSERT OR IGNORE INTO users(username, password) VALUES(?, ?)"</span>;`, note: `<span class="note-icon">🔒</span> <em>INSERT OR IGNORE</em> is SQLite syntax meaning "insert this row, but if the primary key already exists, do nothing." The <em>?</em> placeholders are filled safely by the PreparedStatement — never by string concatenation.` },
-  { code: `        <span class="kw">try</span> (<span class="typ">PreparedStatement</span> <span class="var">ps</span> = <span class="var">conn</span>.<span class="fn">prepareStatement</span>(<span class="var">sql</span>)) {` },
-  { code: `            <span class="var">ps</span>.<span class="fn">setString</span>(<span class="num">1</span>, <span class="str">"admin"</span>);`, note: `<span class="note-icon">1️⃣</span> Sets the first <em>?</em> to the string "admin". Numbered parameters start at 1 in JDBC.` },
-  { code: `            <span class="var">ps</span>.<span class="fn">setString</span>(<span class="num">2</span>, <span class="str">"password123"</span>);`, note: `<span class="note-icon">2️⃣</span> Sets the second <em>?</em> to "password123". Note: in production you would store a hashed password, not plain text.` },
-  { code: `            <span class="var">ps</span>.<span class="fn">executeUpdate</span>();` },
-  { code: `        }` },
+  { code: `    <span class="kw">public boolean</span> <span class="fn">checkUserCredentials</span>(<span class="typ">String</span> <span class="var">username</span>, <span class="typ">String</span> <span class="var">password</span>) {`, note: `<span class="note-icon">🔐</span> Counts rows matching both username and password. Returns <em>true</em> only if exactly one row matches — means valid credentials.` },
+  { code: `        <span class="str">"SELECT COUNT(*) FROM users WHERE username = ? AND password = ?"</span>`, note: `<span class="note-icon">🔢</span> <em>COUNT(*)</em> is cheaper than fetching the whole row. We only care about "does a match exist?" — not what the row contains.` },
+  { code: `        <span class="kw">return</span> <span class="var">rs</span>.<span class="fn">next</span>() && <span class="var">rs</span>.<span class="fn">getInt</span>(<span class="num">1</span>) == <span class="num">1</span>;`, note: `<span class="note-icon">✅</span> <code>rs.next()</code> moves to the first (only) row. <code>rs.getInt(1)</code> reads the count. If count is 1 the credentials are valid.` },
   { code: `    }` },
   { code: `` },
-  { code: `    <span class="kw">public boolean</span> <span class="fn">checkUserCredentials</span>(<span class="typ">String</span> <span class="var">username</span>, <span class="typ">String</span> <span class="var">password</span>) {`, note: `<span class="note-icon">🔐</span> Authentication method. Returns <em>true</em> if a matching username+password row exists, <em>false</em> otherwise. The LoginForm calls this when the user clicks the Login button.` },
-  { code: `        <span class="typ">String</span> <span class="var">sql</span> = <span class="str">"SELECT COUNT(*) FROM users WHERE username = ? AND password = ?"</span>;`, note: `<span class="note-icon">🔢</span> Counts rows where both username and password match. We use <em>COUNT(*)</em> rather than fetching the actual row — if the count is 1, credentials are valid; 0 means invalid.` },
-  { code: `        <span class="kw">try</span> (<span class="typ">Connection</span> <span class="var">conn</span> = <span class="fn">getConnection</span>(); <span class="typ">PreparedStatement</span> <span class="var">ps</span> = ...) {` },
-  { code: `            <span class="kw">try</span> (<span class="typ">ResultSet</span> <span class="var">rs</span> = <span class="var">ps</span>.<span class="fn">executeQuery</span>()) {` },
-  { code: `                <span class="kw">return</span> <span class="var">rs</span>.<span class="fn">next</span>() && <span class="var">rs</span>.<span class="fn">getInt</span>(<span class="num">1</span>) == <span class="num">1</span>;`, note: `<span class="note-icon">✅</span> <em>rs.next()</em> moves to the first row (returns false if empty). <em>rs.getInt(1)</em> reads the first column — the count. If count == 1, credentials matched; the whole expression returns true.` },
-  { code: `            }` },
-  { code: `        } <span class="kw">catch</span> (<span class="typ">SQLException</span> <span class="var">e</span>) {` },
-  { code: `            <span class="kw">throw new</span> <span class="typ">RuntimeException</span>(<span class="str">"Failed to verify credentials"</span>, <span class="var">e</span>);` },
-  { code: `        }` },
-  { code: `    }` },
-  { code: `` },
-  { code: `    <span class="kw">public void</span> <span class="fn">addProduct</span>(<span class="typ">Product</span> <span class="var">product</span>) {`, note: `<span class="note-icon">➕</span> Inserts a new product row into the database. Takes a Product object and extracts its values via getter methods. The database auto-assigns a new ID via AUTOINCREMENT.` },
-  { code: `        <span class="typ">String</span> <span class="var">sql</span> = <span class="str">"INSERT INTO products(product_name, ...) VALUES(?, ?, ?, ?, ?)"</span>;` },
-  { code: `        <span class="kw">try</span> (<span class="typ">Connection</span> <span class="var">conn</span> = <span class="fn">getConnection</span>(); <span class="typ">PreparedStatement</span> <span class="var">ps</span> = ...) {` },
-  { code: `            <span class="var">ps</span>.<span class="fn">setString</span>(<span class="num">1</span>, <span class="var">product</span>.<span class="fn">getName</span>());`, note: `<span class="note-icon">📝</span> Calls the getter on the Product object to get the name and bind it to the first parameter slot of the SQL INSERT statement.` },
-  { code: `            <span class="var">ps</span>.<span class="fn">executeUpdate</span>();`, note: `<span class="note-icon">▶️</span> Executes the INSERT. <em>executeUpdate</em> is used for INSERT, UPDATE, DELETE — any SQL that modifies data rather than returning rows.` },
-  { code: `        } <span class="kw">catch</span> (<span class="typ">SQLException</span> <span class="var">e</span>) { ... }` },
-  { code: `    }` },
-  { code: `` },
-  { code: `    <span class="kw">public void</span> <span class="fn">updateProduct</span>(<span class="typ">Product</span> <span class="var">product</span>) {`, note: `<span class="note-icon">✏️</span> Updates an existing product row. The SQL WHERE clause targets the specific row by its <em>product_id</em> — so only that one row is changed.` },
-  { code: `        <span class="typ">String</span> <span class="var">sql</span> = <span class="str">"UPDATE products SET product_name=?, ... WHERE product_id=?"</span>;`, note: `<span class="note-icon">🎯</span> The <em>WHERE product_id = ?</em> clause is critical — without it, every product in the table would be overwritten. Always filter UPDATE and DELETE statements by a unique key.` },
-  { code: `    }` },
-  { code: `` },
-  { code: `    <span class="kw">public void</span> <span class="fn">deleteProduct</span>(<span class="kw">int</span> <span class="var">productId</span>) {`, note: `<span class="note-icon">🗑️</span> Deletes one product by its ID. Only receives the integer ID — no need to load the full Product object just to delete it.` },
-  { code: `        <span class="typ">String</span> <span class="var">sql</span> = <span class="str">"DELETE FROM products WHERE product_id = ?"</span>;` },
-  { code: `    }` },
-  { code: `` },
-  { code: `    <span class="kw">public</span> <span class="typ">List</span>&lt;<span class="typ">Product</span>&gt; <span class="fn">getAllProducts</span>() {`, note: `<span class="note-icon">📋</span> Fetches every product from the database in ID order and returns them as a Java List. The UI calls this to populate the product card grid.` },
-  { code: `        <span class="typ">List</span>&lt;<span class="typ">Product</span>&gt; <span class="var">products</span> = <span class="kw">new</span> <span class="typ">ArrayList</span>&lt;&gt;();`, note: `<span class="note-icon">📦</span> Creates an empty list that will be filled as we loop through the database rows.` },
-  { code: `        <span class="kw">while</span> (<span class="var">rs</span>.<span class="fn">next</span>()) {`, note: `<span class="note-icon">🔄</span> <em>rs.next()</em> advances the cursor to the next database row and returns false when there are no more rows. This loop visits every row in the results.` },
-  { code: `            <span class="var">products</span>.<span class="fn">add</span>(<span class="kw">new</span> <span class="typ">Product</span>(`, note: `<span class="note-icon">🆕</span> Creates a new Product object from the current database row's columns and adds it to the list. This is called <em>object mapping</em> — converting raw database data into a meaningful Java object.` },
-  { code: `                <span class="var">rs</span>.<span class="fn">getInt</span>(<span class="str">"product_id"</span>),` },
-  { code: `                <span class="var">rs</span>.<span class="fn">getString</span>(<span class="str">"product_name"</span>),` },
-  { code: `                ...` },
-  { code: `            ));` },
-  { code: `        }` },
-  { code: `        <span class="kw">return</span> <span class="var">products</span>;` },
-  { code: `    }` },
-  { code: `` },
-  { code: `    <span class="kw">public</span> <span class="typ">List</span>&lt;<span class="typ">Product</span>&gt; <span class="fn">searchProducts</span>(<span class="typ">String</span> <span class="var">query</span>) {`, note: `<span class="note-icon">🔍</span> Same structure as getAllProducts but adds a WHERE clause to filter by keyword. Returns only products whose name or category contains the search term.` },
-  { code: `        <span class="typ">String</span> <span class="var">sql</span> = <span class="str">"... WHERE product_name LIKE ? OR category LIKE ?"</span>;`, note: `<span class="note-icon">🔎</span> <em>LIKE</em> performs partial text matching in SQL. The <em>%</em> wildcards (added in the next line) mean "any characters before or after." So searching "jean" matches "Jackson Reno Jeans".` },
-  { code: `        <span class="typ">String</span> <span class="var">wildcard</span> = <span class="str">"%"</span> + <span class="var">query</span> + <span class="str">"%"</span>;`, note: `<span class="note-icon">🃏</span> Wraps the user's search term with <em>%</em> on both sides. In SQL LIKE queries, <em>%</em> is a wildcard meaning "match any sequence of characters here." So <code>%jean%</code> matches anything containing "jean".` },
+  { code: `    <span class="kw">public void</span> <span class="fn">addProduct</span>(<span class="typ">Product</span> <span class="var">product</span>) { <span class="cmt">// INSERT</span> }`, note: `<span class="note-icon">➕</span> Inserts a new product row. The database auto-generates the product_id via AUTOINCREMENT.` },
+  { code: `    <span class="kw">public void</span> <span class="fn">updateProduct</span>(<span class="typ">Product</span> <span class="var">product</span>) { <span class="cmt">// UPDATE ... WHERE product_id=?</span> }`, note: `<span class="note-icon">✏️</span> Updates all columns for one product. The <em>WHERE product_id = ?</em> clause is critical — without it every row would be overwritten.` },
+  { code: `    <span class="kw">public void</span> <span class="fn">deleteProduct</span>(<span class="kw">int</span> <span class="var">productId</span>) { <span class="cmt">// DELETE ... WHERE product_id=?</span> }`, note: `<span class="note-icon">🗑️</span> Deletes one product by ID. Called from the admin dashboard's delete button and also by <code>completePurchase()</code> indirectly (via update with reduced stock).` },
+  { code: `    <span class="kw">public</span> <span class="typ">List</span>&lt;<span class="typ">Product</span>&gt; <span class="fn">getAllProducts</span>() { <span class="cmt">// SELECT ... ORDER BY product_id</span> }`, note: `<span class="note-icon">📋</span> Fetches every product in ID order and maps each row into a Product object. Used by both dashboards to populate the card grid.` },
+  { code: `    <span class="kw">public</span> <span class="typ">List</span>&lt;<span class="typ">Product</span>&gt; <span class="fn">searchProducts</span>(<span class="typ">String</span> <span class="var">query</span>) {`, note: `<span class="note-icon">🔍</span> Filters by name or category using SQL LIKE. The search term is wrapped with <em>%</em> wildcards so "jean" matches "Jackson Reno Jeans".` },
+  { code: `        <span class="typ">String</span> <span class="var">wildcard</span> = <span class="str">"%"</span> + <span class="var">query</span> + <span class="str">"%"</span>;`, note: `<span class="note-icon">🃏</span> Prepending and appending <em>%</em> makes the LIKE clause match anywhere within the text — at the start, middle, or end.` },
   { code: `    }` },
   { code: `}` },
 ],
 
-// ─── LOGINFORM.JAVA ───────────────────────────────────────
 login: [
-  { code: `<span class="kw">package</span> <span class="pkg">com.fashionstore.ui</span>;` },
-  { code: `<span class="cmt">// imports...</span>` },
+  { code: `<span class="kw">public class</span> <span class="typ">LoginForm</span> <span class="kw">extends</span> <span class="typ">JFrame</span> {`, note: `<span class="note-icon">🪟</span> Inherits all window behaviour from JFrame — title bar, sizing, close button — without writing that code ourselves.` },
+  { code: `    <span class="kw">private final</span> <span class="typ">JTextField</span> <span class="var">emailField</span>;`, note: `<span class="note-icon">🏷️</span> Instance variable so both the constructor (which builds it) and <em>login()</em> (which reads it) can access the same field.` },
+  { code: `    <span class="kw">private final</span> <span class="typ">JPasswordField</span> <span class="var">passwordField</span>;`, note: `<span class="note-icon">🔏</span> JPasswordField shows dots instead of characters and provides <code>getPassword()</code> which returns a <code>char[]</code> — slightly safer than a plain String.` },
   { code: `` },
-  { code: `<span class="kw">public class</span> <span class="typ">LoginForm</span> <span class="kw">extends</span> <span class="typ">JFrame</span> {`, note: `<span class="note-icon">🪟</span> <em>extends JFrame</em> means LoginForm IS-A JFrame — it inherits all window behaviour. We just need to configure and populate it.` },
-  { code: `    <span class="kw">private final</span> <span class="typ">JTextField</span> <span class="var">emailField</span>;`, note: `<span class="note-icon">🏷️</span> Declares a text field as an instance variable (not a local variable inside a method) so that both the constructor (which builds it) and the <em>login()</em> method (which reads it) can access it.` },
-  { code: `    <span class="kw">private final</span> <span class="typ">JPasswordField</span> <span class="var">passwordField</span>;`, note: `<span class="note-icon">🔏</span> <em>JPasswordField</em> is a special text field that displays dots instead of characters. It also provides <em>getPassword()</em> which returns a <code>char[]</code> rather than a String — slightly more secure.` },
-  { code: `` },
-  { code: `    <span class="kw">public</span> <span class="typ">LoginForm</span>() {`, note: `<span class="note-icon">🏗️</span> The constructor builds the entire UI. All window layout code lives here — labels, fields, button, and event listeners are all created and wired together in this method.` },
-  { code: `        <span class="fn">setTitle</span>(<span class="str">"Fashion Store - Login"</span>);`, note: `<span class="note-icon">📌</span> Sets the text shown in the window's title bar. <em>setTitle</em> is a method inherited from JFrame.` },
-  { code: `        <span class="fn">setDefaultCloseOperation</span>(<span class="typ">JFrame</span>.<span class="var">EXIT_ON_CLOSE</span>);`, note: `<span class="note-icon">❌</span> Tells Java to terminate the whole program when this window is closed. Without this, closing the window hides it but the Java process keeps running in the background.` },
-  { code: `        <span class="fn">setSize</span>(<span class="num">800</span>, <span class="num">900</span>);`, note: `<span class="note-icon">📐</span> Sets the window dimensions in pixels — 800 wide by 900 tall.` },
-  { code: `        <span class="fn">setLocationRelativeTo</span>(<span class="kw">null</span>);`, note: `<span class="note-icon">🎯</span> When <em>null</em> is passed, Swing centres the window on the screen. If you passed another component, it would centre relative to that component instead.` },
-  { code: `        <span class="fn">setResizable</span>(<span class="kw">false</span>);`, note: `<span class="note-icon">🔒</span> Prevents the user from resizing the window. Good practice for login forms with fixed layouts.` },
-  { code: `` },
-  { code: `        <span class="typ">JPanel</span> <span class="var">mainPanel</span> = <span class="kw">new</span> <span class="typ">JPanel</span>();`, note: `<span class="note-icon">🖼️</span> A JPanel is an invisible container that holds and organises other components. This is the background panel that fills the entire window.` },
-  { code: `        <span class="var">mainPanel</span>.<span class="fn">setBackground</span>(<span class="kw">new</span> <span class="typ">Color</span>(<span class="num">245</span>, <span class="num">245</span>, <span class="num">250</span>));`, note: `<span class="note-icon">🎨</span> Sets the background to a very light gray (almost white). <em>Color(R, G, B)</em> — each value 0–255. (245, 245, 250) is barely perceptible as blue-gray.` },
-  { code: `        <span class="var">mainPanel</span>.<span class="fn">setLayout</span>(<span class="kw">null</span>);`, note: `<span class="note-icon">📐</span> <em>null layout</em> means no automatic positioning — we manually set each component's exact X, Y, width, height using <em>setBounds()</em>. Gives pixel-perfect control but requires manual positioning.` },
-  { code: `` },
-  { code: `        <span class="typ">JPanel</span> <span class="var">cardPanel</span> = <span class="kw">new</span> <span class="typ">JPanel</span>() {`, note: `<span class="note-icon">✏️</span> Creates an <em>anonymous subclass</em> of JPanel — a one-off class defined inline that overrides one method. This technique is used when you only need the customisation in one place.` },
-  { code: `            <span class="ann">@Override</span>` },
-  { code: `            <span class="kw">protected void</span> <span class="fn">paintComponent</span>(<span class="typ">Graphics</span> <span class="var">g</span>) {`, note: `<span class="note-icon">🎨</span> Overriding <em>paintComponent</em> lets us draw the panel ourselves. It is called automatically by Swing whenever the panel needs to be redrawn (on first display, resize, etc.).` },
-  { code: `                <span class="typ">Graphics2D</span> <span class="var">g2d</span> = (<span class="typ">Graphics2D</span>) <span class="var">g</span>;`, note: `<span class="note-icon">🔄</span> Casts the plain <em>Graphics</em> object to the more powerful <em>Graphics2D</em> subclass so we can use antialiasing and rounded shapes.` },
-  { code: `                <span class="var">g2d</span>.<span class="fn">setRenderingHint</span>(<span class="typ">RenderingHints</span>.<span class="var">KEY_ANTIALIASING</span>, ...);`, note: `<span class="note-icon">✨</span> Enables <em>antialiasing</em> — smooths the edges of drawn shapes. Without this, curved corners appear jagged/pixelated.` },
-  { code: `                <span class="var">g2d</span>.<span class="fn">setColor</span>(<span class="typ">Color</span>.<span class="var">WHITE</span>);` },
-  { code: `                <span class="var">g2d</span>.<span class="fn">fillRoundRect</span>(<span class="num">0</span>, <span class="num">0</span>, <span class="fn">getWidth</span>(), <span class="fn">getHeight</span>(), <span class="num">30</span>, <span class="num">30</span>);`, note: `<span class="note-icon">⬜</span> Draws a white rounded rectangle that fills the entire panel. The last two 30s are the arc width and height — they control how curved the corners are. This creates the "card" appearance.` },
-  { code: `            }` },
-  { code: `        };` },
-  { code: `` },
-  { code: `        <span class="kw">int</span> <span class="var">cardX</span> = (<span class="num">800</span> - <span class="var">cardWidth</span>) / <span class="num">2</span>;`, note: `<span class="note-icon">📐</span> Calculates the X position that centres the card horizontally. Formula: (window width − card width) ÷ 2. Same logic for Y to centre vertically.` },
-  { code: `        <span class="var">cardPanel</span>.<span class="fn">setBounds</span>(<span class="var">cardX</span>, <span class="var">cardY</span>, <span class="var">cardWidth</span>, <span class="var">cardHeight</span>);`, note: `<span class="note-icon">📌</span> Positions the card panel using absolute coordinates. With null layout, every component needs <em>setBounds(x, y, width, height)</em> to define its position and size.` },
-  { code: `` },
-  { code: `        <span class="fn">setPlaceholder</span>(<span class="var">emailField</span>, <span class="str">"Enter email"</span>);`, note: `<span class="note-icon">💬</span> Calls our custom helper method (defined below) that adds focus listeners to show/hide placeholder text. Keeps the constructor tidy by delegating repeated logic.` },
-  { code: `` },
-  { code: `        <span class="typ">JButton</span> <span class="var">loginButton</span> = <span class="kw">new</span> <span class="typ">JButton</span>(<span class="str">"Login"</span>) {`, note: `<span class="note-icon">✏️</span> Another anonymous subclass — this time of JButton — to override its painting and draw a blue rounded rectangle button instead of the default system look.` },
-  { code: `            <span class="ann">@Override</span>` },
-  { code: `            <span class="kw">protected void</span> <span class="fn">paintComponent</span>(<span class="typ">Graphics</span> <span class="var">g</span>) {`, note: `<span class="note-icon">🎨</span> Custom paint method draws the button background as a rounded blue rectangle, then manually draws the text centred on top. The default <em>super.paintComponent(g)</em> is intentionally skipped to avoid the default OS-style button look.` },
-  { code: `                <span class="var">g2d</span>.<span class="fn">setColor</span>(<span class="kw">new</span> <span class="typ">Color</span>(<span class="num">0</span>, <span class="num">102</span>, <span class="num">204</span>));` },
-  { code: `                <span class="var">g2d</span>.<span class="fn">fillRoundRect</span>(<span class="num">0</span>, <span class="num">0</span>, <span class="fn">getWidth</span>(), <span class="fn">getHeight</span>(), <span class="num">12</span>, <span class="num">12</span>);` },
-  { code: `            }` },
-  { code: `        };` },
-  { code: `        <span class="var">loginButton</span>.<span class="fn">setContentAreaFilled</span>(<span class="kw">false</span>);`, note: `<span class="note-icon">🚫</span> Disables Swing's default background painting so our custom <em>paintComponent</em> drawing shows through unobscured.` },
-  { code: `        <span class="var">loginButton</span>.<span class="fn">addActionListener</span>(<span class="var">e</span> -> <span class="fn">login</span>());`, note: `<span class="note-icon">👂</span> Registers a listener: when the button is clicked, call the <em>login()</em> method. The lambda <code>e -> login()</code> is shorthand for an anonymous ActionListener class.` },
-  { code: `` },
-  { code: `        <span class="var">mainPanel</span>.<span class="fn">add</span>(<span class="var">cardPanel</span>);` },
-  { code: `        <span class="fn">getContentPane</span>().<span class="fn">add</span>(<span class="var">mainPanel</span>);`, note: `<span class="note-icon">🏠</span> Adds the main panel to the JFrame's content pane — the internal container of the window. Components must be added to the content pane, not directly to the JFrame in modern Swing.` },
+  { code: `    <span class="kw">public</span> <span class="typ">LoginForm</span>() { <span class="cmt">// builds the entire UI</span>`, note: `<span class="note-icon">🏗️</span> The constructor lays out all labels, fields, and the login button. All wiring (listeners, layout) happens here.` },
+  { code: `        <span class="fn">setDefaultCloseOperation</span>(<span class="typ">JFrame</span>.<span class="var">EXIT_ON_CLOSE</span>);`, note: `<span class="note-icon">❌</span> Terminates the whole Java process when this window is closed. Without it the window hides but the app keeps running invisibly.` },
+  { code: `        <span class="fn">setLocationRelativeTo</span>(<span class="kw">null</span>);`, note: `<span class="note-icon">🎯</span> Passing null centres the window on screen. Pass another component to centre relative to that instead.` },
+  { code: `        <span class="cmt">// ... card, fields, button wired up ...</span>` },
   { code: `    }` },
   { code: `` },
-  { code: `    <span class="kw">private void</span> <span class="fn">setPlaceholder</span>(<span class="typ">JTextField</span> <span class="var">field</span>, <span class="typ">String</span> <span class="var">placeholder</span>) {`, note: `<span class="note-icon">💬</span> A helper method called for both the email and password fields. Adds FocusListeners that show grey placeholder text when empty, and clear it when the user clicks in.` },
-  { code: `        <span class="var">field</span>.<span class="fn">addFocusListener</span>(<span class="kw">new</span> <span class="typ">java.awt.event.FocusAdapter</span>() {`, note: `<span class="note-icon">👁️</span> <em>FocusAdapter</em> is a convenience class that implements FocusListener with empty methods. We override only the two we care about, rather than implementing all methods of the interface.` },
-  { code: `            <span class="ann">@Override</span>` },
-  { code: `            <span class="kw">public void</span> <span class="fn">focusGained</span>(<span class="typ">FocusEvent</span> <span class="var">e</span>) {`, note: `<span class="note-icon">🖱️</span> Called when the user clicks into (or tabs to) the field. If the current text is the placeholder, clears it and changes text color to black so the user can type.` },
-  { code: `                <span class="kw">if</span> (<span class="var">field</span>.<span class="fn">getText</span>().<span class="fn">equals</span>(<span class="var">placeholder</span>)) {` },
-  { code: `                    <span class="var">field</span>.<span class="fn">setText</span>(<span class="str">""</span>);` },
-  { code: `                    <span class="var">field</span>.<span class="fn">setForeground</span>(<span class="kw">new</span> <span class="typ">Color</span>(<span class="num">0</span>, <span class="num">0</span>, <span class="num">0</span>));` },
-  { code: `                }` },
-  { code: `            }` },
-  { code: `            <span class="ann">@Override</span>` },
-  { code: `            <span class="kw">public void</span> <span class="fn">focusLost</span>(<span class="typ">FocusEvent</span> <span class="var">e</span>) {`, note: `<span class="note-icon">👋</span> Called when the user clicks away from the field. If the field is now empty, restores the grey placeholder text so the field doesn't look blank.` },
-  { code: `                <span class="kw">if</span> (<span class="var">field</span>.<span class="fn">getText</span>().<span class="fn">isEmpty</span>()) {` },
-  { code: `                    <span class="var">field</span>.<span class="fn">setText</span>(<span class="var">placeholder</span>);` },
-  { code: `                    <span class="var">field</span>.<span class="fn">setForeground</span>(<span class="kw">new</span> <span class="typ">Color</span>(<span class="num">180</span>, <span class="num">180</span>, <span class="num">180</span>));` },
-  { code: `                }` },
-  { code: `            }` },
-  { code: `        });` },
+  { code: `    <span class="kw">private void</span> <span class="fn">setPlaceholder</span>(<span class="typ">JTextField</span> <span class="var">field</span>, <span class="typ">String</span> <span class="var">placeholder</span>) {`, note: `<span class="note-icon">💬</span> Helper method that adds FocusListeners: clears grey placeholder text when the user clicks in, restores it if they leave the field empty.` },
   { code: `    }` },
   { code: `` },
-  { code: `    <span class="kw">private void</span> <span class="fn">login</span>() {`, note: `<span class="note-icon">🔐</span> The login logic, separated into its own method to keep the constructor clean. Called when the Login button is clicked.` },
-  { code: `        <span class="typ">String</span> <span class="var">email</span> = <span class="var">emailField</span>.<span class="fn">getText</span>().<span class="fn">trim</span>();`, note: `<span class="note-icon">✂️</span> <em>trim()</em> removes any accidental leading or trailing spaces the user may have typed. Good defensive practice — prevents "admin " (with a space) from failing login.` },
-  { code: `        <span class="typ">String</span> <span class="var">password</span> = <span class="kw">new</span> <span class="typ">String</span>(<span class="var">passwordField</span>.<span class="fn">getPassword</span>());`, note: `<span class="note-icon">🔏</span> <em>getPassword()</em> returns a <code>char[]</code>, not a String, for security reasons. We wrap it in <code>new String()</code> to convert it for comparison. Best practice would be to compare the char[] directly and then zero it out.` },
-  { code: `` },
-  { code: `        <span class="kw">if</span> (<span class="var">email</span>.<span class="fn">isEmpty</span>() || <span class="var">email</span>.<span class="fn">equals</span>(<span class="str">"Enter email"</span>) || ...) {`, note: `<span class="note-icon">🛡️</span> Guards against submitting the form with empty fields or placeholder text still showing. Shows a warning dialog if either field is missing real input.` },
-  { code: `            <span class="typ">JOptionPane</span>.<span class="fn">showMessageDialog</span>(...);`, note: `<span class="note-icon">💬</span> <em>JOptionPane</em> is Java's built-in dialog system. <em>showMessageDialog</em> pops up a simple message box — much easier than building a custom window for every alert.` },
-  { code: `            <span class="kw">return</span>;`, note: `<span class="note-icon">⛔</span> Exits the method immediately after showing the warning. Without <em>return</em>, the code below would continue executing even after showing the error.` },
-  { code: `        }` },
-  { code: `` },
-  { code: `        <span class="kw">boolean</span> <span class="var">authenticated</span> = <span class="typ">DatabaseManager</span>.<span class="fn">getInstance</span>().<span class="fn">checkUserCredentials</span>(<span class="var">email</span>, <span class="var">password</span>);`, note: `<span class="note-icon">🔍</span> Asks the DatabaseManager to verify the credentials. This is the only database call in the entire UI layer — all database logic is delegated to DatabaseManager, not written here.` },
+  { code: `    <span class="kw">private void</span> <span class="fn">login</span>() {`, note: `<span class="note-icon">🔐</span> The login logic extracted into its own method to keep the constructor clean. Called when the button is clicked.` },
+  { code: `        <span class="typ">String</span> <span class="var">email</span> = <span class="var">emailField</span>.<span class="fn">getText</span>().<span class="fn">trim</span>();`, note: `<span class="note-icon">✂️</span> <em>trim()</em> strips accidental leading/trailing spaces — prevents "admin " from failing login.` },
+  { code: `        <span class="kw">boolean</span> <span class="var">authenticated</span> = <span class="typ">DatabaseManager</span>.<span class="fn">getInstance</span>().<span class="fn">checkUserCredentials</span>(<span class="var">email</span>, <span class="var">password</span>);`, note: `<span class="note-icon">🔍</span> Delegates authentication entirely to DatabaseManager. The UI layer contains zero SQL — clean separation of concerns.` },
   { code: `        <span class="kw">if</span> (<span class="var">authenticated</span>) {` },
-  { code: `            <span class="typ">SwingUtilities</span>.<span class="fn">invokeLater</span>(() -> {`, note: `<span class="note-icon">🧵</span> Again we use <em>invokeLater</em> to safely schedule the UI update (opening the Dashboard) on the EDT, keeping thread safety consistent.` },
-  { code: `                <span class="typ">DashboardForm</span> <span class="var">dashboard</span> = <span class="kw">new</span> <span class="typ">DashboardForm</span>(<span class="var">email</span>);` },
-  { code: `                <span class="var">dashboard</span>.<span class="fn">setVisible</span>(<span class="kw">true</span>);` },
-  { code: `            });` },
-  { code: `            <span class="fn">dispose</span>();`, note: `<span class="note-icon">🗑️</span> <em>dispose()</em> destroys this LoginForm window and frees its resources. The Dashboard is now open, so the login window is no longer needed.` },
+  { code: `            <span class="kw">if</span> (<span class="str">"admin"</span>.<span class="fn">equalsIgnoreCase</span>(<span class="var">email</span>)) {`, note: `<span class="note-icon">🔀</span> <strong>Role-based routing.</strong> The username decides which dashboard opens. "admin" (case-insensitive) → inventory DashboardForm. Any other valid account → ClientDashboardForm shopping view.` },
+  { code: `                <span class="kw">new</span> <span class="typ">DashboardForm</span>(<span class="var">email</span>).<span class="fn">setVisible</span>(<span class="kw">true</span>);`, note: `<span class="note-icon">🖥️</span> Opens the admin's inventory management window with full Add/Edit/Delete controls.` },
+  { code: `            } <span class="kw">else</span> {` },
+  { code: `                <span class="kw">new</span> <span class="typ">ClientDashboardForm</span>(<span class="var">email</span>).<span class="fn">setVisible</span>(<span class="kw">true</span>);`, note: `<span class="note-icon">🛒</span> Opens the client shopping dashboard — product browsing, cart, and checkout. No edit or delete controls visible.` },
+  { code: `            }` },
+  { code: `            <span class="fn">dispose</span>();`, note: `<span class="note-icon">🗑️</span> Destroys the login window after a successful login. The new dashboard is now open; no need to keep LoginForm in memory.` },
   { code: `        } <span class="kw">else</span> {` },
-  { code: `            <span class="typ">JOptionPane</span>.<span class="fn">showMessageDialog</span>(..., <span class="str">"Login failed..."</span>, ..., <span class="typ">JOptionPane</span>.<span class="var">ERROR_MESSAGE</span>);`, note: `<span class="note-icon">❌</span> Shows a red error dialog. <em>ERROR_MESSAGE</em> uses a red X icon — appropriate visual feedback for a failed login.` },
+  { code: `            <span class="typ">JOptionPane</span>.<span class="fn">showMessageDialog</span>(..., <span class="typ">JOptionPane</span>.<span class="var">ERROR_MESSAGE</span>);`, note: `<span class="note-icon">❌</span> Shows a red error dialog. <em>ERROR_MESSAGE</em> adds the red X icon automatically.` },
   { code: `        }` },
   { code: `    }` },
   { code: `}` },
 ],
 
-// ─── DASHBOARDFORM.JAVA ───────────────────────────────────
 dash: [
-  { code: `<span class="kw">public class</span> <span class="typ">DashboardForm</span> <span class="kw">extends</span> <span class="typ">JFrame</span> {` },
-  { code: `    <span class="kw">private final</span> <span class="typ">JPanel</span> <span class="var">productCardsPanel</span>;`, note: `<span class="note-icon">🏷️</span> Stored as an instance variable so the <em>refreshProducts()</em> method can clear and repopulate it from anywhere in the class — not just from the constructor.` },
-  { code: `    <span class="kw">private final</span> <span class="typ">JTextField</span> <span class="var">searchField</span>;`, note: `<span class="note-icon">🔍</span> Stored as instance variable so the search button's action listener can read its text. If it were local to the constructor, the action listener couldn't see it.` },
+  { code: `<span class="kw">public class</span> <span class="typ">DashboardForm</span> <span class="kw">extends</span> <span class="typ">JFrame</span> {`, note: `<span class="note-icon">🖥️</span> The admin-only inventory window. Only reached when username is "admin" in LoginForm's routing logic.` },
+  { code: `    <span class="kw">private final</span> <span class="typ">JPanel</span> <span class="var">productCardsPanel</span>;`, note: `<span class="note-icon">🏷️</span> Instance variable so <em>refreshProducts()</em> can clear and repopulate the grid from any method, not just the constructor.` },
+  { code: `    <span class="kw">private final</span> <span class="typ">JTextField</span> <span class="var">searchField</span>;`, note: `<span class="note-icon">🔍</span> Instance variable so the search button's lambda can read its text — local variables are not accessible inside lambdas unless effectively final.` },
   { code: `` },
-  { code: `    <span class="kw">public</span> <span class="typ">DashboardForm</span>(<span class="typ">String</span> <span class="var">username</span>) {`, note: `<span class="note-icon">👤</span> Takes the logged-in username as a parameter so the welcome message can display it. This is passed in from LoginForm after successful authentication.` },
-  { code: `        <span class="fn">setExtendedState</span>(<span class="typ">JFrame</span>.<span class="var">MAXIMIZED_BOTH</span>);`, note: `<span class="note-icon">🖥️</span> Opens the window maximised (full screen). More useful than a fixed size for a dashboard that needs to show many product cards.` },
+  { code: `    <span class="kw">public</span> <span class="typ">DashboardForm</span>(<span class="typ">String</span> <span class="var">username</span>) {`, note: `<span class="note-icon">👤</span> Receives the logged-in username from LoginForm to display in the "Welcome, …" header label.` },
+  { code: `        <span class="fn">setExtendedState</span>(<span class="typ">JFrame</span>.<span class="var">MAXIMIZED_BOTH</span>);`, note: `<span class="note-icon">🖥️</span> Opens maximised (full screen). Better for a dashboard that needs to show many product cards.` },
+  { code: `        <span class="cmt">// gradient header (blue top → lighter blue bottom)</span>`, note: `<span class="note-icon">🎨</span> Painted by overriding <em>paintComponent</em> on an anonymous JPanel subclass. Draws one horizontal line per pixel, interpolating the RGB channels between topColor and bottomColor.` },
   { code: `` },
-  { code: `        <span class="typ">JPanel</span> <span class="var">headerPanel</span> = <span class="kw">new</span> <span class="typ">JPanel</span>() {`, note: `<span class="note-icon">🎨</span> Anonymous JPanel subclass again — this time to paint a gradient background (dark blue at top, lighter blue at bottom) by drawing horizontal lines with interpolated colours in a loop.` },
-  { code: `            <span class="kw">for</span> (<span class="kw">int</span> <span class="var">i</span> = <span class="num">0</span>; <span class="var">i</span> < <span class="var">height</span>; <span class="var">i</span>++) {`, note: `<span class="note-icon">🎨</span> Draws the gradient line by line. Each iteration calculates a colour that's a blend between <em>topColor</em> and <em>bottomColor</em> based on how far down we are (<code>ratio = i / height</code>). This simulates a smooth gradient.` },
-  { code: `                <span class="kw">float</span> <span class="var">ratio</span> = (<span class="kw">float</span>) <span class="var">i</span> / <span class="var">height</span>;` },
-  { code: `                <span class="kw">int</span> <span class="var">r</span> = (<span class="kw">int</span>) (<span class="var">topColor</span>.<span class="fn">getRed</span>() * (<span class="num">1</span> - <span class="var">ratio</span>) + <span class="var">bottomColor</span>.<span class="fn">getRed</span>() * <span class="var">ratio</span>);`, note: `<span class="note-icon">🧮</span> Linear interpolation formula: <em>start × (1 - t) + end × t</em>. When ratio is 0 we get the top colour; when 1 we get the bottom. Values between 0 and 1 give blended shades. Same formula applied to G and B channels.` },
-  { code: `            }` },
-  { code: `        };` },
-  { code: `        <span class="var">headerPanel</span>.<span class="fn">setLayout</span>(<span class="kw">new</span> <span class="typ">BorderLayout</span>());`, note: `<span class="note-icon">📐</span> BorderLayout divides the panel into 5 zones. Here the logo goes WEST and the welcome text goes EAST, with Swing automatically spreading them to opposite sides.` },
-  { code: `` },
-  { code: `        <span class="fn">add</span>(<span class="var">headerPanel</span>, <span class="typ">BorderLayout</span>.<span class="var">NORTH</span>);`, note: `<span class="note-icon">⬆️</span> The main JFrame also uses BorderLayout. Adding the header to NORTH pins it to the top edge of the window, taking the full width.` },
-  { code: `        <span class="fn">add</span>(<span class="var">controlPanel</span>, <span class="typ">BorderLayout</span>.<span class="var">SOUTH</span>);`, note: `<span class="note-icon">⬇️</span> The control bar (search + buttons) goes to SOUTH — pinned to the bottom edge.` },
-  { code: `` },
-  { code: `        <span class="var">productCardsPanel</span> = <span class="kw">new</span> <span class="typ">JPanel</span>();`, note: `<span class="note-icon">📦</span> The container that holds all product cards. We use FlowLayout so cards automatically wrap to new rows as the window is resized, like words in a paragraph.` },
-  { code: `        <span class="var">productCardsPanel</span>.<span class="fn">setLayout</span>(<span class="kw">new</span> <span class="typ">java.awt.FlowLayout</span>(<span class="typ">FlowLayout</span>.<span class="var">LEFT</span>, <span class="num">20</span>, <span class="num">20</span>));`, note: `<span class="note-icon">➡️</span> <em>FlowLayout.LEFT</em> aligns cards to the left. The two 20s are horizontal and vertical gaps between cards — padding so they don't sit flush against each other.` },
-  { code: `` },
-  { code: `        <span class="typ">JScrollPane</span> <span class="var">scrollPane</span> = <span class="kw">new</span> <span class="typ">JScrollPane</span>(<span class="var">productCardsPanel</span>);`, note: `<span class="note-icon">📜</span> Wraps the cards panel in a scroll pane. When there are more cards than fit on screen, a vertical scroll bar appears automatically.` },
-  { code: `        <span class="var">scrollPane</span>.<span class="fn">getVerticalScrollBar</span>().<span class="fn">setUnitIncrement</span>(<span class="num">16</span>);`, note: `<span class="note-icon">🖱️</span> Sets how many pixels are scrolled per mouse wheel click or arrow key press. The default is very small and feels sluggish — 16px gives a smooth, natural scroll speed.` },
-  { code: `        <span class="fn">add</span>(<span class="var">scrollPane</span>, <span class="typ">BorderLayout</span>.<span class="var">CENTER</span>);`, note: `<span class="note-icon">📌</span> CENTER in BorderLayout fills all remaining space not taken by NORTH/SOUTH/EAST/WEST — the product area grows or shrinks as the window resizes.` },
-  { code: `` },
-  { code: `        <span class="fn">refreshProducts</span>(<span class="str">""</span>);`, note: `<span class="note-icon">🔄</span> Calls the refresh method with an empty search string immediately after building the UI. This loads and displays all products as soon as the window opens.` },
-  { code: `    }` },
-  { code: `` },
-  { code: `    <span class="kw">private void</span> <span class="fn">refreshProducts</span>(<span class="typ">String</span> <span class="var">searchQuery</span>) {`, note: `<span class="note-icon">🔄</span> The central method that redraws the product grid. Called on startup, after add/edit/delete, and when the search or refresh button is pressed.` },
-  { code: `        <span class="var">productCardsPanel</span>.<span class="fn">removeAll</span>();`, note: `<span class="note-icon">🗑️</span> Clears every existing card from the panel before adding new ones. Without this, old cards would remain and the new ones would pile up on top.` },
-  { code: `        <span class="typ">List</span>&lt;<span class="typ">Product</span>&gt; <span class="var">products</span> = <span class="var">searchQuery</span>.<span class="fn">isEmpty</span>()`, note: `<span class="note-icon">❓</span> A ternary expression — if the search is empty, fetch all products; otherwise run a search. This single line decides which database method to call.` },
-  { code: `            ? <span class="typ">DatabaseManager</span>.<span class="fn">getInstance</span>().<span class="fn">getAllProducts</span>()` },
-  { code: `            : <span class="typ">DatabaseManager</span>.<span class="fn">getInstance</span>().<span class="fn">searchProducts</span>(<span class="var">searchQuery</span>);` },
-  { code: `        <span class="kw">for</span> (<span class="typ">Product</span> <span class="var">product</span> : <span class="var">products</span>) {`, note: `<span class="note-icon">🔄</span> A <em>for-each</em> loop that iterates through every Product in the list. For each one, calls <em>createProductCard()</em> and adds the returned panel to the grid.` },
-  { code: `            <span class="typ">JPanel</span> <span class="var">cardPanel</span> = <span class="fn">createProductCard</span>(<span class="var">product</span>);` },
-  { code: `            <span class="var">productCardsPanel</span>.<span class="fn">add</span>(<span class="var">cardPanel</span>);` },
-  { code: `        }` },
-  { code: `        <span class="var">productCardsPanel</span>.<span class="fn">revalidate</span>();`, note: `<span class="note-icon">🔁</span> <em>revalidate()</em> tells Swing to redo the layout calculations. After adding or removing components dynamically, you must call this or the panel won't visually update.` },
-  { code: `        <span class="var">productCardsPanel</span>.<span class="fn">repaint</span>();`, note: `<span class="note-icon">🖌️</span> <em>repaint()</em> schedules a redraw of the panel on screen. Always call both <em>revalidate</em> and <em>repaint</em> after dynamically changing components.` },
-  { code: `    }` },
-  { code: `` },
-  { code: `    <span class="kw">private</span> <span class="typ">JPanel</span> <span class="fn">createProductCard</span>(<span class="typ">Product</span> <span class="var">product</span>) {`, note: `<span class="note-icon">🃏</span> A factory method — given a Product object, it builds and returns a fully configured JPanel card. Separating this into its own method keeps <em>refreshProducts</em> clean and readable.` },
-  { code: `        <span class="var">card</span>.<span class="fn">setPreferredSize</span>(<span class="kw">new</span> <span class="typ">Dimension</span>(<span class="num">250</span>, <span class="num">380</span>));`, note: `<span class="note-icon">📐</span> FlowLayout uses <em>preferred size</em> to determine how much space to give each card. Setting this ensures all cards are the same size regardless of their content.` },
-  { code: `        <span class="kw">java.net.URL</span> <span class="var">imageUrl</span> = <span class="fn">getClass</span>().<span class="fn">getResource</span>(<span class="str">"/images/"</span> + <span class="var">imageName</span>);`, note: `<span class="note-icon">🖼️</span> <em>getResource()</em> looks for a file inside the JAR's classpath (the bundled resources). The <em>/images/</em> prefix is the folder path inside the resources directory.` },
-  { code: `        <span class="typ">Image</span> <span class="var">scaledImage</span> = <span class="var">icon</span>.<span class="fn">getImage</span>().<span class="fn">getScaledInstance</span>(<span class="num">220</span>, <span class="num">220</span>, <span class="typ">Image</span>.<span class="var">SCALE_SMOOTH</span>);`, note: `<span class="note-icon">🖼️</span> Scales the raw image to 220×220 pixels. <em>SCALE_SMOOTH</em> uses a high-quality bilinear filter — slightly slower but looks much better than <em>SCALE_FAST</em>.` },
-  { code: `` },
-  { code: `        <span class="typ">JLabel</span> <span class="var">priceLabel</span> = <span class="kw">new</span> <span class="typ">JLabel</span>(<span class="str">"₦"</span> + <span class="typ">String</span>.<span class="fn">format</span>(<span class="str">"%.2f"</span>, <span class="var">product</span>.<span class="fn">getPrice</span>()));`, note: `<span class="note-icon">💰</span> Formats the price to always show 2 decimal places. <em>%.2f</em> is a format specifier: <em>f</em> means floating-point, <em>.2</em> means 2 digits after the decimal point. So 29.9 becomes "₦29.90".` },
-  { code: `` },
-  { code: `        <span class="var">editButton</span>.<span class="fn">addActionListener</span>(<span class="var">e</span> -> <span class="fn">showEditProductDialog</span>(<span class="var">product</span>));`, note: `<span class="note-icon">👂</span> Captures the <em>product</em> variable in the lambda. This is called a <em>closure</em> — the lambda "remembers" which product it was created for, so clicking Edit on card #5 always edits product #5.` },
-  { code: `        <span class="var">deleteButton</span>.<span class="fn">addActionListener</span>(<span class="var">e</span> -> <span class="fn">deleteProduct</span>(<span class="var">product</span>));`, note: `<span class="note-icon">👂</span> Same closure pattern — this lambda captures the specific Product object so clicking Delete on a card knows which product to remove.` },
-  { code: `    }` },
-  { code: `` },
-  { code: `    <span class="kw">private void</span> <span class="fn">showAddProductDialog</span>() {`, note: `<span class="note-icon">➕</span> Opens a modal dialog window for adding a product. <em>Modal</em> means the user must close this dialog before returning to the Dashboard — enforced by passing <code>true</code> to the JDialog constructor.` },
-  { code: `        <span class="typ">JDialog</span> <span class="var">dialog</span> = <span class="kw">new</span> <span class="typ">JDialog</span>(<span class="kw">this</span>, <span class="str">"Add Product"</span>, <span class="kw">true</span>);`, note: `<span class="note-icon">🪟</span> The three parameters: <em>this</em> is the parent window, "Add Product" is the dialog title, <em>true</em> makes it modal. A modal dialog blocks all input to its parent until closed.` },
-  { code: `` },
-  { code: `        <span class="var">addButton</span>.<span class="fn">addActionListener</span>(<span class="var">e</span> -> {`, note: `<span class="note-icon">👂</span> The Add button's lambda captures all the form field variables. When clicked, it reads their text, validates, creates a Product, saves to database, and refreshes the dashboard.` },
-  { code: `            <span class="kw">try</span> {` },
-  { code: `                <span class="kw">double</span> <span class="var">price</span> = <span class="typ">Double</span>.<span class="fn">parseDouble</span>(<span class="var">priceText</span>);`, note: `<span class="note-icon">🔄</span> Converts the price text to a double. If the user typed "abc" instead of a number, this throws a <em>NumberFormatException</em> which is caught below to show an error message.` },
-  { code: `                <span class="kw">int</span> <span class="var">quantity</span> = <span class="typ">Integer</span>.<span class="fn">parseInt</span>(<span class="var">quantityText</span>);` },
-  { code: `                <span class="typ">Product</span> <span class="var">newProduct</span> = <span class="kw">new</span> <span class="typ">Product</span>(<span class="var">name</span>, <span class="var">category</span>, <span class="var">price</span>, <span class="var">quantity</span>, <span class="var">imageFile</span>);`, note: `<span class="note-icon">🆕</span> Creates a new Product object using the convenience constructor (no ID needed). The database will generate the ID when we call <em>addProduct()</em>.` },
-  { code: `                <span class="typ">DatabaseManager</span>.<span class="fn">getInstance</span>().<span class="fn">addProduct</span>(<span class="var">newProduct</span>);`, note: `<span class="note-icon">💾</span> Saves the new product to the database. After this line, the product permanently exists in <em>fashion_store.db</em>.` },
-  { code: `                <span class="var">dialog</span>.<span class="fn">dispose</span>();`, note: `<span class="note-icon">✅</span> Closes and destroys the dialog window. Control returns to the Dashboard.` },
-  { code: `                <span class="fn">refreshProducts</span>(<span class="str">""</span>);`, note: `<span class="note-icon">🔄</span> Reloads the product grid so the newly added card appears immediately without requiring the user to manually refresh.` },
-  { code: `            } <span class="kw">catch</span> (<span class="typ">NumberFormatException</span> <span class="var">ex</span>) {` },
-  { code: `                <span class="typ">JOptionPane</span>.<span class="fn">showMessageDialog</span>(..., <span class="str">"Price and quantity must be numeric."</span>, ...);`, note: `<span class="note-icon">⚠️</span> Catches the exception thrown by <em>parseDouble</em>/<em>parseInt</em> if the user entered non-numeric text. Shows a friendly error message instead of crashing.` },
-  { code: `            }` },
+  { code: `        <span class="typ">JButton</span> <span class="var">logoutButton</span> = <span class="kw">new</span> <span class="typ">JButton</span>(<span class="str">"Logout"</span>);`, note: `<span class="note-icon">🚪</span> New in this version. Opens a fresh LoginForm and disposes this dashboard so a different user can sign in without restarting the app.` },
+  { code: `        <span class="var">logoutButton</span>.<span class="fn">addActionListener</span>(<span class="var">e</span> -> {` },
+  { code: `            <span class="typ">SwingUtilities</span>.<span class="fn">invokeLater</span>(() -> <span class="kw">new</span> <span class="typ">LoginForm</span>().<span class="fn">setVisible</span>(<span class="kw">true</span>));`, note: `<span class="note-icon">🔄</span> Creates a fresh login window on the EDT so the next user can authenticate cleanly.` },
+  { code: `            <span class="fn">dispose</span>();`, note: `<span class="note-icon">🗑️</span> Closes and frees this dashboard window.` },
   { code: `        });` },
+  { code: `` },
+  { code: `        <span class="var">productCardsPanel</span>.<span class="fn">setLayout</span>(<span class="kw">new</span> <span class="typ">FlowLayout</span>(<span class="typ">FlowLayout</span>.<span class="var">CENTER</span>, <span class="num">20</span>, <span class="num">20</span>));`, note: `<span class="note-icon">➡️</span> FlowLayout places cards left-to-right and wraps to the next row when the line is full, like words in a paragraph.` },
+  { code: `        <span class="fn">add</span>(<span class="kw">new</span> <span class="typ">JScrollPane</span>(<span class="var">productCardsPanel</span>), <span class="typ">BorderLayout</span>.<span class="var">CENTER</span>);`, note: `<span class="note-icon">📜</span> Wraps the cards in a scroll pane placed in the CENTER of BorderLayout — it grows to fill all space not taken by NORTH and SOUTH zones.` },
+  { code: `        <span class="fn">refreshProducts</span>(<span class="str">""</span>);`, note: `<span class="note-icon">🔄</span> Loads all products immediately when the window opens.` },
   { code: `    }` },
   { code: `` },
-  { code: `    <span class="kw">private void</span> <span class="fn">deleteProduct</span>(<span class="typ">Product</span> <span class="var">product</span>) {`, note: `<span class="note-icon">🗑️</span> Handles the full delete flow: shows a confirmation dialog, and only calls the database if the user confirms. Protects against accidental deletions.` },
-  { code: `        <span class="kw">int</span> <span class="var">choice</span> = <span class="typ">JOptionPane</span>.<span class="fn">showConfirmDialog</span>(..., <span class="typ">JOptionPane</span>.<span class="var">YES_NO_OPTION</span>, ...);`, note: `<span class="note-icon">❓</span> Shows a Yes/No confirmation dialog and returns the user's choice as an integer. <em>YES_NO_OPTION</em> shows "Yes" and "No" buttons instead of the default OK/Cancel.` },
-  { code: `        <span class="kw">if</span> (<span class="var">choice</span> == <span class="typ">JOptionPane</span>.<span class="var">YES_OPTION</span>) {`, note: `<span class="note-icon">✅</span> Only deletes if the user clicked "Yes". This guard prevents accidental deletions if the user clicked the button by mistake and then changed their mind.` },
-  { code: `            <span class="typ">DatabaseManager</span>.<span class="fn">getInstance</span>().<span class="fn">deleteProduct</span>(<span class="var">product</span>.<span class="fn">getId</span>());`, note: `<span class="note-icon">🗑️</span> Passes only the product's ID to the database — that's all it needs to find and delete the right row. We don't need to send the whole Product object.` },
+  { code: `    <span class="kw">private void</span> <span class="fn">refreshProducts</span>(<span class="typ">String</span> <span class="var">searchQuery</span>) {`, note: `<span class="note-icon">🔄</span> Central repaint method. Clears the panel, fetches products (all or filtered), creates cards, then calls revalidate + repaint to update the display.` },
+  { code: `        <span class="var">productCardsPanel</span>.<span class="fn">removeAll</span>();`, note: `<span class="note-icon">🗑️</span> Must clear old cards first — otherwise they pile up on top of the new ones each time refresh is called.` },
+  { code: `        <span class="var">productCardsPanel</span>.<span class="fn">revalidate</span>(); <span class="var">productCardsPanel</span>.<span class="fn">repaint</span>();`, note: `<span class="note-icon">🔁</span> <em>revalidate</em> recalculates layout; <em>repaint</em> redraws the pixels. Both are needed after dynamically changing components.` },
+  { code: `    }` },
+  { code: `` },
+  { code: `    <span class="kw">private</span> <span class="typ">JPanel</span> <span class="fn">createProductCard</span>(<span class="typ">Product</span> <span class="var">product</span>) {`, note: `<span class="note-icon">🃏</span> Factory method — takes a Product, returns a fully built card panel. Keeps refreshProducts() readable by hiding the card-building details here.` },
+  { code: `        <span class="var">editButton</span>.<span class="fn">addActionListener</span>(<span class="var">e</span> -> <span class="fn">showEditProductDialog</span>(<span class="var">product</span>));`, note: `<span class="note-icon">👂</span> Lambda captures the <em>product</em> variable — a closure. This specific card will always edit this specific product, even after the loop moves on.` },
+  { code: `        <span class="var">deleteButton</span>.<span class="fn">addActionListener</span>(<span class="var">e</span> -> <span class="fn">deleteProduct</span>(<span class="var">product</span>));`, note: `<span class="note-icon">👂</span> Same closure pattern for delete.` },
+  { code: `    }` },
+  { code: `` },
+  { code: `    <span class="kw">private void</span> <span class="fn">deleteProduct</span>(<span class="typ">Product</span> <span class="var">product</span>) {`, note: `<span class="note-icon">🗑️</span> Shows a YES/NO confirm dialog first — prevents accidental deletions. Only calls the database if the user clicks Yes.` },
+  { code: `        <span class="kw">if</span> (<span class="var">choice</span> == <span class="typ">JOptionPane</span>.<span class="var">YES_OPTION</span>) {` },
+  { code: `            <span class="typ">DatabaseManager</span>.<span class="fn">getInstance</span>().<span class="fn">deleteProduct</span>(<span class="var">product</span>.<span class="fn">getId</span>());`, note: `<span class="note-icon">🎯</span> Passes only the ID — that is the minimum the database needs to find and delete the right row.` },
   { code: `            <span class="fn">refreshProducts</span>(<span class="str">""</span>);` },
   { code: `        }` },
   { code: `    }` },
   { code: `}` },
 ],
 
-// ─── RUN.SH ───────────────────────────────────────────────
+client: [
+  { code: `<span class="kw">public class</span> <span class="typ">ClientDashboardForm</span> <span class="kw">extends</span> <span class="typ">JFrame</span> {`, note: `<span class="note-icon">🛒</span> The customer-facing shopping window. Opened by LoginForm for any account that is not "admin".` },
+  { code: `    <span class="kw">private final</span> <span class="typ">Map</span>&lt;<span class="typ">Integer</span>, <span class="typ">CartItem</span>&gt; <span class="var">cart</span> = <span class="kw">new</span> <span class="typ">LinkedHashMap</span>&lt;&gt;();`, note: `<span class="note-icon">🛒</span> The in-memory cart. Key = product ID, Value = CartItem. <em>LinkedHashMap</em> preserves insertion order so cart items appear in the order they were added.` },
+  { code: `    <span class="kw">private final</span> <span class="typ">JButton</span> <span class="var">cartButton</span>;`, note: `<span class="note-icon">🔢</span> Instance variable so <em>updateCartButtonText()</em> can update the label ("View Cart (3)") from any method, not just the constructor.` },
+  { code: `` },
+  { code: `    <span class="cmt">// header: white-to-light-gray gradient, logo, welcome, cart button, logout</span>`, note: `<span class="note-icon">🎨</span> The header uses the same line-by-line gradient painting technique as DashboardForm but with white/light-gray colours for a cleaner client feel.` },
+  { code: `` },
+  { code: `    <span class="var">cartButton</span>.<span class="fn">addActionListener</span>(<span class="var">e</span> -> <span class="fn">showCartDialog</span>());`, note: `<span class="note-icon">👂</span> Opens the CheckoutDialog when clicked. The dialog receives the current cart map and a callback for when payment completes.` },
+  { code: `` },
+  { code: `    <span class="kw">private void</span> <span class="fn">addToCart</span>(<span class="typ">Product</span> <span class="var">product</span>) {`, note: `<span class="note-icon">🛒</span> Adds one unit of the product to the cart. If it's already in the cart, increments the quantity. Enforces stock limits before adding.` },
+  { code: `        <span class="typ">Product</span> <span class="var">current</span> = <span class="typ">DatabaseManager</span>.<span class="fn">getInstance</span>().<span class="fn">getAllProducts</span>()...;`, note: `<span class="note-icon">🔄</span> Re-fetches live stock from the database rather than trusting the card's cached value — prevents a race where two customers try to buy the last item.` },
+  { code: `        <span class="kw">if</span> (<span class="var">quantityToAdd</span> > <span class="var">current</span>.<span class="fn">getQuantity</span>()) {`, note: `<span class="note-icon">🚫</span> If the requested quantity exceeds available stock, shows a warning and returns without adding. Protects inventory integrity.` },
+  { code: `            <span class="typ">JOptionPane</span>.<span class="fn">showMessageDialog</span>(..., <span class="str">"Cannot add more than available stock."</span>,...);` },
+  { code: `            <span class="kw">return</span>;` },
+  { code: `        }` },
+  { code: `        <span class="var">cart</span>.<span class="fn">put</span>(<span class="var">product</span>.<span class="fn">getId</span>(), <span class="kw">new</span> <span class="typ">CartItem</span>(<span class="var">product</span>, <span class="var">quantityToAdd</span>));`, note: `<span class="note-icon">✅</span> Replaces any existing CartItem for this product ID with a new one carrying the updated quantity. <em>put</em> on a Map either inserts or replaces.` },
+  { code: `        <span class="fn">updateCartButtonText</span>();` },
+  { code: `    }` },
+  { code: `` },
+  { code: `    <span class="kw">private void</span> <span class="fn">updateCartButtonText</span>() {`, note: `<span class="note-icon">🔢</span> Counts total units across all cart entries and updates the button label. Stream <em>mapToInt(CartItem::getQuantity).sum()</em> totals all quantities in one line.` },
+  { code: `        <span class="kw">int</span> <span class="var">itemCount</span> = <span class="var">cart</span>.<span class="fn">values</span>().<span class="fn">stream</span>().<span class="fn">mapToInt</span>(<span class="typ">CartItem</span>::<span class="fn">getQuantity</span>).<span class="fn">sum</span>();` },
+  { code: `        <span class="var">cartButton</span>.<span class="fn">setText</span>(<span class="str">"View Cart ("</span> + <span class="var">itemCount</span> + <span class="str">")"</span>);` },
+  { code: `    }` },
+  { code: `` },
+  { code: `    <span class="kw">private void</span> <span class="fn">showCartDialog</span>() {`, note: `<span class="note-icon">🛒</span> Creates the CheckoutDialog, passing <em>this</em> (parent window), the cart map, and a lambda that calls <code>completePurchase()</code> on success.` },
+  { code: `        <span class="kw">new</span> <span class="typ">CheckoutDialog</span>(<span class="kw">this</span>, <span class="var">cart</span>, () -> <span class="fn">completePurchase</span>()).<span class="fn">setVisible</span>(<span class="kw">true</span>);` },
+  { code: `    }` },
+  { code: `` },
+  { code: `    <span class="kw">void</span> <span class="fn">completePurchase</span>() {`, note: `<span class="note-icon">💳</span> Called by CheckoutDialog after the user pays. Loops through cart items, reduces each product's stock in the database, then clears the cart and refreshes the display.` },
+  { code: `        <span class="kw">for</span> (<span class="typ">CartItem</span> <span class="var">item</span> : <span class="var">cart</span>.<span class="fn">values</span>()) {` },
+  { code: `            <span class="kw">int</span> <span class="var">remaining</span> = <span class="typ">Math</span>.<span class="fn">max</span>(<span class="num">0</span>, <span class="var">current</span>.<span class="fn">getQuantity</span>() - <span class="var">item</span>.<span class="fn">getQuantity</span>());`, note: `<span class="note-icon">🧮</span> <em>Math.max(0, ...)</em> prevents stock going negative if quantities are somehow mismatched — a safety net.` },
+  { code: `            <span class="typ">DatabaseManager</span>.<span class="fn">getInstance</span>().<span class="fn">updateProduct</span>(<span class="kw">new</span> <span class="typ">Product</span>(..., <span class="var">remaining</span>, ...));`, note: `<span class="note-icon">💾</span> Creates a new Product object with the reduced quantity and persists it. The product is immutable so we always create a new object to represent the updated state.` },
+  { code: `        }` },
+  { code: `        <span class="var">cart</span>.<span class="fn">clear</span>(); <span class="fn">updateCartButtonText</span>(); <span class="fn">refreshProducts</span>(<span class="str">""</span>);`, note: `<span class="note-icon">🔄</span> Clears the cart, resets the button counter to 0, and reloads the product grid so updated stock levels are reflected immediately.` },
+  { code: `    }` },
+  { code: `}` },
+],
+
+checkout: [
+  { code: `<span class="kw">public class</span> <span class="typ">CheckoutDialog</span> <span class="kw">extends</span> <span class="typ">JDialog</span> {`, note: `<span class="note-icon">🪟</span> Extends JDialog — a modal window that blocks interaction with its parent (ClientDashboardForm) until it's closed.` },
+  { code: `    <span class="kw">private final</span> <span class="typ">Map</span>&lt;<span class="typ">Integer</span>, <span class="typ">CartItem</span>&gt; <span class="var">cart</span>;`, note: `<span class="note-icon">🛒</span> A reference to the same cart map held by ClientDashboardForm. Changes here (like updating quantities) directly affect the parent's cart.` },
+  { code: `    <span class="kw">private final</span> <span class="typ">Runnable</span> <span class="var">onPaymentComplete</span>;`, note: `<span class="note-icon">📞</span> A callback. When payment succeeds, this dialog calls <code>onPaymentComplete.run()</code> which triggers <code>completePurchase()</code> in ClientDashboardForm — without the dialog knowing anything about that class.` },
+  { code: `    <span class="kw">private final</span> <span class="typ">JPanel</span> <span class="var">cards</span>;`, note: `<span class="note-icon">📋</span> The CardLayout container holding all three step panels. Only one panel is visible at a time.` },
+  { code: `    <span class="kw">private final</span> <span class="typ">CardState</span>[] <span class="var">steps</span> = {<span class="typ">CardState</span>.<span class="var">CART</span>, <span class="typ">CardState</span>.<span class="var">SHIPPING</span>, <span class="typ">CardState</span>.<span class="var">PAYMENT</span>};`, note: `<span class="note-icon">📝</span> The ordered list of steps. <em>stepIndex</em> tracks which one is active; advancing/going back just increments/decrements this index.` },
+  { code: `    <span class="kw">private int</span> <span class="var">stepIndex</span> = <span class="num">0</span>;`, note: `<span class="note-icon">🔢</span> Starts at 0 (Cart Review). Incremented by the Continue button and decremented by Back. Controls which card is shown and what the button labels say.` },
+  { code: `` },
+  { code: `    <span class="kw">public</span> <span class="typ">CheckoutDialog</span>(<span class="typ">ClientDashboardForm</span> <span class="var">parent</span>, <span class="typ">Map</span>..., <span class="typ">Runnable</span> <span class="var">onPaymentComplete</span>) {`, note: `<span class="note-icon">🏗️</span> Constructor takes the parent window, the cart, and the payment callback. The dialog is self-contained — it gets everything it needs through these parameters.` },
+  { code: `        <span class="kw">super</span>(<span class="var">parent</span>, <span class="str">"Checkout"</span>, <span class="kw">true</span>);`, note: `<span class="note-icon">🔒</span> Calls JDialog's constructor. The third argument <em>true</em> makes the dialog modal — clicking behind it does nothing until it's closed.` },
+  { code: `        <span class="var">cards</span> = <span class="kw">new</span> <span class="typ">JPanel</span>(<span class="kw">new</span> <span class="typ">java.awt.CardLayout</span>());`, note: `<span class="note-icon">🃏</span> <em>CardLayout</em> stacks multiple panels in one container and shows only one at a time by name. No panels are created/destroyed mid-flow — just the visible one changes.` },
+  { code: `        <span class="var">cards</span>.<span class="fn">add</span>(<span class="fn">createCartReviewPanel</span>(),  <span class="typ">CardState</span>.<span class="var">CART</span>.<span class="fn">name</span>());`, note: `<span class="note-icon">➕</span> Each panel is added with a string key matching the enum name. <code>show(cards, "CART")</code> makes the Cart Review visible.` },
+  { code: `        <span class="var">cards</span>.<span class="fn">add</span>(<span class="fn">createShippingPanel</span>(), <span class="typ">CardState</span>.<span class="var">SHIPPING</span>.<span class="fn">name</span>());` },
+  { code: `        <span class="var">cards</span>.<span class="fn">add</span>(<span class="fn">createPaymentPanel</span>(),  <span class="typ">CardState</span>.<span class="var">PAYMENT</span>.<span class="fn">name</span>());` },
+  { code: `` },
+  { code: `    <span class="kw">private void</span> <span class="fn">updateStep</span>() {`, note: `<span class="note-icon">🔄</span> Called every time the user advances or goes back. Switches the visible card, updates the Continue button label, toggles the Back button, and refreshes the order total in the footer.` },
+  { code: `        ((<span class="typ">CardLayout</span>) <span class="var">cards</span>.<span class="fn">getLayout</span>()).<span class="fn">show</span>(<span class="var">cards</span>, <span class="var">state</span>.<span class="fn">name</span>());`, note: `<span class="note-icon">👁️</span> Casts the layout manager to CardLayout and calls <em>show</em> with the enum's name string. Instantly swaps the visible panel — no animation, no disposal.` },
+  { code: `    }` },
+  { code: `` },
+  { code: `    <span class="kw">private</span> <span class="typ">JPanel</span> <span class="fn">createCartReviewPanel</span>() {`, note: `<span class="note-icon">🛒</span> Step 1: shows all cart items (with thumbnails, quantity controls, remove button) on the left, and a running total summary (subtotal + shipping + 8% tax) on the right.` },
+  { code: `    <span class="kw">private</span> <span class="typ">JPanel</span> <span class="fn">createShippingPanel</span>() {`, note: `<span class="note-icon">🚚</span> Step 2: Standard vs Express shipping radio buttons plus five address fields (name, street, city, state, ZIP). Validated before advancing.` },
+  { code: `    <span class="kw">private</span> <span class="typ">JPanel</span> <span class="fn">createPaymentPanel</span>() {`, note: `<span class="note-icon">💳</span> Step 3: Card number, expiry, CVV fields plus custom-painted Visa/Mastercard/Verve icons. A Pay button shows the final total and triggers the payment callback on click.` },
+  { code: `` },
+  { code: `    <span class="kw">private void</span> <span class="fn">createCardIcon</span>(<span class="typ">JPanel</span> <span class="var">parent</span>, <span class="typ">String</span> <span class="var">text</span>, <span class="typ">Color</span> <span class="var">color</span>) {`, note: `<span class="note-icon">🎨</span> Paints a small rounded rectangle in the brand colour with white text centred inside — no image files needed. Reused for Visa, Mastercard, and Verve badges.` },
+  { code: `    }` },
+  { code: `` },
+  { code: `    <span class="kw">private double</span> <span class="fn">calculateTotal</span>() {`, note: `<span class="note-icon">🧮</span> Streams through all CartItems, multiplies each product's price by its quantity, and sums the results. One concise line using Java streams.` },
+  { code: `        <span class="kw">return</span> <span class="var">cart</span>.<span class="fn">values</span>().<span class="fn">stream</span>().<span class="fn">mapToDouble</span>(<span class="var">i</span> -> <span class="var">i</span>.<span class="fn">getProduct</span>().<span class="fn">getPrice</span>() * <span class="var">i</span>.<span class="fn">getQuantity</span>()).<span class="fn">sum</span>();` },
+  { code: `    }` },
+  { code: `` },
+  { code: `    <span class="kw">private enum</span> <span class="typ">CardState</span> { <span class="var">CART</span>(<span class="str">"Cart"</span>), <span class="var">SHIPPING</span>(<span class="str">"Shipping"</span>), <span class="var">PAYMENT</span>(<span class="str">"Payment"</span>); }`, note: `<span class="note-icon">📋</span> An <em>enum</em> is a fixed set of named constants. Using CardState instead of plain strings makes the code type-safe — the compiler catches any typo in a step name immediately.` },
+  { code: `}` },
+],
+
 shell: [
-  { code: `<span class="sh-cmt">#!/usr/bin/env bash</span>`, note: `<span class="note-icon">🔧</span> The <em>shebang</em> line — every executable shell script starts with this. <em>#!</em> is read by the OS, not the shell. <em>/usr/bin/env bash</em> asks the environment to find <em>bash</em> wherever it lives, making the script portable across different machines.` },
-  { code: `<span class="sh-kw">set</span> <span class="sh-flag">-euo pipefail</span>`, note: `<span class="note-icon">🛡️</span> Three safety flags combined: <em>-e</em> makes the script exit immediately if any command fails (instead of silently continuing). <em>-u</em> treats any undefined variable as an error. <em>-o pipefail</em> means a pipeline like <code>cmd1 | cmd2</code> fails if <em>either</em> command fails, not just the last one. Together these catch mistakes early.` },
+  { code: `<span class="sh-cmt">#!/usr/bin/env bash</span>`, note: `<span class="note-icon">🔧</span> The <em>shebang</em> line. Tells the OS to run this script with Bash. <em>/usr/bin/env bash</em> finds Bash wherever it is installed, making the script portable.` },
+  { code: `<span class="sh-kw">set</span> <span class="sh-flag">-euo pipefail</span>`, note: `<span class="note-icon">🛡️</span> Safety flags: <em>-e</em> exits on any error, <em>-u</em> treats unset variables as errors, <em>-o pipefail</em> catches failures inside pipes. Together they prevent silent failures.` },
   { code: `` },
-  { code: `<span class="sh-cmt"># Simple run script to execute the application JAR from project root.</span>`, note: `<span class="note-icon">💬</span> A comment — any line starting with <em>#</em> (except the shebang) is ignored by Bash. Good practice to explain the script's purpose at the top.` },
-  { code: `<span class="sh-var">JAR_PATH</span>=<span class="sh-str">"target/fashion-store-management-1.0-SNAPSHOT.jar"</span>`, note: `<span class="note-icon">📦</span> Declares a variable called <em>JAR_PATH</em>. In Bash there must be NO spaces around the <em>=</em> sign. The path matches where Maven places the compiled JAR after running <code>mvn clean package</code>.` },
+  { code: `<span class="sh-cmt"># Simple run script — execute the JAR from project root.</span>` },
+  { code: `<span class="sh-var">JAR_PATH</span>=<span class="sh-str">"target/fashion-store-management-1.0-SNAPSHOT.jar"</span>`, note: `<span class="note-icon">📦</span> Declares a variable. In Bash there must be NO spaces around <em>=</em>. The path matches where Maven places the compiled JAR after <code>mvn clean package</code>.` },
   { code: `` },
-  { code: `<span class="sh-kw">if</span> [ ! <span class="sh-flag">-f</span> <span class="sh-str">"$JAR_PATH"</span> ]; <span class="sh-kw">then</span>`, note: `<span class="note-icon">🔍</span> An <em>if</em> statement with a file test. The square brackets <code>[ ]</code> run a test expression. <em>-f</em> checks if the path is a regular file. <em>!</em> negates it — so the condition is true when the file does NOT exist. The quotes around <code>"$JAR_PATH"</code> prevent issues if the path had spaces.` },
-  { code: `  <span class="sh-cmd">echo</span> <span class="sh-str">"Error: JAR not found at $JAR_PATH"</span>`, note: `<span class="note-icon">🖨️</span> <em>echo</em> prints text to the terminal. <em>$JAR_PATH</em> is expanded to the variable's value when the string is printed — Bash substitutes variables inside double-quoted strings.` },
-  { code: `  <span class="sh-cmd">echo</span> <span class="sh-str">"Build the project first: mvn clean package"</span>`, note: `<span class="note-icon">💡</span> Gives the user a clear, actionable hint. Good error messages always tell the user what went wrong AND what to do about it.` },
-  { code: `  <span class="sh-cmd">exit</span> <span class="sh-flag">1</span>`, note: `<span class="note-icon">🚪</span> Exits the script immediately with <em>exit code 1</em>. By convention, exit code 0 means success and any non-zero value (like 1) means failure. This code can be checked by other scripts or CI tools to know the run failed.` },
-  { code: `<span class="sh-kw">fi</span>`, note: `<span class="note-icon">🔚</span> Closes the <em>if</em> block. In Bash, <em>fi</em> is simply <em>if</em> spelled backwards — it marks the end of the conditional block.` },
+  { code: `<span class="sh-kw">if</span> [ ! <span class="sh-flag">-f</span> <span class="sh-str">"$JAR_PATH"</span> ]; <span class="sh-kw">then</span>`, note: `<span class="note-icon">🔍</span> <em>-f</em> is true if the path is a regular file; <em>!</em> negates it. So this block runs when the JAR is <em>missing</em>.` },
+  { code: `  <span class="sh-cmd">echo</span> <span class="sh-str">"Error: JAR not found at $JAR_PATH"</span>`, note: `<span class="note-icon">🖨️</span> Prints the error. <em>$JAR_PATH</em> is expanded to its value inside double-quoted strings.` },
+  { code: `  <span class="sh-cmd">echo</span> <span class="sh-str">"Build first: mvn clean package"</span>`, note: `<span class="note-icon">💡</span> Tells the user exactly what to do — good error messages are always actionable.` },
+  { code: `  <span class="sh-cmd">exit</span> <span class="sh-flag">1</span>`, note: `<span class="note-icon">🚪</span> Exits with code 1 (failure). CI tools and other scripts can check this to know the run failed.` },
+  { code: `<span class="sh-kw">fi</span>`, note: `<span class="note-icon">🔚</span> Closes the if block. <em>fi</em> is "if" backwards — Bash's syntax for ending conditionals.` },
   { code: `` },
-  { code: `<span class="sh-cmd">java</span> <span class="sh-flag">-jar</span> <span class="sh-str">"$JAR_PATH"</span> <span class="sh-var">"$@"</span>`, note: `<span class="note-icon">🚀</span> The actual launch command. <em>java -jar</em> tells the JVM to run the specified JAR as an executable. <em>"$JAR_PATH"</em> expands to the path variable. <em>"$@"</em> is a special Bash variable that expands to all arguments passed to <em>run.sh</em> — so <code>./run.sh --debug</code> would forward <code>--debug</code> to the Java process.` },
+  { code: `<span class="sh-cmd">java</span> <span class="sh-flag">-jar</span> <span class="sh-str">"$JAR_PATH"</span> <span class="sh-var">"$@"</span>`, note: `<span class="note-icon">🚀</span> Runs the JAR. <em>-jar</em> tells the JVM to treat the file as an executable JAR. <em>"$@"</em> forwards any arguments passed to run.sh straight through to Java — e.g. <code>./run.sh --debug</code>.` },
 ],
 };
 
-// ═══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════
 //  RENDER
-// ═══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════
 function renderCode(containerId, lines) {
   const container = document.getElementById(containerId);
   if (!container) return;
-
   lines.forEach((line, index) => {
     const lineNum = index + 1;
     const group = document.createElement('div');
     group.className = 'code-line-group';
-
     const codeLine = document.createElement('div');
     codeLine.className = 'code-line' + (line.note ? ' has-note' : '');
-    codeLine.dataset.index = index;
-
     const numSpan = document.createElement('span');
     numSpan.className = 'line-num';
     numSpan.textContent = lineNum;
-
     const codeSpan = document.createElement('span');
     codeSpan.className = 'line-code';
     codeSpan.innerHTML = line.code || '&nbsp;';
-
     codeLine.appendChild(numSpan);
     codeLine.appendChild(codeSpan);
     group.appendChild(codeLine);
-
     if (line.note) {
       const noteEl = document.createElement('div');
       noteEl.className = 'inline-note';
       noteEl.innerHTML = line.note;
       group.appendChild(noteEl);
-
       codeLine.addEventListener('click', () => {
         const isVisible = noteEl.classList.contains('visible');
         container.querySelectorAll('.inline-note.visible').forEach(n => n.classList.remove('visible'));
         container.querySelectorAll('.code-line.highlighted').forEach(n => n.classList.remove('highlighted'));
-        if (!isVisible) {
-          noteEl.classList.add('visible');
-          codeLine.classList.add('highlighted');
-        }
+        if (!isVisible) { noteEl.classList.add('visible'); codeLine.classList.add('highlighted'); }
       });
     }
-
     container.appendChild(group);
   });
 }
 
 renderCode('code-main', files.main);
 renderCode('code-product', files.product);
+renderCode('code-cartitem', files.cartitem);
 renderCode('code-db', files.db);
 renderCode('code-login', files.login);
 renderCode('code-dash', files.dash);
+renderCode('code-client', files.client);
+renderCode('code-checkout', files.checkout);
 renderCode('code-shell', files.shell);
 
-// ═══════════════════════════════════════════════════════════
-//  SIDEBAR NAV
-// ═══════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════
+//  NAV SCROLL
+// ═══════════════════════════════════════════════
 function navScrollTo(id) {
   const target = document.getElementById(id);
   const container = document.getElementById('main-content');
   if (!target || !container) return;
-  const targetTop = target.getBoundingClientRect().top;
-  const containerTop = container.getBoundingClientRect().top;
-  const offset = targetTop - containerTop + container.scrollTop - 32;
+  const offset = target.getBoundingClientRect().top - container.getBoundingClientRect().top + container.scrollTop - 32;
   container.scrollTo({ top: offset, behavior: 'smooth' });
 }
 
-const sections = ['main','product','db','login','dash','shell'];
-const mainContent = document.getElementById('main-content');
-mainContent.addEventListener('scroll', () => {
-  const scrollTop = mainContent.scrollTop;
+const sections = ['demo','main','product','cartitem','db','login','dash','client','checkout','shell'];
+document.getElementById('main-content').addEventListener('scroll', () => {
+  const scrollTop = document.getElementById('main-content').scrollTop;
   let current = 'main';
   sections.forEach(id => {
     const el = document.getElementById(id);
